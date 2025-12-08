@@ -1,0 +1,185 @@
+DATASETS USED IN SAT/GNN PAPERS - SUMMARY
+==========================================
+
+Benchmark Collections:
+- SAT Competition (SATCOMP): Used in 15+ papers
+- SATLIB: Used in 5 papers
+- G4SATBench: Used in 3 papers (2309.16941, 2504.01173)
+- DIMACS: Used in 3 papers
+
+MaxSAT Benchmarks:
+- MaxSAT Evaluations: Used in 10+ papers
+- Max2SAT, Max3SAT variants
+
+Structured Problem Sets:
+- SR series (SR40, SR50, SR60, SR70, SR80, SR90, SR100, SR150, SR200, SR400): Extensively used in 2504.01173
+- RB series (RB50, RB100): Random benchmark instances
+- UUF series (uuf250-1065): Uniform unsatisfiable instances
+
+Circuit/Hardware:
+- LEC (Logic Equivalence Checking): Used in nearly all papers
+- Circuit-SAT: Used in 5 papers
+- ForgeEDA: Used in 2508.04235
+- LECSAT/LECUNSAT: Used in 2508.04235
+
+Graph Problems:
+- GSET: Graph benchmark (2208.10227, 2312.11547)
+- k-Clique, k-Domset, k-Vercov: Graph-based problems (2309.16941)
+- Zamkeller/Zankeller numbers: Number partitioning (2506.11057)
+
+Other:
+- BIRD: Database benchmarks (2205.04423, 2510.15583)
+- SMTLIB/SMT-LIB: SMT solver benchmarks (2510.15583)
+- Anniversary: SAT competition anniversary track (2403.03517, 2405.11024)
+- SATzilla: Portfolio solver benchmarks (2211.14405, 2405.11024)
+
+
+DATASET USAGE BY PAPER:
+
+1. 1909.11588 - Graph Neural Reasoning May Fail in Certifying Bool
+   - Random SAT instances
+   - LEC (Logic Equivalence Checking)
+   - CNF, DIMACS, UNSAT instances
+
+2. 2005.13406 - Neural heuristics for SAT solving
+   - Random SAT instances
+   - LEC, CNF, UNSAT
+   - SR series
+
+3. 2110.14053 - NeuroBack: Improving CDCL SAT Solving using Graph Neural Networks
+   - SAT Competition (SATCOMP-2022, SATCOMP-2023)
+   - SATLIB
+   - Custom DataBack dataset
+   - Crafted instances
+   - Random SAT, LEC
+
+4. 2111.07568 - Can Graph Neural Networks Learn to Solve MaxSAT Problems
+   - MaxSAT instances (Max1SAT, Max2SAT, Max3SAT)
+   - SAT Competition
+   - Random MaxSAT, Crafted instances
+
+5. 2205.04423 - Graph Neural Networks for Propositional Model Counting
+   - BIRD (database benchmarks)
+   - Circuit-SAT
+   - Industrial, Crafted, Random instances
+
+6. 2208.10227 - One Model, Any CSP: Graph Neural Networks as Fast Global Search Heuristics
+   - GSET (graph problems)
+   - RB50 (random benchmarks)
+   - MaxSAT, SATLIB, SAT Competition
+   - Random CSP instances
+
+7. 2211.14405 - Learning Branching Heuristics from Graph Neural Networks
+   - SATzilla benchmarks
+   - Random SAT instances
+   - CNF, LEC, UNSAT
+
+8. 2304.08738 - Addressing Variable Dependency in GNN-based SAT Solving
+   - SAT Competition
+   - Circuit-SAT
+   - SR series
+   - Random, LEC instances
+
+9. 2305.16373 - DeepGate2: Functionality-Aware Circuit Representation
+   - SAT Competition
+   - Industrial circuit benchmarks
+   - LEC, Random, UNSAT instances
+
+10. 2309.11452 - Using deep learning to construct stochastic local search SAT solvers
+    - DIMACS format instances
+    - MaxSAT
+    - Random SAT, CNF, LEC, UNSAT
+
+11. 2309.16941 - G4SATBench: Benchmarking and Advancing SAT Solving with GNNs
+    - G4SATBench (main contribution - comprehensive benchmark)
+    - k-Clique, k-Domset, k-Vercov (graph problems)
+    - SAT Competition, SATLIB
+    - Industrial, Crafted, Random instances
+
+12. 2312.11547 - A unified pre-training and adaptation framework for combinatorial optimization
+    - GSET (graph benchmarks)
+    - MaxSAT
+    - RB50
+    - Industrial, Random SAT instances
+
+13. 2403.03517 - IB-Net: Initial Branch Network for Variable Decision in SAT
+    - SAT Competition (Anniversary track)
+    - Industrial benchmarks
+    - Circuit SAT, LEC, CNF, Random, UNSAT
+
+14. 2405.11024 - GraSS: Combining Graph Neural Networks with Expert Knowledge
+    - SAT Competition (Anniversary track, SATCOMP)
+    - SATzilla benchmarks
+    - SR series
+    - Industrial, Crafted, Random instances
+
+15. 2408.15418 - Understanding GNNs for Boolean Satisfiability through Approximation Algorithms
+    - SATCOMP
+    - SR series
+    - MaxSAT, Industrial, Random instances
+
+16. 2504.01173 - Neural Approaches to SAT Solving: Design Choices and Analysis
+    - G4SATBench
+    - Extensive SR series (SR3, SR10, SR40, SR50, SR60, SR70, SR80, SR90, SR100, SR150, SR200, SR400)
+    - MaxSAT, Random instances
+
+17. 2504.11885 - HyperSAT: Unsupervised Hypergraph Neural Networks for SAT
+    - SATLIB
+    - SAT Competition
+    - UUF series (UUF100-430, UUF200-860, UUF250-1065)
+    - MaxSAT, Crafted, Random instances
+
+18. 2505.16053 - Learning from Algorithm Feedback: One-Shot SAT Solving
+    - SAT Competition
+    - Industrial benchmarks
+    - Random 3SAT, Crafted instances
+
+19. 2506.11057 - STRCMP: Integrating Graph Structural Priors with LLMs
+    - SAT Competition
+    - MaxSAT
+    - Zamkeller/Zankeller numbers (number partitioning)
+    - Industrial, Random instances
+
+20. 2508.04235 - Circuit-Aware SAT Solving: Guiding CDCL via Conditional GANs
+    - ForgeEDA (circuit dataset)
+    - LECSAT/LECUNSAT (logic equivalence checking)
+    - SAT Competition
+    - Circuit SAT, Industrial, Random instances
+
+21. 2508.21513 - On the Hardness of Learning GNN-based SAT Solvers
+    - Industrial benchmarks
+    - Random SAT instances
+    - CNF, LEC, UNSAT
+
+22. 2510.15583 - Attn-JGNN: Attention-Enhanced Join-Graph Neural Networks
+    - BIRD (database benchmarks)
+    - SATLIB
+    - SMTLIB/SMT-LIB (SMT solver benchmarks)
+    - Circuit-SAT, Crafted, Random instances
+
+
+COMMON PATTERNS:
+
+Most Frequently Used Datasets:
+1. SAT Competition benchmarks (appears in ~20 papers)
+2. Random SAT instances (appears in all papers)
+3. LEC - Logic Equivalence Checking (appears in ~20 papers)
+4. CNF instances (appears in ~18 papers)
+5. UNSAT instances (appears in ~17 papers)
+6. Industrial benchmarks (appears in ~12 papers)
+7. MaxSAT benchmarks (appears in ~10 papers)
+8. Crafted instances (appears in ~9 papers)
+
+Dataset Categories:
+- Competition benchmarks (SAT Competition, SATCOMP)
+- Standard libraries (SATLIB, DIMACS)
+- Domain-specific (Circuit-SAT, LEC for hardware verification)
+- Graph problems (k-Clique, GSET, k-Vercov)
+- Randomly generated instances
+- Industrial/real-world instances
+- Crafted/handmade hard instances
+
+Emerging Benchmarks:
+- G4SATBench (introduced in 2309.16941, used in 2504.01173)
+- SR series (structured random instances)
+- ForgeEDA (circuit-specific)

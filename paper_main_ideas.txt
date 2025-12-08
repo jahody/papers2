@@ -1,0 +1,148 @@
+====================================================================================================
+MAIN IDEAS FROM PAPER ABSTRACTS
+====================================================================================================
+
+Paper ID: 1909.11588
+Title: 1909.11588 Graph Neural Reasoning May Fail in Certifying Bool
+
+Main Idea:
+  It is feasible and practically- valuable to bridge the characteristics between graph neural networks (GNNs) and logical reasoning.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2005.13406
+Title: 2005.13406 Neural heuristics for SAT solving
+
+Main Idea:
+  We use neural graph networks with a message- passing architecture and an attention mechanism to enhance the branching heuristic in two SAT- solving algorithms. We report improvements of learned neural heuristics compared with two standard human- designed heuristics.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2110.14053
+Title: 2110.14053 NeuroBack Improving CDCL SAT Solving using Graph N
+
+Main Idea:
+  Propositional satisfiability (SAT) is an NP- complete problem that impacts many research fields, such as planning, verification, and security. Aiming to make GNN improvements practical, this paper proposes an approach called NeuroBack, which builds on two insights: (1) predicting phases (i.e., values) of variables appearing in the majority (or even all) of the satisfying assignments are essential for CDCL SAT solving, and (2) it is sufficient to query the neural model only once for the predictions before the SAT solving starts.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2111.07568
+Title: 2111.07568 Can Graph Neural Networks Learn to Solve MaxSAT Pr
+
+Main Idea:
+  With the rapid development of deep learning techniques, various recent work has tried to apply graph neural networks (GNNs) to solve NP- hard problems such as Boolean Satisfiability (SAT), which shows the potential in bridging the gap between machine learning and symbolic reasoning.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2208.10227
+Title: 2208.10227 One Model Any CSP Graph Neural Networks as Fast Gl
+
+Main Idea:
+  We propose a universal Graph Neural Network architecture which can be trained as an end- 2- end search heuristic for any Constraint Satisfaction Problem (CSP). This enables our method to properly leverage the inherent parallelism of GNNs.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2211.14405
+Title: 2211.14405 Learning Branching Heuristics from Graph Neural Ne
+
+Main Idea:
+  Backtracking has been widely used for solving problems in artificial intelligence (AI), including constraint satisfaction problems and combinatorial optimization problems. From the GNN model, we introduce an approach to learn a branching heuristic for combinatorial optimization problems.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2304.08738
+Title: 2304.08738 Addressing Variable Dependency in GNN-based SAT So
+
+Main Idea:
+  Boolean satisfiability problem (SAT) is fundamental to many applications. We show that for a group of symmetric SAT problems, the concurrent prediction is guaranteed to produce a wrong answer because it neglects the dependency among Boolean variables in SAT problems.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2309.11452
+Title: 2309.11452 Using deep learning to construct stochastic local 
+
+Main Idea:
+  The Boolean Satisfiability problem (SAT) is the most prototypical NP- complete problem and of great practical relevance.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2309.16941
+Title: 2309.16941 G4SATBench Benchmarking and Advancing SAT Solving 
+
+Main Idea:
+  Graph neural networks (GNNs) have recently emerged as a promising approach for solving the Boolean Satisfiability Problem (SAT), offering potential alternatives to traditional backtracking or local search SAT solvers. To address this crucial gap, we present G4SATBench, the first benchmark study that establishes a comprehensive evaluation framework for GNN- based SAT solvers.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2403.03517
+Title: 2403.03517 IB-Net Initial Branch Network for Variable Decisio
+
+Main Idea:
+  Boolean Satisfiability problems are vital components in Electronic Design Automation, particularly within the Logic Equivalence Checking process. To tackle this challenge, we propose IB- Net, an innovative framework utilizing graph neural networks and novel graph encoding techniques to model unsatisfiable problems and interact with state- of- the- art solvers.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2405.11024
+Title: 2405.11024 GraSS Combining Graph Neural Networks with Expert 
+
+Main Idea:
+  Boolean satisfiability (SAT) problems are routinely solved by SAT solvers in real- life applications, yet solving time can vary drastically between solvers for the same instance. In this paper we present GraSS, a novel approach for automatic SAT solver selection based on tripartite graph representations of instances and a heterogeneous graph neural network (GNN) model.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2408.15418
+Title: 2408.15418 Understanding GNNs for Boolean Satisfiability thro
+
+Main Idea:
+  This paper delves into the interpretability of Graph Neural Networks in the context of Boolean Satisfiability. We show that the curriculum, together with several other optimizations, reduces the training time by more than an order of magnitude compared to the baseline without the curriculum.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2504.01173
+Title: 2504.01173 Neural Approaches to SAT Solving Design Choices an
+
+Main Idea:
+  In this contribution, we provide a comprehensive evaluation of graph neural networks applied to Boolean satisfiability problems, accompanied by an intuitive explanation of the mechanisms enabling the model to generalize to different instances. We introduce several training improvements, particularly a novel closest assignment supervision method that dynamically adapts to the model's current state, significantly enhancing performance on problems with larger solution spaces.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2504.11885
+Title: 2504.11885 HyperSAT Unsupervised Hypergraph Neural Networks f
+
+Main Idea:
+  Graph neural networks (GNNs) have shown promising performance in solving both Boolean satisfiability (SAT) and Maximum Satisfiability (MaxSAT) problems due to their ability to efficiently model and capture the structural dependencies between literals and clauses. In this paper, we present HyperSAT, a novel neural approach that employs an unsupervised hypergraph neural network model to solve Weighted MaxSAT problems.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2505.16053
+Title: 2505.16053 Learning from Algorithm Feedback One-Shot SAT Solv
+
+Main Idea:
+  Boolean Satisfiability (SAT) solvers are foundational to computer science, yet their performance typically hinges on hand- crafted heuristics. This work introduces Reinforcement Learning from Algorithm Feedback (RLAF) as a paradigm for learning to guide SAT solver branching heuristics with Graph Neural Networks (GNNs).
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2506.11057
+Title: 2506.11057 STRCMP Integrating Graph Structural Priors with La
+
+Main Idea:
+  Combinatorial optimization (CO) problems, central to operation research and theoretical computer science, present significant computational challenges due to their \(\mathcal{N}\mathcal{P}\) - hard nature. Inspired by human experts' success in leveraging CO structures for algorithm design, we propose STRCMP, a novel structure- aware LLM- based algorithm discovery framework that systematically integrates structure priors to enhance solution quality and solving efficiency.
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2508.04235
+Title: 2508.04235 Circuit-Aware SAT Solving Guiding CDCL via Conditi
+
+Main Idea:
+  Circuit Satisfiability (CSAT) plays a pivotal role in Electronic Design Automation. To address this limitation, we introduce CASCAD, a novel circuit- aware SAT solving framework that directly leverages circuit- level conditional probabilities computed via Graph Neural Networks (GNNs).
+
+----------------------------------------------------------------------------------------------------
+
+Paper ID: 2508.21513
+Title: 2508.21513 On the Hardness of Learning GNN-based SAT Solvers 
+
+Main Idea:
+  Graph Neural Networks (GNNs) have recently shown promise as solvers for Boolean Satisfiability Problems (SATs) by operating on graph representations of logical formulas. Building on this, we show that GNN- based SAT solvers are affected by oversquashing, a phenomenon where long- range dependencies become impossible to compress into fixed- length representations.
+
+----------------------------------------------------------------------------------------------------
+
