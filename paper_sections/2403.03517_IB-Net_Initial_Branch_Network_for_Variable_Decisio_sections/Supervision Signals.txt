@@ -1,0 +1,1 @@
+Results in Fig. 4(b) indicate that the UNSAT- core prediction as objective outperforms the SAT/UNSAT prediction when targeting industrial LEC dataset. The improved performance underscores the validity of our choice to employ UNSAT- core prediction as supervision signal in our model.

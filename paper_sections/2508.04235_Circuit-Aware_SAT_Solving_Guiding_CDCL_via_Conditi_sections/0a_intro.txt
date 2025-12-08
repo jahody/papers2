@@ -1,0 +1,5 @@
+# Circuit-Aware SAT Solving: Guiding CDCL via Conditional Probabilities  
+
+Jiaying Zhu \(^{1,2*}\) , Ziyang Zheng \(^{1,2*}\) , Zhengyuan Shi \(^{1,2*}\) , Yalun Cai \(^{1,2}\) , Qiang Xu \(^{1,2\dagger}\)  
+
+\(^{1}\) Department of Computer Science and Engineering, The Chinese University of Hong Kong, Hong Kong SAR \(^{2}\) National Center of Technology Innovation for EDA, Nanjing, China \(\{j y z h u 2 4, z y z h e n g 2 3, z y s h i 2 1, y l c a i 2 5, q x u \}\) @cse.cuhk.edu.hk

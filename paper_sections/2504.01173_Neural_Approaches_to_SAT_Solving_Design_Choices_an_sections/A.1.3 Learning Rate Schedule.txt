@@ -1,0 +1,7 @@
+We implement a custom learning rate schedule that combines cosine annealing for the first half of training and a constant minimum learning rate for the second half:  
+
+\[\eta (t) = \left\{ \begin{array}{ll}\eta_{\mathrm{min}} + (\eta_{0} - \eta_{\mathrm{min}})\frac{1 + \cos(\pi t / t_{\mathrm{half}})}{2} & \mathrm{if} t< t_{\mathrm{half}}\\ \eta_{\mathrm{min}} & \mathrm{otherwise} \end{array} \right. \quad (14)\]  
+
+where \(\eta_{0}\) is the initial learning rate, \(\eta_{\mathrm{min}}\) is the minimum learning rate (set to \(10^{- 5}\) ), \(t\) is the current epoch, and \(t_{\mathrm{half}}\) is half of the maximum number of epochs.  
+
+This schedule helps the model converge to a good solution in the first half of training and then fine- tune in the second half without disrupting the learned representations.

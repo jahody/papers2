@@ -1,0 +1,4 @@
+We have introduced ANYCSP, a novel method for neural combinatorial optimization to learn heuristics for any CSP through a purely data- driven process. Our experiments demonstrate how the generic architecture of our method can learn effective search algorithms for a wide range of problems. We also observe that standard policy gradient descent methods like REINFORCE are capable of learning on an exponentially sized action space to obtain global search heuristics for NP- hard problems. This is a critical advantage when processing large problem instances.  
+
+Directions for future work include widening the scope of the architecture even further: Weighted and partial CSPs are a natural extension of the CSP formalism and could be incorporated through node features and adjustments to the reward scheme. Variables with real- valued domains may be
+another viable extension as policy gradient descent is also applicable to infinite continuous action spaces.

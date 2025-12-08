@@ -67,7 +67,7 @@ def find_abstract_file(paper_dir):
 
 
 def main():
-    output_dir = r"g:\My Drive\OSU\projects\papers\output"
+    output_dir = "paper_sections"
     results = {}
 
     print(f"{'='*100}")
@@ -109,7 +109,7 @@ def main():
                 print(f"No abstract found for {paper_folder}\n")
 
     # Save results to a file
-    output_file = r"g:\My Drive\OSU\projects\papers\paper_main_ideas.txt"
+    output_file = "paper_main_ideas.txt"
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write("="*100 + "\n")
         f.write("MAIN IDEAS FROM PAPER ABSTRACTS\n")

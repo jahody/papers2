@@ -1,0 +1,35 @@
+The maximum- clique problem belongs to the kind of combinatorial problems that the properties of solutions are defined locally. We would like to turn our focus towards solving combinatorial problems whose solutions have both local and global conditions. Also, previous studies of applying GNNs for combinatorial optimization problems usually use the probability distributions from GNN models for greedy approximation algorithms. Thus, we also look for a method to apply the probability distributions from GNN models to exact algorithms.
+The dominating- clique problem is a good problem to be studied since 1) it is a combinatorial optimization problem with both local and global conditions; 2) checking the existence of a dominating clique is NP- complete; 3) there is a powerful exact solver for the dominating- clique problem in [9] to which we can apply our improvement.  
+
+We first design a loss function for finding a dominating clique and then extend it seamlessly for finding the minimum dominating clique. Denote by \(D_{S}\) the event that \(S\) is a dominating set, i.e. \(S\) dominates \(V\backslash S\) . The closed form of \(\mathbb{P}(D_{S}\cap C_{S})\) is a good candidate as a loss function for finding a dominating clique, but it is harder to evaluate the closed form compared to evaluating the closed form of \(\mathbb{P}(C_{S})\) . Thus, we alternatively analyze the upper and lower bounds of \(\mathbb{P}(D_{S}\cap C_{S})\) . Our idea is to increase the upper and lower bounds of \(\mathbb{P}(D_{S}\cap C_{S})\) simultaneously to optimize its value. For a node \(v_{i}\) , denote by \(A_{i}\) the event that the vertices in \(N[v_{i}]\) are all not in \(S\) , so \(\mathbb{P}(A_{i}) = \prod_{v_{j}\in N[v_{i}]}(1 - p_{j})\) . It is easy to see that \(D_{S}\) is equivalent to \(\bigwedge_{i}\overline{{A_{i}}}\) and \(\overline{{A_{i}}}\) 's are increasing events. By (1) and (2), we get  
+
+\[\mathbb{P}(D_{S}\cap C_{S})\leq \mathbb{P}(D_{S})\mathbb{P}(C_{S}),\] \[\mathbb{P}(D_{S}) = \mathbb{P}(\bigwedge_{i\in [n]}\overline{{A_{i}}})\geq \prod_{i\in [n]}\mathbb{P}(\overline{{A_{i}}}).\]  
+
+With (3), we have  
+
+\[\exp \Big(\sum_{i\in [n]}\ln \big(\mathbb{P}(\overline{{A_{i}}})\big) + \sum_{\{v_{i},v_{j}\} \notin E}\ln \big(\mathbb{P}(\overline{{B_{ij}}})\big)\Big) = \prod_{i\in [n]}\mathbb{P}(\overline{{A_{i}}})\prod_{\{v_{i},v_{j}\} \notin E}\mathbb{P}(\overline{{B_{ij}}})\] \[\leq \mathbb{P}(D_{S})\mathbb{P}(C_{S}).\]  
+
+This inequality tells us that increasing \(\sum_{i\in [n]}\ln \big(\mathbb{P}(\overline{{A_{i}}})\big) + \sum_{\{v_{i},v_{j}\} \notin E}\ln \big(\mathbb{P}(\overline{{B_{ij}}})\big)\) is meanwhile increasing the upper bound of \(\mathbb{P}(D_{S}\cap C_{S})\) .  
+
+For the lower bounds of \(\mathbb{P}(D_{S}\cap C_{S})\) , we have  
+
+\[\mathbb{P}(D_{S}\cap C_{S})\geq \mathbb{P}(D_{S}) + \mathbb{P}(C_{S}) - 1\] \[\qquad \geq 2\exp \Big(\frac{1}{2}\big(\ln \mathbb{P}(D_{S}) + \ln \mathbb{P}(C_{S})\big)\Big) - 1\qquad \mathrm{(as~}e^{x}\mathrm{~is~a~convex~function)}\] \[\qquad \geq 2\exp \Big(\frac{1}{2}\Big(\sum_{i\in [n]}\ln \big(\mathbb{P}(\overline{{A_{i}}})\big) + \sum_{\{v_{i},v_{j}\} \notin E}\ln \big(\mathbb{P}(\overline{{B_{ij}}})\big)\Big)\Big) - 1.\]  
+
+Therefore, we set the loss function for the dominating- clique problem as  
+
+\[\mathcal{L} = -\Big(\sum_{i\in [n]}\ln \big(\mathbb{P}(\overline{{A_{i}}})\big) + \sum_{\{v_{i},v_{j}\} \notin E}\ln \big(\mathbb{P}(\overline{{B_{ij}}})\big)\Big) \quad (5)\]  
+
+trying to optimize the upper and lower bounds of \(\mathbb{P}(D_{S}\cap C_{S})\) simultaneously.  
+
+To find the minimum dominating clique, we can simply add \(\ln \Big(\mathbb{E}(|S|)\Big)\) into the loss function as  
+
+\[\mathcal{L} = -\Big(\sum_{i\in [n]}\ln \big(\mathbb{P}(\overline{{A_{i}}})\big) + \sum_{\{v_{i},v_{j}\} \notin E}\ln \big(\mathbb{P}(\overline{{B_{ij}}})\big)\Big) + \ln \Big(\mathbb{E}(|S|)\Big). \quad (6)\]
+By Equation (6), we make an effort to increase the probability measure of small- sized dominating cliques so that it is easier to identify them. However, calculating \(\mathbb{E}(|S|)\) on \(\Omega\) (i.e. \(\mathbb{E}(|S|) = \sum_{i = 1}^{n}p_{i}\) ) indeed affects all small- sized subsets of \(V\) rather than small- sized dominating cliques. An improvement is to find an event in the event space \(\mathcal{F}\) which is close to the exact event consisting of dominating cliques only. One way to accomplish this is as follows.  
+
+In each iteration during the GNN training, we generate a random permutation \(\{v_{1},v_{2},\dots,v_{n}\}\) of \(V\) and generate an event (i.e. a set of subset of \(V\) ) iteratively. We initialize the event as an empty set. For \(i = 1\) to \(n\) , we first exclude the subsets of \(V\) that contain any vertex of \(v_{1},\dots,v_{i - 1}\) . Then, we continue to exclude the subsets of \(V\) that do not contain \(v_{i}\) . After that, we exclude the subsets of \(V\) that contain any non- adjacent vertex to \(v_{i}\) . At the end of the current iteration, we add the remaining subsets of \(V\) into the event.  
+
+This event is much more closer to the event of dominating cliques only than the event \(\Omega\) . Thus, instead of minimizing \(\mathbb{E}(|S|)\) on \(\Omega\) , we try to minimize \(\mathbb{E}(|S|)\) on this event as  
+
+\[\sum_{i = 1}^{n}\left(p_{i}\prod_{j = 1}^{i - 1}(1 - p_{j})\prod_{v_{k}\in \{v_{i + 1},\dots,v_{n}\}\backslash N(v_{i})}(1 - p_{k})(1 + \sum_{v_{r}\in N(v_{i})\backslash \{v_{1},\dots,v_{i - 1}\}}p_{r})\right) \quad (7)\]  
+
+in hopes that it gives the loss function a more accurate expected size of dominating cliques. The term \(p_{i}\) is the probability of the event that \(v_{i}\) is in \(S\) . The term \(\prod_{j = 1}^{i - 1}(1 - p_{j})\) is the probability of the event that \(v_{1},\dots,v_{i - 1}\) are not in \(S\) . The term \(\prod_{v_{k}\in \{v_{i + 1},\dots,v_{n}\}\backslash N(v_{i})}(1 - p_{k})\) is the probability of the event that \(S\) do not contain any vertex that is behind \(v_{i}\) in the permutation and non- adjacent to \(v_{i}\) . The term \(\left(1 + \sum_{v_{r}\in N(v_{i})\backslash \{v_{1},\dots,v_{i - 1}\}}p_{r}\right)\) is the conditional expectation of \(|S|\) given the above three events happen.

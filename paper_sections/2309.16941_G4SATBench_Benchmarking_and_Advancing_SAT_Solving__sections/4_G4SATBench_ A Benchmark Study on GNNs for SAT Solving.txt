@@ -1,0 +1,1 @@
+The goal of G4SATBench is to establish a general framework that enables comprehensive comparisons and evaluations of various GNN- based SAT solvers. In this section, we will delve into the details of G4SATBench, including its datasets, GNN models, prediction tasks, as well as training and testing methodologies. The overview of the G4SATBench framework is shown in Figure 1.

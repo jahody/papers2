@@ -1,0 +1,13 @@
+Model Architecture. We adopt the DEEPGATE4 framework (Zheng et al. 2025), where each gate is represented by structural and functional embeddings and updated via selfattention (Vaswani et al. 2017).  
+
+For each gate type \(g\in \{\mathrm{and},\mathrm{not},\mathrm{div}\}\) , we implement type- specific aggregation and update functions:  
+
+not . The aggregator directly propagates the single input and applies a logical negation. and / virtual and. The aggregation function captures conjunction semantics, where attention weights reflect the relative importance of inputs- for example, giving higher weight to controlling inputs that can determine the output value. virtual div. In addition to a two- input aggregator, we account for the asymmetric roles of the inputs (numerator \(A_{joint}\) vs. denominator \(C\) ) by incorporating positional encodings to distinguish them during message passing.  
+
+This unified framework enables the model to reason jointly over logical and probabilistic structures.  
+
+Level- by- Level Propagation. Let \(\mathcal{L}(v)\) denote the topological level of gate \(v\) . For every level \(\ell\) (from primary inputs PI to primary outputs PO) the model performs:  
+
+\[\begin{array}{r l} & {h_{v}^{s}\leftarrow \mathrm{Agg}_{g}^{s}\big(\{h_{u}^{s}\mid u\in P(v),\mathcal{L}(u) = \ell -1\} \big)}\\ & {h_{v}^{f}\leftarrow \mathrm{Agg}_{g}^{f}\big(\{h_{u}^{f},h_{u}^{s}\mid u\in P(v),\mathcal{L}(u) = \ell -1\} \big)} \end{array} \quad (A1)\]  
+
+where \(P(v)\) denotes the set of predecessor nodes of \(v\)

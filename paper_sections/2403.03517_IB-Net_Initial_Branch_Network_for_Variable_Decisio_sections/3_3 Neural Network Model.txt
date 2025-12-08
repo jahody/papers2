@@ -1,0 +1,24 @@
+We use a weighted GCN (W GCN) [Zhao et al., 2021] as our first network to extract features of variables and a multi- layer perceptron (MLP) to output the possibility of variables presented in UNSAT- core. The W GCN can perfectly match the design of WLIG to utilize the edge weight and enhance the message exchange.  
+
+The W GCN accepts the adjacency matrix as input to build the graph structure. Apart from that, to address features of literals, we initialize the embedding for a literal node with vector \(h \in \mathbf{R}^{2d}\) . The vector \(h\) is produced by concatenating the degree of node \(D \in \mathbf{R}\) and the literal type of node \(T \in \mathbf{R}\) vertically and then feeding to a linear transformation \(L_{init}\) : \(\mathbf{R}^{1 \times 2} \to \mathbf{R}^{1 \times 2d}\) to produce sparse node embedding.  
+
+\[h_{i} = L_{init}(D_{i} \oplus T_{i}), H = [h_{1}, h_{2}, \ldots , h_{N}]^{T} \quad (1)\]  
+
+The node embedding vectors \(H\) will be updated by aggregating embedding from its neighbors during each iteration of W GCN. Namely, a single iteration can be represented:  
+
+\[H^{(l + 1)} = \mathrm{ReLU}(L_{out}(A'H^{(l)}\oplus \mathrm{Flip}(H^{(l)}))), \quad (2)\]  
+
+where \(H^{(l)}\) represents the node features after the \(l\) - th iteration. We detail the computation process inside the W GCN unit as follows.
+<center>Figure 1: Model Overview </center>  
+
+\(A'\) is the normalized adjacency matrix which encapsulates aggregation operations, and values in \(A'\) also carry weights to apply in the WGCN. \(A'\) is computed as follows to avoid gradient explosion:  
+
+\[A' = \frac{A}{\sum_{i = 1}^{N}\sum_{j = 1}^{N}A_{ij}}. \quad (3)\]  
+
+Function \(F l i p\) and linear transformation \(L_{out}:\mathbf{R}^{1\times 4d}\to\) \(\mathbf{R}^{1\times 2d}\) concatenate features of literal nodes with the corresponding negated literal nodes, forming a comprehensive representation of variables.  
+
+\[\mathrm{Flip}(H) = [h_{\frac{N}{2} +1},\ldots ,h_{N},h_{1},\ldots ,h_{\frac{N}{2}}]^{T} \quad (4)\]  
+
+After \(L\) iterations of WGCN, we obtain the vectors representing structural information of literals, and feed it to MLP for the UNSAT- core possibility of each variable:  
+
+\[p_{i} = \mathrm{softmax}(L_{2}\cdot \mathrm{ReLU}(L_{1}\cdot (h_{i}\oplus h_{N + 1 - i}) + b_{1}) + b_{2}) \quad (5)\]

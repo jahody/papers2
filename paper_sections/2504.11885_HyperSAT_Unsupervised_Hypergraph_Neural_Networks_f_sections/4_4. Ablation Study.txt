@@ -1,0 +1,14 @@
+We conduct an ablation study to evaluate the contribution of each key component in our proposed model. By systematically removing components, we analyze their impact on performance and highlight the importance of each component. The experiments are designed to isolate the impact of the following components: (i) the hypergraph modeling of literal nodes rather than variable nodes; (ii) the transformer module with the cross- attention mechanism; (iii) the shared representation constraint loss. The results of the ablation study are shown in Table 3.  
+
+Effect of Hypergraph Modeling of Literal Nodes: The performance drops by \(52.77\%\) when the hypergraph modeling of variable nodes is used instead of literal nodes. The results demonstrate the importance and superiority of modeling the Weighted MaxSAT instance as a hypergraph with literal nodes.  
+
+Effect of Transformer with Cross- Attention: We disable the transformer module with the cross- attention mechanism to assess its importance. Without this module, the model experiences a performance drop of \(11.54\%\) . This signifi
+Table 3. The results of the ablation study. We consider three components: (i) HGM-L: the hypergraph modeling of literal nodes rather than variable nodes; (ii) Transformer: the transformer module with the cross-attention mechanism; (iii) SRCL: the shared representation constraint loss. Specifically, the first row in the table represents the transformation of the Weighted MaxSAT instance into the hypergraph of variables.   
+
+<table><tr><td>HGM-L</td><td>TRANSFORMER</td><td>SRCL</td><td>RESULT</td></tr><tr><td>×</td><td>×</td><td>×</td><td>182.39</td></tr><tr><td>√</td><td>×</td><td>×</td><td>86.14</td></tr><tr><td>√</td><td>√</td><td>×</td><td>64.08</td></tr><tr><td>√</td><td>×</td><td>√</td><td>47.07</td></tr><tr><td>√</td><td>√</td><td>√</td><td>41.64</td></tr></table>  
+
+cantly reduces its ability to effectively capture dependencies across each pair of complementary literals, leading to lower overall accuracy.  
+
+Effect of Share Representation Constraint Loss: We further remove the shared representation constraint loss and optimize the model with the primary task loss function to investigate the role of the unsupervised multi- objective loss. The results show that without the shared representation constraint loss, the model achieves a performance of 64.08. This performance is lower than that of the original configuration. Therefore, it highlights the importance of the shared representation constraint loss, which encourages the positive and negative literal nodes to develop distinct feature representations.  
+
+In summary, the full model consistently outperforms the ablated versions, demonstrating the synergistic effect of integrating the hypergraph modeling of literal nodes, cross- attention mechanism, and shared representation constraint loss design.

@@ -1,0 +1,5 @@
+As we regard the UNSAT- core prediction as a classification task, the Cross- Entropy loss should be originally applied. However, due to the potential imbalance distribution (the large UNSAT- core in LEC UNSAT Problem), we utilize Focal loss [Lin et al., 2020] as the loss function. The major difference between Focal loss and traditional Cross- Entropy loss would be the additional parameters \(\alpha \& \beta\) to balance the importance of the class with a small portion. For \(p\) stands for prediction possibility and \(y\) is truth, the loss is computed as:  
+
+\[\begin{array}{l}{FL = \sum_{i = 1}^{n}(y_{i}(-\alpha (1 - p_{i})^{\gamma}\log (p_{i}))}\\ {+(1 - y_{i})(-(1 - \alpha)p_{i}^{\gamma}\log (1 - p_{i}))),} \end{array} \quad (6)\]  
+
+where \(n\) is the number of variables in the target CNF.

@@ -1,0 +1,9 @@
+Most of the related work was already mentioned in Section 2. In this section, we describe related work in the context of GNNs and Boolean Satisfiability.  
+
+In the domain of Boolean Satisfiability, applications of GNNs can be divided into hybrid or end- to- end approaches. In the hybrid approaches, the GNN is used to guide a discrete search. We can further distinguish between applications where the GNN guides a simple heuristic and applications where the predictions of the GNN are used inside an industrial SAT solver. For the case of heuristics, Yolcu and Poczos [33] use GNNs trained by Reinforcement Learning to select variables and values in a local search. Zhang et al. [35] also use GNN for local search, but train it with supervised learning. For the case of SAT solvers, Kurin et al. [17] introduce a branching heuristic for SAT solvers trained using value- based reinforcement learning (RL) with GNNs for function approximation. They incorporate the heuristic with the MiniSat solver and manage to reduce the number of iterations required to solve SAT problems by 2- 3X.  
+
+Similarly, Wang et al. [32] use GNN as a variable selection heuristic and manage to improve MiniSat in terms of the number of solved problems on the SATCOMP- 2021 competition problem set.  
+
+On the end- to- end front, the most relevant work is the one by Selsam et al. [29] who introduced the NeuroSAT architecture, which was our starting point. Similar to NeuroSAT were the models introduced by Cameron et al. [5] who used different GNN architecture and Shi et al. [30] who used a Transformer. Freivalds and Kozlovics [8] use a Denoising Diffusion model to learn to sample multiple solutions and Ozolins et al. [21] propose an approach in which the GNN can take feedback from solution trials.  
+
+Apart from work focused on Boolean Satisfiability, we also mention the work by Kuck et al. [16] who use GNN to improve Belief Propagation.

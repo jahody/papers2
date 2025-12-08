@@ -1,0 +1,10 @@
+A Weighted MaxSAT instance is represented by a triple \(\phi = (\mathcal{X}, \mathcal{C}, \mathbf{w})\) . Here, the set of variables is denoted by \(\mathcal{X} = \{x_1, x_2, \ldots , x_n\}\) , where each \(x_i \in \{0, 1\}\) is a Boolean variable and \(n\) is the total number of variables involved in the instance. The set of clauses is given by \(\mathcal{C} = \{C_1, C_2, \ldots , C_m\}\) , where each \(C_j \in \mathcal{C}\) is a disjunction of literals and \(m\) is the number of clauses. The weight vector is given by \(\mathbf{w} = (w_1, w_2, \ldots , w_m)\) where \(w_j\) represents the weight of \(C_j\) . Take the clause \(C_j \in \mathcal{C}\) for example. Suppose it contains \(k_j\) literals. Then, it can be represented by \(C_j = l_{j1} \lor l_{j2} \lor \dots \lor l_{jk_j}\) , where each literal \(l_{ji}\) is either a variable or the negation of a variable in \(\mathcal{X}\) . The clause \(C_j\) is satisfied if at least one of its literals evaluates to true. The clause \(C_j\) is unsatisfied if all its literals evaluate to false.
+<center>Figure 1. An overview of HyperSAT framework. </center>  
+
+An assignment \(\boldsymbol {A} = \{a_{1},a_{2},\ldots ,a_{n}\}\) is to assign each variable \(x_{i}\in \mathcal{X}\) with a value \(a_{i}\in \{0,1\}\) . Given a Weighted MaxSAT instance \(\phi = (\mathcal{X},\mathcal{C},\mathbf{w})\) , the objective is to find an assignment \(\mathbf{A}\) for the Boolean variables \(\mathcal{X}\) such that the total weight of satisfied clauses is maximized. The optimization problem is given by  
+
+\[\max_{A} \sum_{j = 1}^{m} w_{j} \cdot \mathbf{1}(C_{j}(\mathbf{A}))\] \[\mathrm{s.t.} \mathbf{A} \in \{0,1\}^{n}.\]  
+
+Here,  
+
+\[\mathbf{1}(C_{j}(\mathbf{A})) = \left\{ \begin{array}{ll}1, & \mathrm{if} C_{j}\mathrm{is~satisfied~by~}\mathbf{A},\\ 0, & \mathrm{otherwise}. \end{array} \right.\]

@@ -1,0 +1,5 @@
+Tables 4 and 5 present the performance of models trained on SR40 and SR100 distributions when evaluated across benchmarks of varying sizes. The SR40- trained model achieves reasonable generalization to larger instances, though with decreasing effectiveness as problem size increases. For SR100, the model achieves 74.2% decision accuracy despite being trained on smaller instances, showing good generalization capabilities.  
+
+The SR100- trained model demonstrates better performance on larger instances compared to the SR40- trained model, as expected. On SR200, it achieves 83.0% decision accuracy compared to 58.5% for the SR40 model. This suggests that while test- time scaling can improve performance on larger problems, there are limits to this approach, and training models on larger instances might be necessary for optimal performance on very large problems.  
+
+These results highlight that recurrent GNN architectures allow for a flexible computation- performance tradeoff that can be adjusted at inference time based on available computational resources and desired solution quality.

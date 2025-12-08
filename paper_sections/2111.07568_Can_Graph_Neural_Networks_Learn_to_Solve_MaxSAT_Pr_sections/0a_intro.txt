@@ -1,0 +1,5 @@
+# Can Graph Neural Networks Learn to Solve MaxSAT Problem?  
+
+Minghao Liu \(^{1,3}\) , Fuqi Jia \(^{1,3}\) , Pei Huang \(^{1,3}\) , Fan Zhang \(^{5}\) , Yuchen Sun \(^{4}\) , Shaowei Cai \(^{1,3}\) , Feifei Ma \(^{1,2,3}\) , Jian Zhang \(^{1,3}\)  
+
+\(^{1}\) State Key Laboratory of Computer Science, Institute of Software, Chinese Academy of Sciences \(^{2}\) Laboratory of Parallel Software and Computational Science, Institute of Software, Chinese Academy of Sciences \(^{3}\) University of Chinese Academy of Sciences \(^{4}\) Inspir.ai \(^{5}\) Individual researcher Beijing, China {liumh, maff}@ios.ac.cn

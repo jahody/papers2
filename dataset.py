@@ -72,8 +72,8 @@ def find_datasets_in_paper(paper_dir):
     return sorted(list(datasets))
 
 def main():
-    input_dir = r"g:\My Drive\OSU\projects\papers\paper_sections"
-    output_dir = Path(r"g:\My Drive\OSU\projects\papers\paper_dataset")
+    input_dir = "paper_sections"
+    output_dir = Path("paper_dataset")
     output_dir.mkdir(parents=True, exist_ok=True)
     
     results = {}

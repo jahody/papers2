@@ -1,0 +1,54 @@
+So far we've been concerned with single instances and oracles for them. Of course, in practice we're often confronted instead with a whole class of instances that is distributed with respect to some measure \(\mathcal{P}\) over the space of possible instances \(\Phi\) . What we're then really interested in is a solver that performs well when fed with samples from \(\mathcal{P}\) . As such, when using oracle- based SLS solvers, we're not primarily interested in single oracles but instead oracle factories, which we define as functions \(F\) from \(\Phi\) to the space of random variables, such that, for any \(\phi\) , \(F(\phi)\) is an oracle for \(\phi\) .  
+
+Given a practical SAT application, here represented abstractly by \(\mathcal{P}\) , and an SLS solver \(S\) , we can then formulate our main goal as finding  
+
+\[\arg \max_{F}\mathrm{Prob}_{\phi \sim \mathcal{P},x\sim S(\phi ,F(\phi))}(x\in \Pi (\phi)), \quad (8)\]  
+
+that is, that oracle factory that maximises the probability that \(S\) returns a solution.  
+
+We take a variational approach to this task and optimize a parametrized oracle factory \(F_{\theta}\) , where \(\theta\) are some set of parameters in a parameter space \(\Theta\) . In particular, we introduce a novel loss function that is inspired by the propositions above: For a given value of \(\theta\) , introduce an additional parametrized functional \(\mu_{\theta}[\phi ]\) that maps an instance \(\phi\) to a function from \([m]\) to the reals. We then define the Lovász Local (LLL) loss as  
+
+\[L_{LLL,z}(\theta ,\phi) = \| (\max (0,\epsilon_{F_{\theta}(\phi),\mu_{\theta}[\phi ]}(j)))_{j\in [m]}\|_{z}, \quad (9)\]  
+
+where \(\| \cdot \|_{z}\) indicates the usual \(p\) - norm. This loss is motivated by the propositions above, which imply that a smaller loss leads to better performance of (variants of) the MT algorithm.2  
+
+The second loss term, that we here use mostly to avoid the model's overfitting on solution instances, is the cross entropy between the thermal distribution  
+
+\[\gamma_{\beta ,\phi}(x) = \frac{e^{-\beta\phi(x)}}{Z_{\beta}(\phi)},\quad Z_{\beta}(\phi) = \sum_{x\in I_{n}}e^{-\beta \phi (x)} \quad (10)\]  
+
+with respect to some inverse temperature \(\beta >0\) and the output distribution, i.e.  
+
+\[L_{Gibbs}(\theta ,\phi) = -\mathbb{E}_{\gamma_{\beta ,\phi}}\log (P_{F_{\theta}(\phi)}) \quad (11)\]  
+
+The total loss is then a linear combination of these two loss functions,  
+
+\[L(\theta ,\phi) = \gamma_{1}L_{Gibbs}(\theta ,\phi) + \gamma_{2}L_{LLL,z}(\theta ,\phi), \quad (12)\]  
+
+where \(\gamma_{1},\gamma_{2}\geq 0\) are hyperparameters and the effective goal becomes to find  
+
+\[\arg \min_{\theta \in \Theta}\mathbb{E}_{\phi \sim \mathcal{P}}L(\theta ,\phi). \quad (13)\]  
+
+In section 1 of the technical appendix, we provide details on how we evaluate this loss in practice.
+# Algorithm 3 A single IN layer  
+
+1: for \(k\in \{1\dots |E|\}\) do  
+
+2: \(\mathbf{e}_{k}^{\prime}\leftarrow \eta^{E}\left(\mathbf{e}_{k},\mathbf{n}_{r_{k}},\mathbf{n}_{s_{k}}\right)\)  
+
+3: end for  
+
+4: for \(i\in \{1\dots |N|\}\) do  
+
+5: let \(E_{i}^{\prime} = \left\{(\mathbf{e}_{k}^{\prime},r_{k},s_{k})\right\}_{r_{k} = i, k = 1:|E|}\)  
+
+6: \(\overline{{\mathbf{e}}}_{i}^{\prime}\leftarrow \rho^{E}\left(E_{i}^{\prime}\right)\)  
+
+7: \(\mathbf{n}_{i}^{\prime}\leftarrow \eta^{N}\left(\overline{{\mathbf{e}}}_{i}^{\prime},\mathbf{n}_{i},\right)\)  
+
+8: end for  
+
+9: let \(N^{\prime} = \{\mathbf{n}^{\prime}\}_{i = 1:|N|}\)  
+
+10: let \(E^{\prime} = \left\{(\mathbf{e}_{k}^{\prime},r_{k},s_{k})\right\}_{k = 1:|E|}\)  
+
+11: return \((E^{\prime},N^{\prime})\)

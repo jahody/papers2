@@ -1,0 +1,24 @@
+The formulation of Ollivier [39] aligns with the intuition from differential geometry: edges with negative curvature act as structural bottlenecks, separating dense regions and limiting smooth information propagation. Edges with positive curvature in the other hand facilitate smooth information propagation and are indicators of community structure. Graph Ollivier- Ricci Curvature (OC) is very well studied and has being linked to properties of graph Lapacians and mixing times of Markov Chain Monte Carlo (MCMC) methods [22, 42]. The intuitive idea of this discretization is to directly implement the idea from differential geometry: we use a ratio between the amount of "mass" moved around of an edge neighborhood with the shortest path distance, i.e., the graph geodesic. Let us formalize this concept.  
+
+For two probability measures \(\mu_{1},\mu_{2}\) on a metric space \((X,d)\) , the the Wasserstein distance between them is defined as  
+
+\[W_{1}(\mu_{1},\mu_{2}) = \inf_{\nu \in M(\mu_{1},\mu_{2})}\int_{X\times X}d(x,y)\mathrm{d}\nu (x,y), \quad (12)\]  
+
+where \(M(\mu_{1},\mu_{2})\) is the collection of probability measures on \(X\times X\) with marginals \(\mu_{1}\) and \(\mu_{2}\) . The Wasserstein distance is the result of the solution to a famous problem called Optimal Transport [43]. Intuitively, this distance measures the optimal cost to move one pile of sand to another one with the same mass.  
+
+Let a metric measure space \((X,d,m)\) be a metric space \((X,d)\) , with a collection of probability measures \(m = \{m_{x}:x\in X\}\) indexed by the points of \(X\) . The (coarse) Ricci curvature of a metric measure space is defined as follows:  
+
+Definition A.1 (Ollivier [39]). On any metric measure space \((X,d,m)\) , for any two distinct points \(x,y\in X\) , the (coarse) Ricci curvature of \((X,d,m)\) of \((x,y)\) is defined as:  
+
+\[\kappa (x,y)\coloneqq 1 - \frac{W_{1}(m_{x},m_{y})}{d(x,y)} \quad (13)\]  
+
+Extending this definition to graphs requires some additional steps. Consider a locally finite and possibly weighted simple graph \(G = (V,E)\) , where each edge \((i,j)\in E\) is assigned a positive weight \(w_{ij} = w_{ji}\) . The graph is equipped with the standard shortest path graph distance \(d_{G}\) , that is, for \(i,j\in V\) , \(d_{G}(i,j)\) is the length of the shortest path in \(G\) connecting nodes \(i\) and \(j\) . For \(i\in V\)
+define the degree \(d_{i} \coloneqq \sum_{(i,j) \in E} w_{ij}\) and the neighborhood \(\mathcal{N}(i) \coloneqq \{j \in V: (i,j) \in E\}\) . For each \(i \in V\) define a probability measure  
+
+\[m_{i}(j) = \left\{ \begin{array}{ll} \frac{w_{i,j}}{d_{i}}, & \mathrm{if} j \in \mathcal{N}(i) \\ 0, & \mathrm{otherwise.} \end{array} \right.\]  
+
+Note that these are just the transition probabilities of a weighted random walk on the vertices of \(G\) . If \(m_{G} = \{m_{i}: i \in V\}\) , then considering the metric measure space \(\mathcal{M}_{G} \coloneqq (V, d_{G}, m_{G})\) , we can define the OC curvature for any edge \((i,j) \in E\) as \(\kappa (\mathbf{i},\mathbf{j}) \coloneqq \mathbf{1} - \mathbf{W}_{1}^{G}(\mathbf{m}_{i}, \mathbf{m}_{j})\) , where \(W_{1}^{G}(m_{i}, m_{j})\) is obtained by discretizing Equation (12) on \(\mathcal{M}_{G}\) :  
+
+\[W_{1}^{G}(m_{i}, m_{j}) = \inf_{\nu \in \mathcal{A}} \sum_{z_{1} \in \mathcal{N}(i)} \sum_{z_{2} \in \mathcal{N}(j)} \nu (z_{1}, z_{2}) d(z_{1}, z_{2}). \quad (14)\]  
+
+\(\mathcal{A}\) denotes the set of all \(d_{i} \times d_{j}\) matrices with entries indexed by \(\mathcal{N}(i) \times \mathcal{N}(j)\) such that \(\nu (i', j') \geq 0\) , \(\sum_{z \in \mathcal{N}(j)} \nu (i', z) = \frac{w_{i,i'}}{d_{i}}\) , and \(\sum_{z \in \mathcal{N}(i)} \nu (z, j') = \frac{w_{j,j'}}{d_{j}}\) , for all \(i' \in \mathcal{N}(i)\) and \(j' \in \mathcal{N}(j)\) . For a matrix \(\nu \in \mathcal{A}\) , \(\nu (i', j')\) represents the mass moving from \(i' \in \mathcal{N}(i)\) to \(j' \in \mathcal{N}(j)\) . For this reason, the matrix \(\nu\) is often called the transfer plan.

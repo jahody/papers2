@@ -1,0 +1,3 @@
+# HyperSAT: Unsupervised Hypergraph Neural Networks for Weighted MaxSAT Problems  
+
+Qiyue Chen \(^{1,2}\) Shaolin Tan \(^{2}\) Suixiang Gao \(^{1,2}\) Jinhu Lü \(^{3,2}\)

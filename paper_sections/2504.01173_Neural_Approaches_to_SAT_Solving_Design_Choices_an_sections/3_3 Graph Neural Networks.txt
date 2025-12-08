@@ -1,0 +1,8 @@
+Graph Neural Networks (GNNs) extend deep learning to graph- structured data, enabling learning on irregular data structures that classical neural architectures cannot directly process. A graph \(G = (V,E)\) consists of nodes \(V\) and edges \(E\) , where each node \(v\in V\) may have associated features \(x_{v}\) .  
+
+GNNs compute node representations through message passing, where each node iteratively aggregates information from its neighbors and updates its features. Formally, at layer \(l\) , a node \(v\) updates its representation \(h_{v}^{l}\) , according to:  
+
+\[h_{v}^{l + 1} = \mathrm{UPDATE}(h_{v}^{l},\mathrm{AGGREGATE}(\{h_{u}^{l}:u\in \mathcal{N}(v)\}))\]
+<center>Figure 1: LCG and VCG of the CNF formula \((\overline{x}_{1} \vee x_{2}) \wedge (x_{2} \vee \overline{x}_{3}) \wedge (x_{1} \vee x_{3})\) . </center>  
+
+where \(\mathcal{N}(v)\) denotes the neighbors of node \(v\) . The UPDATE and AGGREGATE functions are typically neural networks, often implementing permutation- invariant operations like sum or max. Through multiple layers of message passing, GNNs can capture both local structure and longer- range dependencies in the graph, making them suitable for processing SAT formulas represented as bipartite graphs.

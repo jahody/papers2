@@ -1,0 +1,19 @@
+We provide an empirical ablation study for two major design choices of ANYcSP: Firstly, we want to study the benefit of our exponentially sized action space when compared to a more conventional local search setting. Secondly, we aim to validate the reward scheme we constructed in Section 4.2. To this end, we will evaluate two modified versions of ANYcSP:  
+
+1. ANYcSPloc: A version of ANYcSP designed to be a local search heuristic. We modify \(\pi_{\theta}\) such that the softmax over the scores in \(o^{(t)}(\boldsymbol {v})\) is not performed separately within each domain but over all values in the disjoint union of domains \(\mathcal{V}\) ..  
+
+\[\phi^{(t + 1)}(\boldsymbol {v}) = \frac{\exp\left(o^{(t)}(\boldsymbol{v})\right)}{\sum_{\boldsymbol{v}' \in \mathcal{V}}\exp\left(o^{(t)}(\boldsymbol{v}') \right)} \quad (23)\]  
+
+The output \(\phi^{(t + 1)}\) of \(\pi_{\theta}\) in iteration \(t + 1\) is therefore not a soft assignment but a probability distribution over the disjoint union of domains. To obtain a new hard assignment \(\alpha^{(t + 1)}\) we sample a single value \(v\in \mathcal{C}\) from this distribution and set it as the value for its respective variable \(X_{v}\) with \(v\in \mathcal{V}_{X_{v}}\)  
+
+\[\begin{array}{c}{\boldsymbol {v}\sim \phi^{(t + 1)}}\\ {\alpha^{(t + 1)} = \alpha^{(t)}[X_{v} = \boldsymbol {v}]} \end{array} \quad (25)\]  
+
+All variables other than \(X_{v}\) remain unchanged in iteration \(t + 1\) . With this modification \(\mathrm{ANYCSP_{loc}}\) becomes a local search heuristic that only changes one variable at a time. The remaining architecture and training procedure are identical to ANYcSP, including the reward scheme.  
+
+2. ANYCSPqual: A version of ANYcSP trained by using the quality \(Q_{\mathcal{I}}(\alpha^{(t)})\) of the current assignment as a reward. For this configuration to train well, we found it helpful to use the quality of the initial assignment as a baseline:  
+
+\[r^{(t)} = Q_{\mathcal{I}}(\alpha^{(t)}) - Q_{\mathcal{I}}(\alpha^{(0)}) \quad (26)\]  
+
+Without the subtractive baseline, we found the training to be very unstable. Note that the baseline does not solve the fundamental problem of the reward scheme: A heuristic can not leave a local maximum without being immediately punished for doing so. Here, we will study how this proposed issue actually effects performance empirically.  
+
+We perform our ablation experiments on the graph coloring, MAXCUT and MAX- \(k\) - SAT problems. For each problem, we train both modifications with the same training data and hyperparameters as ANYcSP.

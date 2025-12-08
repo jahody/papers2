@@ -1,0 +1,1 @@
+Jan Hula, David Mojzišek, and Mikoláš Janota. 2024. Understanding GNNs for Boolean Satisfiability through Approximation Algorithms. In Proceedings of the 33rd ACM International Conference on Information and Knowledge Management (CIKM '24), October 21- 25, 2024, Boise, ID, USA. ACM, New York, NY, USA, 16 pages. https://doi.org/10.1145/3627673.3679813

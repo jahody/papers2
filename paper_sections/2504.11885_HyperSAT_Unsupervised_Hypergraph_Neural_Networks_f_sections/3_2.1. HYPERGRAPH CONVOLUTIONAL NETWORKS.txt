@@ -1,0 +1,11 @@
+In HyperSAT, we introduce a \(T\) - layer HyperGCN for message passing among different nodes. The operation at the \(l\) - th layer of the HyperGCN is formally expressed as follows:  
+
+\[\begin{array}{r}{\pmb{L}^{(l + 1)^{\prime}} = \sigma \left(\pmb{D}_{v}^{-\frac{1}{2}}\widetilde{\pmb{Q}}\pmb{D}_{v}^{-\frac{1}{2}}\pmb{L}^{(l)}\pmb{R}^{(l)}\right).} \end{array} \quad (2)\]  
+
+In this formulation, the matrix \(\pmb{L}^{(l + 1)^{\prime}}\) represents the output of the \(l\) - th layer; \(\pmb{D}_{v}\) is the diagonal matrix of the vertex degrees in the hypergraph; \(\pmb{L}^{(l)}\in \mathbb{R}^{2n\times d_{l}}\) is the matrix of node representations at the \(l\) - th layer, where \(d_{l}\) is the dimension of the \(l\) - th layer node representations; \(\pmb{R}^{(l)}\in\) \(\mathbb{R}^{d_{l}\times d_{l + 1}}\) is the \(l\) - th layer learnable weight matrix; and \(\widetilde{\pmb{Q}}\) is given by  
+
+\[\widetilde{\pmb{Q}} = \pmb {H}\widetilde{\pmb{D}}_{e}^{-1}\pmb {H}^{\top} - \mathrm{diag}(\pmb {H}\widetilde{\pmb{D}}_{e}^{-1}\pmb {H}^{\top}), \quad (3)\]  
+
+where \(\pmb{H}\) is the hypergraph incidence matrix, and \(\widetilde{\pmb{D}}_{e} =\) \(\pmb{D}_{e} - \pmb{I}\) . Specifically, \(\sigma\) denotes the nonlinear activation function and \(\pmb{L}^{(0)}\) is a learnable input embedding of HyperGCN.  
+
+Compared to the updating rule in Eq. (1) in traditional HGNN, our HyperGCN focuses the convolutional layer's computation more on the influence of adjacent nodes by removing the diagonal elements of \(\widetilde{\pmb{Q}}\) . This adjustment allows the representation updates of each node to better align with the higher- order relationships of the adjacency structure.

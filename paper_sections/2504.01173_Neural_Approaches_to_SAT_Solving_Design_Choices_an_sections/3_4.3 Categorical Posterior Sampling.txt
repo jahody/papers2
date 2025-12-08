@@ -1,0 +1,11 @@
+As mentioned above, our model is trained to predict \(\mathbf{x}_{0}\) directly and we use this prediction during inference to sample \(\mathbf{x}_{t - 1}\) given \(\mathbf{x}_{t}\) . This is accomplished through categorical posterior sampling, which uses the distribution \(p_{\theta}(\mathbf{x}_{0}|\mathbf{x}_{t},t)\) to compute the posterior \(p(\mathbf{x}_{t - 1}|\mathbf{x}_{t},\mathbf{x}_{0})\) .  
+
+By applying Bayes' rule and the Markov property of the diffusion process, we can derive:  
+
+\[p(\mathbf{x}_{t - 1}|\mathbf{x}_{t})\approx \sum_{\mathbf{x}_{0}}p(\mathbf{x}_{t - 1}|\mathbf{x}_{t},\mathbf{x}_{0})p_{\theta}(\mathbf{x}_{0}|\mathbf{x}_{t},t) \quad (4)\]  
+
+For the categorical case, this is computed using:  
+
+\[p(\mathbf{x}_{t - 1}|\mathbf{x}_{t})\approx \sum_{\mathbf{x}_{0}}\frac{p(\mathbf{x}_{t - 1}|\mathbf{x}_{0})p(\mathbf{x}_{t}|\mathbf{x}_{t - 1})}{p(\mathbf{x}_{t}|\mathbf{x}_{0})} p_{\theta}(\mathbf{x}_{0}|\mathbf{x}_{t},t) \quad (5)\]  
+
+The diffusion model replaces the distribution \(p_{\theta}(\mathbf{x}_{0}|\mathbf{x}_{t},t)\) with a function approximator (GNN in our case) \(f_{\theta}(\mathbf{x}_{t},t)\) Therefore, we can train the model using a simple procedure (predicting \(\mathbf{x}_{0}\) ) and during inference, we can use a sampling process (iteratively sampling \(\mathbf{x}_{t - 1}\) given \(\mathbf{x}_{t}\) ), which tries to recover a uncorrupted input in several steps. A useful feature of diffusion models is that the number of sampling steps during inference can be chosen by the user after the model is already trained.

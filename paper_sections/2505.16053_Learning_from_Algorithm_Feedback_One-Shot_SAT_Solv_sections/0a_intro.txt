@@ -1,0 +1,5 @@
+# Learning from Algorithm Feedback: One-Shot SAT Solver Guidance with GNNs  
+
+Jan Tönshoff \* RWTH Aachen University  
+
+Martin Grohe RWTH Aachen University

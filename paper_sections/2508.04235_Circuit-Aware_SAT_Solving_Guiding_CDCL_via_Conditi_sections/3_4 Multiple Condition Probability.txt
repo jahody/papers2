@@ -1,0 +1,5 @@
+Through Equation 5, our model can estimate the probability of a target node conditioned on a single other node. However, in practical Circuit SAT scenarios, it is often more useful to infer the most likely value of a node given that multiple other nodes have already been assigned.  
+
+As illustrated in Figure 3, when multiple condition nodes (denoted as \(C_1, C_2, \ldots , C_k\) ) are involved, we combine them using a chain of two- input and gates to construct a single aggregated condition node \(C\) . This transformation enables the model to capture the joint condition \(C = C_1 \wedge C_2 \wedge \ldots \wedge C_k\) through logical conjunction.  
+
+Once the final condition node \(C\) is obtained, we apply Equation 5 in the same manner as with a single condition node, treating \(P(A | C)\) as the target. This allows the model to generalize single- condition inference to multi- condition scenarios in a structurally consistent way.

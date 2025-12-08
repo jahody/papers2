@@ -1,0 +1,1 @@
+We now briefly introduce some relevant preliminaries on Weighted MaxSAT and hypergraph neural networks that will be leveraged in later sections.

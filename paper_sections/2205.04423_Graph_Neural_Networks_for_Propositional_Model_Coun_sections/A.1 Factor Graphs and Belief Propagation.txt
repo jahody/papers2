@@ -1,0 +1,22 @@
+Belief Propagation (BP) [20] is an approximate inference algorithm that leverages the factor graph arising from its input probability distribution in its computational scheme. Given a probability distribution such as the one of Equation 1, the corresponding factor graph is a bipartite graph in which nodes are partitioned into factor nodes \(F = \{f_{1},\ldots ,f_{m}\}\) (representing the factors of the probability distribution) and variable nodes \(V = \{x_{1},\ldots ,x_{n}\}\) (representing the variables of the probability distribution). There is an undirected edge between a variable node \(x_{i}\in V\) and a factor node \(f_{j}\in F\) if and only if \(f_{j}\) depends on \(x_{i}\) . Using this formalism, the neighbors \(\mathcal{N}(f_{j})\) of a factor node \(f_{j}\in F\) are exactly all the variables appearing in \(f_{j}\) , and the neighbors \(\mathcal{N}(x_{i})\) of a variable node \(x_{i}\in V\) are exactly all the factors that depend on that variable.  
+
+Each node passes messages to its neighbors, so that variables send messages to factor nodes, and viceversa factors send messages to variable nodes, using the the iterative rules detailed in Equation 2.  
+
+It is possible to prove that BP is exact on tree factor graphs (i.e. it returns an exact solution in time linear in the number of variables \(n\) ), however it can be very effective also on loopy graphs. When applied to graphs with loops, it is called Loopy Belief Propagation (LBP).  
+
+After \(T\) iterations of message passing (Equation 2), variables' beliefs (i.e. approximate marginals) \(\{b_{i}(x_{i})\}_{i = 1}^{n}\) are computed as:  
+
+\[\begin{array}{c}{b_{i}(x_{i}) = \frac{1}{Z_{i}}\prod_{f_{j}\in \mathcal{N}(x_{i})}m_{j\to i}^{(T)}(x_{i})}\\ {Z_{i} = \sum_{x_{i}}\prod_{f_{j}\in \mathcal{N}(x_{i})}m_{j\to i}^{(T)}(x_{j})} \end{array} \quad (13)\]
+while factors' beliefs \(\{b_{j}(x_{\mathcal{N}(f_{j})})\}_{j = 1}^{m}\) are computed as:  
+
+\[\begin{array}{r l r} & {} & {b_{j}(x_{\mathcal{N}(f_{j})}) = \frac{f_{j}(x_{\mathcal{N}(f_{j})})}{Z_{j}}\prod_{x_{i}\in \mathcal{N}(f_{j})}m_{i\rightarrow j}^{(T)}(x_{i})}\\ & {} & {Z_{j} = \sum_{x_{\mathcal{N}(f_{j})}}f_{j}(x_{\mathcal{N}(f_{j})})\prod_{x_{i}\in \mathcal{N}(f_{j})}m_{i\rightarrow j}^{(T)}} \end{array} \quad (14)\]  
+
+Using results of Equations 13 and 14, it is possible to compute the Bethe Free Energy \(F\) of Equation 3.  
+
+In order to avoid underflow errors when implementing BP, message updates of Equation 2 are usually performed in log- space, so that they read as follows:  
+
+\[\begin{array}{r l} & {\hat{m}_{i\rightarrow j}^{(k + 1)}(x_{i}) = \sum_{c\in \mathcal{N}(x_{i})\backslash j}\hat{m}_{c\rightarrow i}^{(k)}(x_{i})}\\ & {\hat{m}_{j\rightarrow i}^{(k + 1)}(x_{i}) = \mathrm{LSE}_{x_{1},\ldots ,x_{k}\in \mathcal{N}(f_{j})\backslash x_{i}}\bigg(f_{j}(x_{i},x_{1},\ldots ,x_{k}) + }\\ & {\qquad +\sum_{x_{v}\in \mathcal{N}(f_{j})\backslash x_{i}}\hat{m}_{v\rightarrow i}^{(k)}(x_{v})} \end{array} \quad (15)\]  
+
+where LSE stands for log- sum- exp function, defined as:  
+
+\[\mathrm{LSE}_{x_{j}\backslash x_{i}}(f_{j}(x_{j})) = \ln \big(\sum_{x_{j}\backslash x_{i}}\exp (f_{j}(x_{j}))\big) \quad (16)\]

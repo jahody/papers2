@@ -1,0 +1,5 @@
+# One Model, Any CSP: Graph Neural Networks as Fast Global Search Heuristics for Constraint Satisfaction  
+
+Jan Tönshoff \(^{1}\) , Berke Kisin \(^{2}\) , Jakob Lindner \(^{3}\) , Martin Grohe \(^{4}\)  
+
+\(^{1}\) RWTH Aachen, toenshoff@informatik.rwth- aachen.de \(^{2}\) RWTH Aachen, berke.kisin@rwth- aachen.de \(^{3}\) RWTH Aachen, jakob.lindner@rwth- aachen.de \(^{4}\) RWTH Aachen, grohe@informatik.rwth- aachen.de

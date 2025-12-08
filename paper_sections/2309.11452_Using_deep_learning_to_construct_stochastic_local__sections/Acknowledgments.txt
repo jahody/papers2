@@ -1,0 +1,1 @@
+P.B. thanks Mahdi Manesh for stimulating discussions. Both authors thank Jens Eisert for introducing them to the results of the Moser- Tardos algorithm and related works, which instilled the idea for this work. They thank Porsche Digital GmbH for the possibility to work on this research project. M.K. thanks the BMBF (Hybrid) and the BMWK (EniQmA) for their support.

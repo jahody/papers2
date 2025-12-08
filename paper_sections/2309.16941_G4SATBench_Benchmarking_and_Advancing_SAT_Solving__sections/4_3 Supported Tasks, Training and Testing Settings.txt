@@ -1,0 +1,24 @@
+Prediction tasks. In G4SATBench, we support three essential prediction tasks for SAT solving: satisfiability prediction, satisfying assignment prediction, and unsat- core variable prediction. These tasks are widely used in both standalone neural solvers and neural- guided solvers. Technically, we model satisfiability prediction as a binary graph classification task, where \(1 / 0\) denotes the given SAT instance \(\phi\) is satisfiable/unsatisfiable. Here, we take GNN models on the \(\mathrm{LCG}^{*}\) as an example. After \(T\) message passing iterations, we obtain the graph embedding by applying mean pooling on all literal embeddings, and then predict the satisfiability using an MLP followed by the sigmoid function \(\sigma\) :  
+
+\[y_{\phi} = \sigma \left(\mathrm{MLP}\left(\mathrm{MEAN}\left(\{h_{l}^{(T)},l\in \phi \}\right)\right)\right). \quad (2)\]  
+
+For satisfying assignment prediction and unsat- core variable prediction, we formulate them as binary node classification tasks, predicting the label for each variable in the given CNF formula \(\phi\) . In the case of GNNs on the \(\mathrm{LCG}^{*}\) , we concatenate the embeddings of each pair of literals \(h_{l}\) and \(h_{- l}\) to construct the variable embedding, and then readout using an MLP and the sigmoid function \(\sigma\) :  
+
+\[y_{v} = \sigma \left(\mathrm{MLP}\left(\left[h_{l}^{(T)},h_{-l}^{(T)}\right]\right)\right). \quad (3)\]  
+
+Training objectives. To train GNN models on the aforementioned tasks, one common approach is to minimize the binary cross- entropy loss between the predictions and the ground truth labels. In addition to supervised learning, G4SATBench supports two unsupervised training paradigms for satisfying assignment prediction (Amizadeh et al., 2019a; Ozolins et al., 2022). The first approach aims to differentiate and maximize the satisfiability value of a CNF formula (Amizadeh et al., 2019a). It replaces the \(\neg\) operator with the function \(N(x_{i}) = 1 - x_{i}\) and uses smooth max and min functions to replace the \(\vee\) and \(\wedge\) operators. The smooth max and min functions are defined as follows:  
+
+\[S_{m a x}(x_{1},x_{2},\ldots ,x_{d}) = \frac{\sum_{i = 1}^{d}x_{i}\cdot e^{x_{i} / \tau}}{\sum_{i = 1}^{d}e^{x_{i} / \tau}},\quad S_{m i n}(x_{1},x_{2},\ldots ,x_{d}) = \frac{\sum_{i = 1}^{d}x_{i}\cdot e^{-x_{i} / \tau}}{\sum_{i = 1}^{d}e^{-x_{i} / \tau}}, \quad (4)\]  
+
+where \(\tau \geq 0\) is the temperature parameter. Given a predicted assignment \(x\) , we apply the smoothing logical operators and substitute variables in a formula \(\phi\) with the corresponding values from \(x\) to calculate its satisfiability value \(S(x)\) . Then we can minimize the following loss function:  
+
+\[\mathcal{L}_{\phi}(x) = \frac{(1 - S(x))^{\kappa}}{(1 - S(x))^{\kappa} + S(x)^{\kappa}}. \quad (5)\]  
+
+The second unsupervised loss is defined as follows (Ozolins et al., 2022):  
+
+\[V_{c}(x) = 1 - \prod_{i\in c^{+}}(1 - x_{i})\prod_{i\in c^{-}}x_{i},\quad \mathcal{L}_{\phi}(x) = -\log \Bigl (\prod_{c\in \phi}V_{c}(x)\Bigr) = -\sum_{c\in \phi}\log \bigl (V_{c}(x)\bigr), \quad (6)\]
+where \(c^{+}\) and \(c^{- }\) are the sets of variables that occur in the clause \(c\) in positive and negative form respectively. Note that these two losses reach the minimum only when the prediction \(x\) is a satisfying assignment, thus minimizing such losses could help to construct a possible satisfying assignment.  
+
+Inference algorithms. Beyond the standard readout process like training, G4SATBench offers two alternative inference algorithms for satisfying assignment prediction (Selsam et al., 2019; Amizadeh et al., 2019b). The first method performs 2- clustering on the literal embeddings to obtain two centers \(\Delta_{1}\) and \(\Delta_{2}\) and then partitions the positive and negative literals of each variable into distinct groups based on the predicate \(||x_{i} - \Delta_{1}||^{2} + ||\neg x_{i} - \Delta_{2}||^{2}< ||x_{i} - \Delta_{2}||^{2} + ||\neg x_{i} - \Delta_{1}||^{2}\) (Selsam et al., 2019). This allows the construction of two possible assignments by mapping one group of literals to true. The second approach is to employ the readout function at each iteration of message passing, resulting in multiple assignment predictions for a given instance (Amizadeh et al., 2019b).  
+
+Evaluation metrics. For satisfiability prediction and unsat- core variable prediction, we report the classification accuracy of each GNN model in G4SATBench. For satisfying assignment prediction, we report the solving accuracy of the predicted assignments. If multiple assignments are predicted for a SAT instance, the instance is considered solved if any of the predictions satisfy the formula.

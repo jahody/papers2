@@ -1,0 +1,16 @@
+We report in Table 2 the main results of our experiments on the Logic Equivalence Checking (LEC) and SAT Competition (SAT) datasets, respectively. As can be seen, our proposed GraSS method outperform competing approaches in average runtime, as well as  
+
+<center>Figure 4: Cost of wrong prediction: the runtime difference between predicted solver and the optimal solver, when the selector has made a mistake. Average across five folds are shown, with standard deviation as error bar. Lower is better. </center>  
+
+in percentage of problems solved within our 500s cutoff time. Interestingly, this is true despite the method not being as accurate in selecting the optimal solver for every instance, as measured by the accuracy metric. This suggests that an important component of its success lies in its improved robustness to error: when the method makes mistakes, they impact runtime less than competing methods.  
+
+To understand this phenomenon further, we looked at the runtime difference between the predicted solver and the optimal solver, whenever a mistake is made. As can be seen in Figure 4, the average cost of wrong prediction is substantially lower for our method than for competitors, especially for the SC dataset.  
+
+We further analyze the performance difference between our approach and the next best method in average runtime, SATzilla12. Table 3 regroups the instances by rough measure of difficulty, namely
+Table 4: Comparison of the time taken to compute the features required for each method from .cnf files. We report the mean and standard deviation in seconds over the instances for each dataset.   
+
+<table><tr><td></td><td>LEC</td><td>SC</td></tr><tr><td>Best base solver</td><td>-</td><td>-</td></tr><tr><td>SATzilla07</td><td>6.767</td><td>35.932</td></tr><tr><td>SATzilla12</td><td>8.643</td><td>194.155</td></tr><tr><td>ArgoSmArT</td><td>6.472</td><td>41.266</td></tr><tr><td>CNN</td><td>1.353</td><td>2.401</td></tr><tr><td>GraSS (ours)</td><td>1.232</td><td>33.862</td></tr></table>  
+
+by grouping them by which quartile (0- 25%, 25- 50%, 50- 75% or 75- 100%) their best runtime achieved on any solver falls into, and compares the performance of SATzilla12 and GraSS on each subgroup. As can be seen, SATzilla12 performs better on easy instances, while GraSS performs better on hard instances.  
+
+Finally, as described in Subsection 4.4, our timing results only report the time taken by the solvers in optimizing the instances. In particular, this means we exclude from the numbers the time taken to compute the features necessary to take the decision, which is dependent on the storage format used to save the instances. For our experiments, we chose to save them on a hard drive in the standard .cnf text file format [6], and we report for completeness the time taken to compute the features for each method in Table 4. Other storage formats would lead to different timings.

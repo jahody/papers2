@@ -1,0 +1,1 @@
+For UNSAT- core and backbone prediction in Section 3.2, we train supervised GNN models that are identical in architecture and size to the models used for our RLAF- based policies. The used hyperparameters are specified in Table 4. In the following, we provide a detailed description of how these models are trained and evaluated.

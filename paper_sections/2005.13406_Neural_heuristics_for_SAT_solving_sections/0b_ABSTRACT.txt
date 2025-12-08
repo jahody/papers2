@@ -1,0 +1,1 @@
+We use neural graph networks with a message- passing architecture and an attention mechanism to enhance the branching heuristic in two SAT- solving algorithms. We report improvements of learned neural heuristics compared with two standard human- designed heuristics.

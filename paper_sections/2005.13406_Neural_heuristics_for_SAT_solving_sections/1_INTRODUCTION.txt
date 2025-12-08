@@ -1,0 +1,9 @@
+The Boolean satisfiability problem (SAT) is the problem of determining the existence of a solution for a given propositional logic formula. It is a NP- complete problem, meaning that any NP problem can be reduced to SAT problem in polynomial time [Kar72].  
+
+We explore the possibility of using neural networks in SAT solving as branching heuristics in search algorithms'. We focus on two SAT- solving algorithms: DPLL (Algorithm 1) and more advanced CDCL. Both of those are complete backtracking- based search algorithms. Both depend on the branching heuristic choose- literal, which chooses branching variable and its Boolean value. The expected running time is heavily dependent on the quality  
+
+1: function DPLL(Φ) 2: \(\Phi \gets \mathrm{simplify}(\Phi)\) 3: if \(\Phi\) is trivially satisfiable then return True 4: if \(\Phi\) is trivially unsatisfiable then return False 5: literal \(\leftarrow\) choose- literal(Φ) 6: if DPLL(Φ ∧ literal) then return True 7: if DPLL(Φ ∧ - literal) then return True 8: return False  
+
+Algorithm 1: High level overview of DPLL. In this work, we embed neural network as choose- literal. In DPLL, simplify contains unit propagation and clause elimination. Trivially satisfiable and trivially unsatisfiable for CNF means respectively an empty formula, and a formula containing an empty clause.  
+
+of this heuristic [MS99]. In this work we use neural networks as choose- literal heuristic and compare its performance with DLIS and Jeroslow- Wang One- Sided (JW- OS) heuristics, which are presented in [MS99, MMZ+01] as one of the best strategies in most circumstances. We compare the performance in terms of number of branching decisions and show the possibility of enhancing the performance of SAT solvers with the help of learned heuristics.

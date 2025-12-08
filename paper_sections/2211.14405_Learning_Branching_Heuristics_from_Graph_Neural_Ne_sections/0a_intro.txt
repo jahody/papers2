@@ -1,0 +1,5 @@
+# Learning Branching Heuristics from Graph Neural Networks  
+
+Congsong Zhang \(^{1}\) , Yong Gao \(^{2}\) , and James Nastos \(^{3}\)  
+
+\(^{1,2}\) Department of Computer Science, University of British Columbia Okanagan, Kelowna, BC, Canada \(^{3}\) Department of Computer Science, Okanagan College, Kelowna, BC, Canada \(^{1}\) congsong.zhang@ubc.ca \(^{2}\) yong.gao@ubc.ca \(^{3}\) JNastos@okanagan.bc.ca

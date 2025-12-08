@@ -1,0 +1,15 @@
+# G4SATBench: Benchmarking and Advancing SAT Solving with Graph Neural Networks  
+
+Zhaoyu Li University of Toronto  
+
+zhaoyu@cs.toronto.edu  
+
+Jinpei Guo Shanghai Jiao Tong University  
+
+mike0728@sjtu.edu.cn  
+
+Xujie Si University of Toronto  
+
+six@cs.toronto.edu  
+
+Reviewed on OpenReview: https://openreview.net/forum?id=7VB5db72lr

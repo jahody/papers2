@@ -1,0 +1,3 @@
+In this section, we first introduce the CDCL process and the crucial role of variable decision within it. Then we show how our model targets these stages and interacts with the process.  
+
+<center>Figure 2: CDCL Process </center>

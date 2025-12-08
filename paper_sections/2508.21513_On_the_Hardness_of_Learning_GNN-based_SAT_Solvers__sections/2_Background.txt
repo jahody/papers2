@@ -1,0 +1,1 @@
+This section is only intended to formally introduce the objects studied in the paper and render the material self- contained. We kindly ask the reader to tolerate the occasional whirlwind and abuse of notation, as it will be formalized later in Section 3.

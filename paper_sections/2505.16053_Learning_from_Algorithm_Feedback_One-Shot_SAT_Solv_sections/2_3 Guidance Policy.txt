@@ -1,0 +1,20 @@
+For a given input formula \(\phi\) , we map the output of the GNN \(\mathcal{N}_{\theta}\) to a policy \(\pi_{\theta}(\phi)\) from which a variable parameterization \(\mathcal{W} \sim \pi_{\theta}(\phi)\) can be sampled. Recall that for a given SAT instance the GNN \(\mathcal{N}_{\theta}\) outputs a mapping \(y: \operatorname {Var}(\phi) \to \mathbb{R}^{2}\) that associates every variable \(x \in \operatorname {Var}(\phi)\) with two real numbers \(\mu (x), \rho (x) \in \mathbb{R}\) , \([\mu (x), \rho (x)] = y(x)\) . These outputs are used to parameterize variable- wise weight and polarity distributions, respectively. Concretely, for each variable \(x\) in \(\phi\) we define its weight policy \(\pi_{\theta}^{w}(x)\) as a Log- Normal distribution over positive real weights:  
+
+\[\pi_{\theta}^{w}(x) = \mathrm{LogNormal}(\mu (x),\sigma^{w}) \quad (2)\]  
+
+Here, the inferred parameter \(\mu (x) \in \mathbb{R}\) is used as the log- mean of the distribution, and \(\sigma^{w} \in \mathbb{R}_{>0}\) is a hyperparameter. Log- Normal distributions offer a simple way to model unimodal distributions over positive real numbers and performed best in preliminary experiments. We note that we also observed reasonable training convergence when using both Poisson and truncated normal distributions for variable weights, and more options may be explored in future work.  
+
+Analogously, we define a variable's polarity policy \(\pi_{\theta}^{p}(x)\) as a Bernoulli distribution where the probability is obtained by applying a sigmoid function to \(\rho (x)\) :  
+
+\[\pi_{\theta}^{p}(x) = \mathrm{Bernoulli}(\mathrm{Sigmoid}(\rho (x))). \quad (3)\]  
+
+The complete variable parameterization policy \(\pi_{\theta}\) is then defined as the joint distribution of \(\pi_{\theta}^{w}(x)\) and \(\pi_{\theta}^{p}(x)\) over all variables:  
+
+\[\pi_{\theta}(\phi) = \pi_{\theta}^{w}(x_{1}) \times \pi_{\theta}^{p}(x_{1}) \times \dots \times \pi_{\theta}^{w}(x_{n}) \times \pi_{\theta}^{p}(x_{n}). \quad (4)\]  
+
+We sample a variable parameterization \(\mathcal{W} = (w,p) \sim \pi_{\theta}\) from this distribution in one shot by independently sampling a weight \(w(x) \sim \pi_{\theta}^{w}(x)\) and polarity \(p(x) \sim \pi_{\theta}^{p}(x)\) for each variable \(x\) in parallel. The probability density \(\pi_{\theta}(\mathcal{W}|\phi)\) of \(\mathcal{W}\) can then be factorized as  
+
+\[\pi_{\theta}(\mathcal{W}|\phi) = \prod_{x}\pi_{\theta}^{w}(w(x)|\phi)\cdot \pi_{\theta}^{p}(p(x)|\phi). \quad (5)\]
+<center>Figure 3: Learning to accelerate a SAT solver with GRPO: a) For a given training formula \(\phi\) sample multiple variable parameterizations i.i.d. from the current policy \(\pi_{\theta}(\phi)\) . b) Run the SAT solver on \(\phi\) with each parameterization. c) Map the cost of each solver run (i.e. the number of decisions) to the normalized group-relative advantage \(\hat{A} (\phi ,\mathcal{W})\) . d) Optimize the model weights \(\theta\) to maximize \(\mathcal{L}_{\mathrm{PPO}}\) to shift the policy towards faster parameterizations. </center>  
+
+Note that all trainable weights of the GNN model have a partial derivative with respect to \(\pi_{\theta}(\mathcal{W}|\phi)\) for a given \(\mathcal{W}\) , which enables us to train with policy- gradient methods such as GRPO. During training, we sample multiple \(\mathcal{W}\) i.i.d. from \(\pi_{\theta}(\phi)\) and use the variance of the observed solver runtimes to compute our training signal, as explained in Section 2.4. At test time, we do not sample randomly from \(\pi_{\theta}(\phi)\) but simply use the mode \(\hat{\mathcal{W}}\) , which deterministically chooses the most probable weight and polarity for each variable \(x\) . This eliminates a source of variance when testing and, on average, yields better results than sampling at random from the learned policy.

@@ -1,0 +1,1 @@
+6 ACKNOWLEDGEMENTSThis was work was supported by (1) the Polish National Science Center grant UMO- 2018/29/B/ST6/02959 (2) the TensorFlow Research Cloud which granted 50 TPUs (3) the Academic Computer Center Cyfronet at the AGH University of Science and Technology in Kraków, Poland.

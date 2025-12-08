@@ -1,0 +1,4 @@
+We implement the models MS- NSFG and MS- ESFG in Python, and examine their practical performance to solve MaxSAT problem<sup>2</sup>. The models are trained by the Adam optimizer (Kingma and Ba 2015). All the experiments are run
+ning on a machine with Intel Core i7- 8700 CPU (3.20GHz) and NVIDIA Tesla V100 GPU.  
+
+For reproducibility, we also summarize the setting of hyper- parameters as follows. In our configuration, the dimension of embeddings and messages \(d = 128\) , and the learning rate is \(2 \times 10^{- 5}\) with a weight decay of \(10^{- 10}\) . Unless otherwise specified, the number of GNN layers \(T = 20\) . The instances are fed into models in batches, with each batch containing 20K nodes.

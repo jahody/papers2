@@ -1,0 +1,5 @@
+In most cases, conditioning on a specific node \(C\) primarily affects a local subregion of the circuit rather than its entirety. We define this subregion as the influence area of \(C\) , constructed in three steps. First, we identify the fanin cone of  
+
+\(C\) . Within this cone, we then locate an ancestor node \(P\) that satisfies two conditions: it has multiple fanouts, and it differs from \(C\) by no more than 10 logic levels. Finally, starting from \(P\) , we collect all nodes within its fanout cone, bounded to a depth of 10 logic levels downstream.  
+
+We use a dataset of 10,824 AIGs from ITC99 (Davidson 1999), EPFL (Amaru et al. 2019), and OpenCore (OpenCore 1999), with circuit sizes ranging from 36 to 3,214 gates. To make conditional information explicitly available to the model, we insert and and div gates within each node's influence area. For supervision, we conduct 20,000 random simulations per circuit to record full truth assignments.

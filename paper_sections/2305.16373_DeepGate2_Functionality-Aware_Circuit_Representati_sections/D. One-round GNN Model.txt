@@ -1,0 +1,22 @@
+In this subsection, we propose a GNN model that can capture both functional and structural information for each logic gate through one- round forward propagation.  
+
+First, we propose to separate the functional embeddings \(hf\) and structural embeddings \(hs\) , and initialize them in difference ways. We assign the uniform initial functional embeddings to primary inputs (PI), as they all have equivalent logic probability under random simulation. However, we design a PI encoding (PIE) strategy by assigning a unique identification to each PI as its initial structural embedding. Specifically, the initial PI structural embeddings \(hs_{i}, i \in PI\) are orthogonal vectors. This means that the dot product of any two PIs' embeddings is zero.  
+
+Second, we design four aggregators: \(agg_{AND}^{r}\) aggregates the message for structural embedding \(hs\) of an AND gate, \(agg_{AND}^{r}\) aggregates the message for functional embedding \(hf\) of an AND
+<center>Fig. 3. One-round GNN propagation process </center>  
+
+gate. \(agg r_{NOT}^{s}\) and \(agg r_{NOT}^{f}\) update \(h s\) and \(h f\) of a NOT gate, respectively.  
+
+We implement each aggregator using the self- attention mechanism [20], as the output of a logic gate is determined by the controlling values of its fan- in gates. For example, an AND gate must output logic- 0 if any of its fan- in gates has logic- 0. By employing the attention mechanism, the model learns to assign greater importance to the controlling inputs [7]. As illustrated in Eq. (5), \(w_{q}\) , \(w_{k}\) and \(w_{v}\) are three weight matrices and \(d\) is the dimension of embedding vectors \(h\) .  
+
+\[\begin{array}{l}\alpha_{j} = softmax(\frac{w_{q}^{\top}h_{i}\cdot(w_{k}^{\top}h_{j})^{\top}}{\sqrt{d}})\\ m_{j} = w_{v}^{\top}h_{j}\\ h_{i} = agg r(h_{j}|j\in \mathcal{P}(i)) = \sum_{j\in \mathcal{P}(i)}(\alpha_{j}*m_{j}) \end{array} \quad (5)\]  
+
+Third, during forward propagation, the structural embeddings are updated only with the structural embeddings of predecessors. As shown in Eq. (6), where the Gate \(a\) is AND gate, the Gate \(b\) is NOT gate.  
+
+\[\begin{array}{l} h s_{a} = agg r_{A N D}^{s}(h s_{j}|j\in \mathcal{P}(a)) \\ h s_{b} = agg r_{N O T}^{s}(h s_{j}|j\in \mathcal{P}(b)) \end{array} \quad (6)\]  
+
+At the same time, the gate function is determined by the function and the structural correlations of the fan- in gates. Therefore, the functional embeddings are updated as Eq. (7).  
+
+\[\begin{array}{l} h f_{a} = agg r_{A N D}^{f}([h s_{j},h f_{j}]|j\in \mathcal{P}(a))\\ h f_{b} = agg r_{N O T}^{f}([h s_{j},h f_{j}]|j\in \mathcal{P}(b)) \end{array} \quad (7)\]  
+
+Therefore, as shown in Fig. 3, the GNN propagation process performs from PI to PO level by level. For the node in level \(l\) , its structural embedding \(h s_{L_{l}}\) will be updated with the structural embeddings of the node in level \(l - 1\) . Additionally, the functional embedding \(h f_{L_{l}}\) will be updated with both structural embeddings \(h s_{L_{l - 1}}\) and functional embeddings \(h f_{L_{l - 1}}\) . The GNN propagation completes after processing \(N\) levels.

@@ -1,0 +1,6 @@
+The Graph Attention Network (GAT) is a graph neural network model that leverages attention mechanisms to dynamically aggregate information from neighboring nodes. Its key advantage is the ability to assign adaptive attention weights to different neighbors, capturing the relative importance of each node in the graph. For a target node \(\mathbf{v}\) and its neighbor \(u \in N(v)\) (where \(\mathrm{N(v)}\) denotes the set of neighbors of \(\mathbf{v}\) ), the attention weight \(\alpha_{vu}\) (representing the importance of node \(u\) to node \(\mathbf{v}\) ) is defined as:  
+
+\[\alpha_{vu} = \frac{exp(LeakyReLU(a^{T}[Wh_{v}||Wh_{u}]))}{\sum_{k\in N(v)}exp(LeakyReLU(a^{T}[Wh_{v}||Wh_{k}]))} \quad (4)\]
+where \(W \in \mathbb{R}^{d' \times d}\) a learnable weight matrix; \(a \in \mathbb{R}^{2d'}\) is a learnable attention vector; \(||\) denotes vector concatenation; The updated representation \(h_v'\) of node v is obtained by weighted aggregation of information from neighboring nodes:  
+
+\[h_v' = \sigma (\sum_{u \in N(v)} \alpha_{vu} W h_u) \quad (5)\]

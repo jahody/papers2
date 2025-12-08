@@ -1,0 +1,9 @@
+Basic background knowledge of propositional logic is assumed, cf. [2]. Boolean variables are denoted by \(x_{1},x_{2},\ldots\) ; disjunction by \(\vee\) , conjunction by \(\wedge\) , and negation by \(\neg\) . A literal is a variable or its negation; a clause is a disjunction of literals. For a literal \(l\) we write \(\bar{l}\) for the complementary literal of \(l\) , i.e. \(\bar{x}\) is \(\neg x\) and \(\neg \bar{x}\) is \(x\) . A formula in conjunctive normal form (CNF) is a conjunction of clauses. Whenever convenient, a clause is treated as a set of literals and a CNF formula as a set of sets of literals. A clause is called unit iff it consists of a single literal.  
+
+An assignment is a total mapping from variables to \(\{0,1\}\) , representing true/false. An assignment \(\sigma\) is satisfying a formula \(\phi\) iff \(\phi\) evaluates to true under the standard semantics of Boolean connectives. In particular, an assignment satisfies a CNF \(\phi\) iff it satisfies at least one literal in each clause.  
+
+There exist multiple representations of CNF formulas in the form of a graph. In this work, we use the literal- clause factor graph, which is an undirected bipartite graph of clauses and literals. Each node of a literal in this graph is connected to nodes of clauses that contain this literal.  
+
+MaxSAT is an optimization version of SAT where one is given a CNF \(\phi\) and the objective is to find a variable assignment that maximizes the number of satisfied clauses. For instance, in \(\{x_{1}\vee x_{2},\neg x_{1},\neg x_{2}\}\) the assignment \(x_{1} = 1,x_{2} = 0\) satisfies the first 2  
+
+clauses but not the last one, and it is optimal because the 3 clauses cannot be satisfied simultaneously. The problem is NP- hard even for formulas that have only 2 literals in each clause [22].

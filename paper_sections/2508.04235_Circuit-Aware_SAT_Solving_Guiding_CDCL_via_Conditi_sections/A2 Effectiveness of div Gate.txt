@@ -1,0 +1,11 @@
+The div gate explicitly models conditional probability in the circuit graph via the following equation:  
+
+\[P(A\mid C) = \frac{P(A\wedge C)}{P(C)}. \quad (A3)\]  
+
+While this formulation is convenient, the division operation can amplify errors significantly when \(P(C)\) is very small (always smaller than 1, as it represents the logic probability of node \(C\) ). To illustrate this behavior, we analyze two representative cases using ac97_ctrl.aig as a case study.  
+
+Case 1: Extremely Small \(P(C)\) . In this scenario, when the conditional node rarely evaluates to 1 ( \(P(C) = 0.01\) ), even minor absolute errors in \(P(A\wedge C)\) translate into large relative errors in \(P(A\mid C)\) . Table A1 presents the ground- truth and predicted probabilities for \(P(C)\) and a subset of 20 target nodes \(A\) . The prediction error for \(P(C)\) is moderate ( \(\hat{P} (C) = 0.00323\) ), yet the resulting conditional probabilities are significantly distorted due to error amplification.  
+
+Case 2: Moderate \(P(C)\) . When \(P(C)\) is in a mid- range (e.g., \(P(C) > 0.3\) ), the division operation becomes relatively numerically stable. However, it still amplifies errors in \(P(A\mid C)\) to an extent that is practically unacceptable. Table A2 compares aggregate losses, showing that the overall absolute error remains greater than 0.1.  
+
+In contrast, our method incorporates the div gate during the dataset preparation stage. The probability labels for the DIV gate are computed as the division of the probabilities of its two input nodes, which are tagged with distinct positional markers. By learning this behavior as a standard gate type, the model directly internalizes the division operation, eliminating the need to explicitly compute the quotient of joint and marginal probabilities.

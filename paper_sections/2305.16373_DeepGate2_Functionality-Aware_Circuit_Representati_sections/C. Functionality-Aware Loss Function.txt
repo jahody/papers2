@@ -1,0 +1,11 @@
+The primary objective of our purposed functionality- aware circuit learning model is to learn node embeddings, where two embedding vectors will be similar if the corresponding two node function are similar. As we sample node pairs \(\mathcal{N}\) in the Section III- B, we can obtain the Hamming distance of truth table \(D^{T}\) of each node pair.  
+
+\[D_{(i,j)}^{T} = \frac{HammingDistance(T_{i},T_{j})}{length(T_{i})},(i,j)\in \mathcal{N} \quad (2)\]  
+
+According to Eq. (1), the distance of embedding vectors \(D^{H}\) should be proportional to the Hamming distance of the truth table \(D^{T}\) . We define the distance of embedding vectors in Eq. (3), where is calculated based on cosine similarity. In other word, the similarity of embedding vectors \(S_{(i,j)}\) should be negative related to distance \(D_{(i,j)}^{T}\) .  
+
+\[\begin{array}{l}{S_{(i,j)} = CosineSimilarity(h_i,h_j)}\\ {D_{(i,j)}^H = 1 - S_{(i,j)}} \end{array} \quad (3)\]  
+
+Therefore, the training objective is to minimize the difference between \(D^{H}\) and \(D^{T}\) . We purpose the functionality- aware loss function \(L_{func}\) as below.  
+
+\[\begin{array}{l}{D_{(i,j)}^{T^{\prime}} = ZeroNorm(D_{(i,j)}^{T})}\\ {D_{(i,j)}^{H^{\prime}} = ZeroNorm(D_{(i,j)}^{H})}\\ {L_{func} = \sum_{(i,j)\in \mathcal{N}}(L1Loss(D_{(i,j)}^{T^{\prime}},D_{(i,j)}^{H^{\prime}}))} \end{array} \quad (4)\]

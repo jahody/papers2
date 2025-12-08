@@ -1,0 +1,30 @@
+It is clear that an oracle can be more or less suited to an instance. For example, for a given instance \(\phi\) , a "perfect" oracle, one that samples an element from \(\Pi (\phi)\) with unit probability, leads to convergence of both of the above algorithms in a single step. Of course, perfect oracles are hard to come by, since they imply having solved the problem that we address. Fortunately, over the past 15 years, researchers from theoretical computer science have been able to prove that oracle- based SLS with access to a "sufficiently good" oracle are guaranteed to find a solution efficiently.  
+
+To formulate these results, we need to introduce some additional concepts and notation. Let \(O\) be an oracle, \(\phi\) be a given Boolean formula in CNF with \(n\) variables and \(m\) clauses and let  
+
+\[P_{O}(J|\phi) = \sum_{x\in X_{n}:c_{j}(x) = 1} P_{O}(x) \quad (4)\]  
+
+be the probability that a sample \(x\sim O\) violates the clauses \(J\subseteq [m]\) . We define the dependency graph \(\mathcal{D}_{O}(\phi)\) induced by this distribution as the graph that has \(m\) nodes and with two nodes \(j,j^{\prime}\) being connected by an edge whenever they are not statistically independent, i.e.  
+
+\[P_{O}(\{j,j^{\prime}\} |\phi)\neq P_{O}(j|\phi)\cdot P_{O}(j^{\prime}|\phi). \quad (5)\]  
+
+Given this graph, let \(\Gamma (j)\) denote the exclusive neighbourhood of node \(j\) in this graph and \(\Gamma^{+}(j) = \Gamma (j)\cup \{j\}\) as the inclusive neighbourhood. We then have the following proposition, which is implied by the main result of Ref. [13]:  
+
+Proposition 2.1. Given a formula \(\phi\) in CNF- form, if there exists a map \(\mu :[m]\to [0,\infty)\) such that, for all \(j\in [m]\)  
+
+\[P_{O}(j|\phi)\cdot \Pi_{j^{\prime}\in \Gamma^{+}(j)}(1 + \mu (j^{\prime}))\leq \mu (j), \quad (6)\]  
+
+then \(\phi\) is satisfiable and the MT algorithm with access to \(O\) will find a solution to \(\phi\) in an expected \(\sum_{j}\mu (j)\) number of steps.  
+
+The "perfect" oracle clearly satisfies this proposition, as \(P_{O}(j|\phi) = 0\) for all \(j\) , so that we can simply set \(\mu (j) = 0\) for all \(j\) . Importantly, however, there can be imperfect oracles that still satisfy this condition. For instance, consider a
+\(k\) - SAT instance \(\phi\) in which each clause carries at most \(k\) literals and each variable appears in at most \(\frac{2^{k}}{(k + 1)\epsilon}\) clauses. Then, by setting \(\mu (j) = e / 2^{k}\) for all \(j\) and using the fact that \((1 + 1 / r)^{r}\leq e\) for all \(r > 0\) , we find that the uniform oracle over \(I_{n}\) satisfies (6) and hence the MT algorithm would find a solution to \(\phi\) despite it being not tuned to \(\phi\) at all.  
+
+As such, Proposition 2.1 strongly motivates the search for oracles that satisfy (6). Moreover, more recent results further motivate the construction of oracles that satisfy (6) only approximately or for instances that are in fact unsatisfiable. In particular, results in Ref. [14] imply the following:  
+
+Proposition 2.2. Given a formula \(\phi\) in CNF- form, and a map \(\mu :[m]\to [0,\infty)\) , there exists a simple extension to the MT algorithm that takes as input \(\phi\) , \(\mu\) and an oracle \(O\) , that runs an expected \(\sum_{j}\mu (j)\) number of steps and whose output \(x\) , for every \(j\in [m]\) , violates clause \(c_{j}\) with probability  
+
+\[\mathrm{Prob}(c_{j}(x) = 1)\leq \max (0,\epsilon_{O,\mu}(j)), \quad (7)\]  
+
+where \(\epsilon_{O,\mu}(j) = P_{O}(j|\phi)\cdot \Pi_{j^{\prime}\in \Gamma^{+}(j)}(1 + \mu (j^{\prime})) - \mu (j)\) .  
+
+This proposition implies that it is in our interest to construct oracles that minimize the set of \(\epsilon_{O,\mu}(j)\) , even if we're not able to satisfy condition (6) or work on satisfiable instances, such as in the case of the MaxSAT optimization problem, which is concerned with solvers that return elements in \(\Pi (\phi)\) also for unsatisfiable instances.

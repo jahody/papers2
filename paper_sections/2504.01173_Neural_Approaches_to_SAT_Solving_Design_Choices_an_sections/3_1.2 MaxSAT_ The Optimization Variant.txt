@@ -1,0 +1,10 @@
+The Maximum Satisfiability problem (MaxSAT) is the optimization version of SAT. Given a CNF formula \(\phi\) , the goal is to find an assignment that maximizes the number of satisfied clauses. This formulation is particularly useful when a formula is unsatisfiable, as MaxSAT still yields the best possible solution.  
+
+MaxSAT has several variations that differ in their expressiveness and the way they handle the importance of clauses. In unweighted MaxSAT, all clauses have equal importance. Weighted MaxSAT assigns a positive weight to each clause, with the objective being to maximize the sum
+of weights of satisfied clauses. In some variants (Partial MAX- SAT Fu and Malik [2006]), clauses are categorized as hard or soft, where hard clauses must be satisfied (often with infinite weight), and soft clauses are those that can be violated but contribute to the objective based on their weight. While weighted variants exist, in this paper we focus exclusively on the unweighted formulation.  
+
+Formally, for a CNF formula \(\phi = c_{1} \wedge c_{2} \wedge \dots \wedge c_{m}\) with \(m\) clauses, the unweighted MaxSAT problem seeks an assignment \(\sigma^{*}\) such that:  
+
+\[\sigma^{*} = \arg \max_{\sigma}\sum_{i = 1}^{m}\mathbf{1}(\sigma \mathrm{~satisfies~}c_{i}) \quad (1)\]  
+
+where \(\mathbf{1}(\cdot)\) is the indicator function.

@@ -1,0 +1,1 @@
+RQ1: Does the proposed STRCMP identify superior algorithmic implementations compared to existing algorithm discovery approaches? RQ2: Does the proposed composite model effectively reduce computational overhead in existing algorithm discovery frameworks? RQ3: Does the structural prior benefit the generative model in solving combinatorial optimization problems?

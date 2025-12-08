@@ -1,0 +1,1 @@
+Here, we will provide a formal definition of our architecture and training procedure. We also give information on model selection and hyperparameters and discuss some implementation details.

@@ -1,0 +1,22 @@
+Given a graph \(\mathcal{G} = (\mathcal{V},\mathcal{E})\) , where \(\nu\) is a set of nodes and \(\mathcal{E}\) is a set of edges between nodes. The CO problems on graphs are to find a subset of nodes \(\mathcal{S}\) under given constraint conditions so that the number of edges between the nodes in \(\mathcal{S}\) satisfies a specific condition and the objective function can be maximized or minimized. Generally, the CO can be expressed as:  
+
+\[\begin{array}{r}{\max f(\mathcal{S}),}\\ {g_{i}(\mathcal{S})\leqslant b_{i},b_{i}\in \Omega ,} \end{array} \quad (3.1b)\]  
+
+where \(f(\mathcal{S})\) is the objective function, \(g_{i}(\mathcal{S})\) is the constraint condition function, \(b_{i}\) is the boundary of the constraint condition, and \(\Omega\) is the set of constraint indicators. In the following part, we give three concrete CO problems on graphs.  
+
+Max- Cut Problem Given a graph \(\mathcal{G} = (\mathcal{V},\mathcal{E})\) , the goal of the Max- Cut problem is to find a partition that divides \(\nu\) into subset \(\mathcal{S}\) and its complementary set \(\mathcal{S}^{\prime} = \mathcal{V} - \mathcal{S}\) where the number of cuts between \(\mathcal{S}\) and \(\mathcal{S}^{\prime}\) is maximized. The cuts refer to the edges between \(\mathcal{S}\) and \(\mathcal{S}^{\prime}\) . The objective function of Max- Cut can be denoted as:  
+
+\[f(\mathcal{S}) = \sum_{e_{i,j}\in \mathcal{E}}\big(v_{i} + v_{j} - 2v_{i}v_{j}\big), \quad (3.2)\]  
+
+where \(v_{i} = 1\) when \(v_{i}\in \mathcal{S}\) and \(v_{i} = 0\) otherwise, and \(e_{i,j}\) is the edge between nodes \(v_{i}\) and \(v_{j}\)
+Maximum Independent Set (MIS) Problem Given a graph \(\mathcal{G} = (\mathcal{V}, \mathcal{E})\) , the maximum independent set problem aims to find a node set \(\mathcal{S}\) with a maximal number of nodes where there are no edges between any two nodes in this set. The objective function and constraint conditions of the maximum independent set problem can be denoted as:  
+
+\[\begin{array}{l}{f(\mathcal{S}) = \sum_{v_{i}\in \mathcal{V}}v_{i},}\\ {v_{i} + v_{j}\leqslant 1|\forall e_{i,j}\in \mathcal{E},} \end{array} \quad (3.3a)\]  
+
+where \(v_{i} = 1\) when \(v_{i} \in \mathcal{S}\) and \(v_{i} = 0\) otherwise.  
+
+Minimum Dominated Set (MDS) Problem Given a graph \(\mathcal{G} = (\mathcal{V}, \mathcal{E})\) , the goal of the minimum dominated set problem is to find a dominated set \(\mathcal{S}\) where each node \(v_{i} \in \mathcal{V}\) or at least one of its neighbor nodes belongs to the dominated set \(\mathcal{S}\) . The number of nodes in \(\mathcal{S}\) should also be minimized. The objective function and constraint conditions of the minimum dominated set problem can be denoted as:  
+
+\[\begin{array}{l}{f(\mathcal{S}) = -\sum_{v_{i}\in \mathcal{V}}v_{i},}\\ {v_{i} + v_{j}\geqslant 1|e_{i,j}\in \mathcal{E},\forall v_{i}\in \mathcal{V},} \end{array} \quad (3.4a)\]  
+
+where \(v_{i} = 1\) when \(v_{i} \in \mathcal{S}\) and \(v_{i} = 0\) otherwise.

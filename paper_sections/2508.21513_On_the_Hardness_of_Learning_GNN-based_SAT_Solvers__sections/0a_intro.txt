@@ -1,0 +1,3 @@
+# On the Hardness of Learning GNN-based SAT Solvers: The Role of Graph Ricci Curvature  
+
+Geri Skenderi  Bocconi Institute for Data Science and Analytics  Bocconi University  geri.skenderi@unibocconi.it

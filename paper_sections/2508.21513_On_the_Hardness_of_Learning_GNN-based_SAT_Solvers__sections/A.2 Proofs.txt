@@ -1,0 +1,75 @@
+For the sake of clarity and exposition, we report here both the formal statements alongside their respective proofs.  
+
+Proposition 3.1. Let \(i\sim j\) be an edge from the Literal- Clause Graph (LCG) representation \(G\) of a random k- SAT problem with \(N\) variables and \(M\) clauses, with degree distributions given by Equations 6 and 3. Then \(\mathbb{E}_{(i\sim j)}[\kappa (i,j)]\to 0\) and \(\mathbb{E}_{(i\sim j)}[R i c(i,j)]\to 0\) as \(\alpha = \frac{M}{N}\to 0\)  
+
+Proof. As \(\alpha \to 0\) the expected value of the literal degree becomes:  
+
+\[\lim_{\alpha \to 0}\mathbb{E}_{d_{i}\sim P^{*}(d_{i})}[d_{i}] = \lim_{\alpha \to 0}\frac{\lambda e^{\lambda}}{e^{\lambda} - 1} = \lim_{\alpha \to 0}e^{\lambda}\cdot \lim_{\alpha \to 0}\frac{\lambda}{e^{\lambda} - 1} = 1\cdot \lim_{\alpha \to 0}\frac{1}{\frac{e^{\lambda} - 1}{\lambda}} = 1, \quad (17)\]  
+
+where the last equality is obtained due to the fact that \(\begin{array}{r}{\lim_{\alpha \to 0}\lambda = \lim_{\alpha \to 0}\frac{1}{2}\alpha k = 0} \end{array}\) and the limit formula \(\begin{array}{r}{\lim_{x\to 0}\frac{a^{x} - 1}{x} = \ln \left(a\right)} \end{array}\)  
+
+Given the average degree of the literals that act as an endpoint of at least one edge is 1 in this limiting case, by definition of the lower bound in Equation 8, we obtain that \(\begin{array}{r}{\lim_{\alpha \to 0}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)] = 0} \end{array}\) . As a lower bound, \(\bar{R} (i,j)\) satisfies the following inequality [5, 47]:  
+
+\[-2< \bar{R} (i,j)\leq R i c(i,j)\leq \kappa (i,j)\leq 0 \quad (18)\]  
+
+Given that both limits and expectations preserve weak inequalities, by sandwiching we obtain:  
+
+\[\begin{array}{r l} & {\underset {\alpha \to 0}{\lim}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)] = 0\leq \underset {\alpha \to 0}{\lim}\mathbb{E}_{(i\sim j)}[R i c(i,j)]\leq \underset {\alpha \to 0}{\lim}\mathbb{E}_{(i\sim j)}[\kappa (i,j)]\leq 0}\\ & {\underset {\alpha \to 0}{\lim}\mathbb{E}_{(i\sim j)}[\kappa (i,j)] = \underset {\alpha \to 0}{\lim}\mathbb{E}_{(i\sim j)}[R i c(i,j)] = 0} \end{array} \quad (20)\]  
+
+Proposition 3.2. Let \(i\sim j\) be an edge from the LCG representation \(G\) of a random k- SAT problem with \(N\) variables and \(M\) clauses, with degree distributions given by Equations 6 and 3. Then \(\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)]\to \frac{2}{k} - 2\) as \(\alpha = \frac{M}{N}\to \infty\)  
+
+Proof. As \(\alpha \to \infty\) the expected value of the literal degree becomes:  
+
+\[\lim_{\alpha \to \infty}\mathbb{E}_{d_{i}\sim P^{*}(d_{i})}[d_{i}] = \lim_{\alpha \to \infty}\frac{\lambda e^{\lambda}}{e^{\lambda} - 1} = \lim_{\alpha \to \infty}\frac{1}{\frac{1}{\lambda} - \frac{1}{\lambda e^{\lambda}}} = \infty , \quad (21)\]  
+
+therefore we can consider the lower bound as consisting only of \(\begin{array}{r}{\underline{{R}} (i,j)] = \frac{2}{d_{i}} +\frac{2}{d_{j}} - 2} \end{array}\) (ignoring the uninteresting case when \(k = 1\) ). Given that the expected value is a linear operation, we obtain that:  
+
+\[\lim_{\alpha \to \infty}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)] = \frac{2}{\lim_{\alpha \to \infty}\mathbb{E}_{d_{i}\sim P^{*}(d_{i})}[d_{i}]} +\frac{2}{k} -2 = \frac{2}{k} -2 \quad (22)\]  
+
+Theorem 3.1. Let \(i\sim j\) be an edge from the LCG representation \(G\) of a random k- SAT problem with \(N\) variables and \(M\) clauses, with degree distributions given by Equations 6 and 3. The BFC at \(i\sim j\) is bounded from above by the quantity:  
+
+\[\bar{R} (i,j)\coloneqq \frac{2}{d_{i}} +\frac{2}{d_{j}} -2 + \frac{d_{i} + k - 2}{\max \{k - 1,M - 1\} \max \{d_{i},d_{j}\}}. \quad (23)\]  
+
+Furthermore, as \(\begin{array}{r}{\alpha = \frac{M}{N}\to \infty ,\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)]\to \frac{2}{k} - 2} \end{array}\) and therefore the average BFC over the edges of \(G\) converges to \(\mathbb{E}_{(i\sim j)}[R i c(i,j)]\to \frac{2}{k} - 2\)
+Proof. We first prove the construction of the upper bound, which we can then use to prove the convergence of the expectation via sandwiching, similarly to the proof of Proposition 3.1. Please note that the definitions for each component of the graph BFC are given in Appendix A.1.2 and we will not be restating them here to avoid repetition.  
+
+To start, notice that the BFC on \(G\) takes a simpler form compared to the more general, original definition A.2:  
+
+\[R i c(i,j)\coloneqq \frac{2}{d_{i}} +\frac{2}{d_{j}} -2 + \frac{(\gamma_{\mathrm{max}}(i,j))^{-1}}{\max \{d_{i},d_{j}\}} (|\sharp_{\square}^{i}| + |\sharp_{\square}^{j}|), \quad (24)\]  
+
+This result follows from the fact that bipartite graphs have no triangles, i.e., \(\sharp_{\Delta}(i,j) = 0 \forall (i,j) \in E\) . Our main focus for now will the rightmost term, which constitutes the difference between \(\mathrm{Ric}(i,j)\) and \(\underline{{R}}(i,j)\) (Equation 8). Firstly note that this term is, by definition, non- negative. This implies that \(\underline{{R}}(i,j)\) of \(\mathrm{Ric}(i,j)\) .  
+
+We can simplify the definitions of the 4- cycle forming neighbors to match the bipartite topology of \(G\) :  
+
+\[\begin{array}{r l} & {\sharp_{\square}^{i}(i,j)\coloneqq \{k\in S_{1}(i)\setminus \{k\} :\exists w\in (S_{1}(k)\cap S_{1}(j))\setminus \{i\} \} ,}\\ & {\sharp_{\square}^{j}(i,j)\coloneqq \{k\in S_{1}(j)\setminus \{k\} :\exists w\in (S_{1}(k)\cap S_{1}(i))\setminus \{j\} \} .} \end{array} \quad (25)\]  
+
+By definition of \(S_{1}(\cdot)\) it follows immediately that the cardinality of both sets is bounded above by the node degrees:  
+
+\[\begin{array}{r l} & {|\sharp_{\square}^{i}(i,j)|\leq d_{i} - 1,}\\ & {|\sharp_{\square}^{j}(i,j)|\leq d_{j} - 1 = k - 1.} \end{array} \quad (28)\]  
+
+We now turn to the term \(\gamma_{\mathrm{max}}(i,j)\) , whose definition can also be simplified, as a consequence of the topology of \(G\) . Consider first the symmetric adjacency matrix of a bipartite graph, given by:  
+
+\[A = \left[ \begin{array}{ll}0 & B\\ B^{T} & 0 \end{array} \right]\in \{0,1\}^{N + M\times N + M}, \quad (29)\]  
+
+where \(B\) is an \(N\times M\) incidence matrix with \(B_{i j} = 1\) if there if \(i\sim j\in E\) , and \(B_{i j} = 0\) otherwise, \(B^{T}\) is the transpose of \(B\) (which ensures that \(A\) is symmetric), and \(\mathbf{0}\) are zero blocks of size \(N\times N\) and \(M\times N\) corresponding to the absence of edges within the partitions. We can thus express \(\gamma_{\mathrm{max}}(i,j)\) as:  
+
+\[\gamma_{\mathrm{max}}(i,j)\coloneqq \max \left\{\max_{k\in \sharp_{\square}^{i}}\{A_{k}\cdot A_{j} - 1\} ,\max_{w\in \sharp_{\square}^{j}}\{A_{w}\cdot A_{i} - 1\} \right\} , \quad (30)\]  
+
+since \(A_{i}\odot A_{j} = \mathbf{0}\) . The operation \(A_{k}\cdot A_{j} = \nu \in \mathbb{N}_{0}\) returns the number of common neighbors \(\nu\) that nodes \(k\) and \(j\) have, with \(k\) and \(j\) being in the same partition. Therefore, we have the following inequalities that can be used to derive an upper bound for \(\gamma_{\mathrm{max}}(i,j)\) :  
+
+\[\begin{array}{r l} & {\max_{k\in \sharp_{\square}^{i}}\{A_{k}\cdot A_{j} - 1\} \leq k - 1,}\\ & {\max_{w\in \sharp_{\square}^{j}}\{A_{w}\cdot A_{i} - 1\} \leq M - 1,}\\ & {\gamma_{\mathrm{max}}(i,j)\leq \max \{k - 1,M - 1\} .} \end{array} \quad (31)\]  
+
+Putting everything together we obtain:  
+
+\[0\leq \frac{(\gamma_{\mathrm{max}}(i,j))^{-1}}{\max \{d_{i},d_{j}\}} (|\sharp_{\square}^{i}| + |\sharp_{\square}^{j}|)\leq \frac{d_{i} + k - 2}{\max \{k - 1,M - 1\} \cdot \max \{d_{i},d_{j}\}}, \quad (34)\]  
+
+so that we can write:  
+
+\[-2< \underline{{R}} (i,j)\leq R i c(i,j)\leq \bar{R} (i,j)\leq 0. \quad (35)\]  
+
+In Proposition 3.2), we have previously that as \(\alpha \to \infty\) \(\mathbb{E}_{(i\sim j)}[\underline{{R}} (i,j)]\to \frac{2}{k} - 2\) , due to the fact that the literal degree becomes a dominant term. Therefore \(\max \{d_{i},d_{j}\} = d_{i}\) , and under the same limiting assumption we have that \(\max \{k - 1,M - 1\} = M - 1\) . Given that the expected value is a linear operation, we obtain that:  
+
+\[\lim_{\alpha \to \infty}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)] = \frac{2}{\lim_{\alpha \to \infty}\mathbb{E}_{d_{i}\sim P^{*}(d_{i})}[d_{i}]} +\frac{2}{k} -2 + \frac{1}{\lim_{\alpha \to \infty}\mathbb{E}_{(i\sim j)}[M - 1]} = \frac{2}{k} -2. \quad (36)\]
+Given that both limits and expectations preserve weak inequalities, by sandwiching we obtain:  
+
+\[\frac{2}{k} -2 = \lim_{\alpha \to \infty}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)]\leq \lim_{\alpha \to \infty}\mathbb{E}_{(i\sim j)}[R i c(i,j)]\leq \lim_{\alpha \to 0}\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)] = \frac{2}{k} -2, \quad (37)\]

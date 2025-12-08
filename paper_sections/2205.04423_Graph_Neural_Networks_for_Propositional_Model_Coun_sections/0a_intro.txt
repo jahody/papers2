@@ -1,0 +1,5 @@
+# Graph Neural Networks for Propositional Model Counting  
+
+Gaia Saveri \(^{1,2}\) and Luca Bortolussi \(^{2}\)  
+
+\(^{1}\) Department of Computer Science, University of Pisa, Italy gaia.saveri@phd.unipi.it \(^{2}\) Department of Mathematics and Geoscience, University of Trieste, Italy

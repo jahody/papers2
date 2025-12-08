@@ -1,0 +1,11 @@
+Chromatic- Number- of- the- Plane (CNP). This problem requires coloring graph vertices such that adjacent nodes have distinct colors.  
+
+Profitable- Robust- Production (PRP). This problem seeks robust production plans maintaining profitability under uncertain/fluctuating conditions. The generation setting of PRP adhere to [29].  
+
+CoinsGrid. This problem, based on Tony Hurlimann’s coin puzzle, involves arranging coins on a grid with row- wise, column- wise, and distance- based constraints. The generation setting of CoinsGrid adhere to [29].  
+
+Zamkeller. This problem requires finding a permutation of integers from 1 to \(n\) that maximizes differential alternations in subsequences divisible by integers 1 to \(k\) ( \(1 < k < n\) ). Instance generation follows [29].  
+
+Table 3: The statistical description of used SAT datasets. Const. and Var. stand for constraints and variables respectively.   
+
+<table><tr><td>Dataset</td><td>Size</td><td># Const. (mean)</td><td># Const. (std)</td><td># Var. (mean)</td><td># Var. (std)</td></tr><tr><td>CNP</td><td>150</td><td>261,260</td><td>352,379</td><td>8,798</td><td>8,893</td></tr><tr><td>CoinsGrid</td><td>78</td><td>1,116,972</td><td>1,068,009</td><td>154,828</td><td>148,571</td></tr><tr><td>PRP</td><td>80</td><td>2,120,983</td><td>1,346,344</td><td>317,635</td><td>201,185</td></tr><tr><td>Zamkeller</td><td>80</td><td>310,804</td><td>335,102</td><td>24,592</td><td>22,190</td></tr></table>

@@ -1,0 +1,1 @@
+In this section, we will provide additional details on our experimental setup baselines. We also provide detailed instancelevel results for our graph coloring and MAXCUT experiments, since these use structured benchmark instances. In Table 10 we provide an overview of all external software used in our experiments.

@@ -1,0 +1,31 @@
+In order to experimentally show the performance improvement given by augmenting the BPNN architecture (detailed in Section 3.1) with a GAT- style attention mechanism, we also implemented and tested BPNN. The two MLPs of Equation 8 are implemented as 3- layer feedforward network, with ReLU activation between hidden layers; \(\mathrm{MLP}_{3}\) of Equation 9 and the learned operator \(\Delta\) that transforms factor- to- variable messages are the same as BPGAT, detailed in Section 4.1.  
+
+Table 6 shows the results of testing both BPNN and BPGAT on the test sets described in Section 4.2, built to evaluate the scalability of the models. For all the benchmarks, BPGAT outperforms BPNN both in terms of RMSE and of MRE. A summary of these experiments is also reported on Figure 3.  
+
+Table 6. RMSE/MRE comparison between BPGAT and BPNN on datasets of Boolean random formulae.   
+
+<table><tr><td>Dataset</td><td>BPGAT</td><td>BPNN</td></tr><tr><td>Test 1</td><td>0.1276/0.001366 0.3140/0.004072</td><td></td></tr><tr><td>Test 2</td><td>0.3100/0.003201 1.3623/0.01786</td><td></td></tr><tr><td>Test 3</td><td>0.1748/0.001471 0.3046/0.004131</td><td></td></tr><tr><td>Test 4</td><td>1.2061/0.007433 2.9112/0.01681</td><td></td></tr></table>  
+
+We also performed a comparison of the generalization capabilities of BPNN and BPGAT under different training regimes, namely:
+<center>Fig. 3. Summary of the results of the experiments done on BPNN and BPGAT to test their scalability. Notation is the same of Table 6. </center>  
+
+- We fine-tuned the two models following the protocol described in Section 4.1. Results are shown in Table 7, where FT_BPGAT and FT_BPNN denote the fine-tuned BPGAT and BPNN architectures, respectively;  
+
+- We trained, for every distribution, the two models from scratch for 500 epochs, with 250 labeled examples. Results are shown in Table 8, where TS_BPGAT and TS_BPNN denote the specifically-trained BPGAT and BPNN, respectively;  
+
+- We tested both BPGAT and BPNN trained on random Boolean formulae (with the training protocol and the data generating procedures described in Section 4.1). Results are shown in Table 9.  
+
+It is worth noting that, in all scenarios, BPGAT outperforms BPNN both in terms of RMSE and MRE. Moreover it is possible to observe that BPNN undergoes the same trend as BPGAT (Section 4.2): fine-tuning the architecture (pre- trained on random formulae) gives a better performance than training the model from scratch, using distribution- specific datasets. A summary of these experiments is also reported on Figure 4.  
+
+Table 7. RMSE/MRE comparison of BPGAT and BPNN fine-tuned for the specific distribution.   
+
+<table><tr><td>Dataset</td><td>FT_BPGAT</td><td>FT_BPNN</td></tr><tr><td>Network</td><td>0.2580/0.005271</td><td>0.3187/0.007469</td></tr><tr><td>Domset</td><td>0.5508/0.04252</td><td>1.0646/0.08392</td></tr><tr><td>Color</td><td>1.2110/0.1774</td><td>2.9254/0.8046</td></tr><tr><td>Clique</td><td>0.007834/0.002475</td><td>0.01201/0.004069</td></tr></table>
+Table 8. RMSE/MRE comparison of BPGAT and BPNN trained with formulae sampled from the specific distribution.   
+
+<table><tr><td>Dataset</td><td>TS_BPGAT</td><td>TS_BPNN</td></tr><tr><td>Network</td><td>1.9334/0.04887</td><td>2.4358/0.0610</td></tr><tr><td>Domset</td><td>1.7808/0.7125</td><td>4.7885/1.6839</td></tr><tr><td>Color</td><td>1.3430/0.2046</td><td>4.4036/0.9088</td></tr><tr><td>Clique</td><td>0.01773/0.007333</td><td>0.02265/0.009737</td></tr></table>  
+
+Table 9. RMSE/MRE comparison of BPGAT and BPNN trained on random formulae.   
+
+<table><tr><td>Dataset</td><td>BPGAT</td><td>BPNN</td></tr><tr><td>Network</td><td>14.2839/0.3608</td><td>33.0484/0.8328</td></tr><tr><td>Domset</td><td>11.9190/9.5070</td><td>38.7884/13.3770</td></tr><tr><td>Color</td><td>26.1898/5.9593</td><td>36.1179/7.8826</td></tr><tr><td>Clique</td><td>1.9625/0.8983</td><td>5.2792/2.4177</td></tr></table>  
+
+<center>Fig. 4. Summary of the results of the experiments done on BPNN and BPGAT to test their generalization capabilities. Notation is the same of Tables 8 and 9. </center>

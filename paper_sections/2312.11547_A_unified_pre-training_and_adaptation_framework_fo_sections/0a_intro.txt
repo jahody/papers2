@@ -1,0 +1,7 @@
+# A Unified Pre-training and Adaptation Framework for Combinatorial Optimization on Graphs  
+
+Ruibin Zeng \(^{1,\dagger}\) , Minglong Lei \(^{2,\dagger}\) , Lingfeng Niu \(^{3,\dagger}\) & Lan Cheng \(^{4,*}\)  
+
+\(^{1}\) School of Computer Sciences, University of Chinese Academy of Sciences, Beijing, 100049, China; \(^{2}\) Faculty of Information Technology, Beijing University of Technology, Beijing, 100124, China; \(^{3}\) School of Economics and Management, University of Chinese Academy of Sciences, Beijing, 100190, China; \(^{4}\) School of Mathematics and Statistics, Central South University, Changsha, 410075, China.  
+
+Email: zengruibin21@mails.ucas.ac.cn, leiml@bjut.edu.cn, niulf@ucas.ac.cn, chenglan@hnfnu.edu.cn

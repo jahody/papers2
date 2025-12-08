@@ -1,0 +1,1 @@
+- Theory of computation \(\rightarrow\) Numeric approximation algorithms; \(\cdot\) Computing methodologies \(\rightarrow\) Neural networks.

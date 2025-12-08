@@ -1,0 +1,1 @@
+In this section, we explain our approach where RNN is used for dependent predictions. Specifically, we focus on the Circuit- SAT problem because a CNF formula for SAT problems can be converted into a circuit structure. We formulate solving Circuit- SAT problems as a supervised learning process as the following.

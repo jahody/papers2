@@ -1,0 +1,1 @@
+The neural network architecture of our proposed HyperSAT comprises the HyperGCN, a transformer module with the cross- attention mechanism, and a softmax layer.

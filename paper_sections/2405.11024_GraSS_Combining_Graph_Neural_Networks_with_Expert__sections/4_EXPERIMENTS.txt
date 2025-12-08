@@ -1,0 +1,1 @@
+We now compare the performance of our proposed approach against competitors in the literature. We implement our model using the pytorch [35] and dgl [43] libraries. We train the model on a single Nvidia Tesla V100 GPU with a learning rate of \(1e - 3\) for up to 100 epochs, and use the same GPU at test- time.

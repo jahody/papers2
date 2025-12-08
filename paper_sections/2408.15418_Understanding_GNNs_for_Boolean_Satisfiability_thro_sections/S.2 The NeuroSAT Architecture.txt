@@ -1,0 +1,19 @@
+For completeness, we provide the update rules and voting rule from the original paper [29]:  
+
+\[(C^{(t + 1)},C_{h}^{(t + 1)})\gets \mathbf{C}_{\mathbf{u}}(\left[C_{h}^{(t)},M^{\top}\mathbf{L}_{\mathbf{msg}}(L^{(t)})\right]) \quad (1)\]  
+
+\[(L^{(t + 1)},L_{h}^{(t + 1)})\gets \mathbf{L}_{\mathbf{u}}(\left[L_{h}^{(t)},\mathrm{Flip}(L^{(t)}),M\mathbf{C}_{\mathbf{msg}}(C^{(t + 1)})\right]) \quad (2)\]  
+
+\[L_{*}^{T}\gets \mathbf{L}_{\mathrm{vote}}(L^{(T)})\in \mathbb{R}^{2n}. \quad (3)\]  
+
+The first rule is used to update the clause embedding matrix \(C^{(t)}\in \mathbb{R}^{m\times d}\) where \(d\) is the size of the hidden feature vector and \(m\) is the number of clauses, \(t\) is a discrete time step. The second rule is used to update literals whose embedding are stored in matrix \(L^{(t)}\in \mathbb{R}^{2n\times d}\) where \(n\) is number of variables (there are \(2n\) rows to cover both polarities of each literal). These two updates are consecutively repeated for \(T\) iterations.  
+
+\(\mathbf{C}_{\mathbf{u}},\mathbf{L}_{\mathbf{u}}\) denote two LayerNorm LSTMs (initialized randomly) with hidden states \(C_{h}^{(t)}\in \mathbb{R}^{m\times d},L_{h}^{(t)}\in \mathbb{R}^{2n\times d}\) respectively, and \(\mathbf{L}_{\mathrm{msg}},\mathbf{C}_{\mathrm{msg}}\) are multilayer perceptrons (MLPs) processing messages from literals and clauses. The last trained component is \(\mathbf{L}_{\mathrm{vote}}\) , a voting MLP whose output is a single scalar for each literal. Edges of bipartite graph representation of the SAT formula are encoded in the bipartite adjacency matrix \(M(M(i,j)\) is 1 iff literal \(l_{i}\) is in clause \(c_{j}\) ). The flip operator swaps each pair of rows in matrix \(L\) , containing two polarities of the same literal.  
+
+To update a representation of each clause, the representations of literals contained in this clause are processed by the MLP \(\mathbf{L}_{\mathrm{msg}}\) and the resulting vectors are summed together and taken as input by the LSTM \(\mathbf{C}_{\mathbf{u}}\) .  
+
+We emphasize that for updating a representation of each literal, the process is analogous to the clause update, except that the LSTM takes as an input a concatenation of the summed messages from literals and the hidden- state representation of the literal of the same variable but opposite polarity (i.e., to update the hidden state of literal \(x_{i}\) , the LSTM takes as an input a concatenation of the aggregated message vector and a hidden state of literal \(\tilde{x}_{i}\) from the previous iteration).  
+
+At the end, the output of the model is a \(2n\) dimensional vector, which is then averaged to a single logit on which a sigmoid activation cross- entropy is applied to compute the loss with respect to the ground truth label (SAT/UNSAT).  
+
+Our model is a simplified version of the described architecture, achieved by omitting two MLPs, namely \(\mathbf{L}_{\mathrm{msg}},\mathbf{C}_{\mathrm{msg}}\) and replacing \(\mathbf{L}_{\mathrm{vote}}\) with just a single linear layer. LayerNorm is removed from LSTM and the dimensionality of the hidden states is reduced to 16 from 128.

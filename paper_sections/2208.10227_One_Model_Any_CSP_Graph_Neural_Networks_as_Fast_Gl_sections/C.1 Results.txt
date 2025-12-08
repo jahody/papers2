@@ -1,0 +1,30 @@
+Tables 11, 12 and 13 contain the results of our ablation study for \(k\) - COL, MAXCUT and MAX- \(k\) - SAT, respectively. The metrics in each table are identical to those used in our main experiment.  
+
+For graph coloring, \(\mathrm{ANYCSP_{qual}}\) performs significantly worse than the other two versions of our method. Compared to our main baselines it only outperforms RUNCSP  
+
+Table 11: Ablation results on graph coloring.   
+
+<table><tr><td>METHOD</td><td>COL&amp;lt;10</td><td>COL≥10</td></tr><tr><td>ANYCSPloc</td><td>49</td><td>37</td></tr><tr><td>ANYCSPqual</td><td>37</td><td>25</td></tr><tr><td>ANYCSP</td><td>50</td><td>40</td></tr></table>  
+
+and the simple greedy approach. \(\mathrm{ANYCSP_{loc}}\) actually performs reasonably well, as it only solves four graphs less than ANYCSP across all 100 test instances. In this experiment the reward scheme seems to contribute more to the performance than the global search action space. However, only the combination of both in ANYCSP yields the best results.  
+
+On the MAXCUT problem there is no clear hierarchy between \(\mathrm{ANYCSP_{loc}}\) and \(\mathrm{ANYCSP_{qual}}\) . However, both ablation versions perform significantly worse than ANYCSP. The same seems to hold on the MAX- \(k\) - SAT problem. The two modified versions yield similar results but perform far worse than ANYCSP.  
+
+Figure 7 investigates the differences on the MAX- \(k\) - SAT problem further. We plot how the number of unsatisfied clauses in the best found solution evolves throughout the 60K search steps performed by ANYCSP in 20 minutes. The curves are averaged over all 50 instances in out MAX- 5- SAT test data. Both \(\mathrm{ANYCSP_{loc}}\) and \(\mathrm{ANYCSP_{qual}}\) are unable to converge to solutions as good as those found by ANYCSP, but for different reasons. \(\mathrm{ANYCSP_{loc}}\) converges slowly but steadily. Due to the slow convergence compared to ANYCSP, it is not able to find equivalent solutions in the same amount of time. \(\mathrm{ANYCSP_{qual}}\) initially converges as fast as ANYCSP. This is expected, since this version also performs global search and can refine the whole solution in parallel. However, it tapers of significantly earlier compared to ANYCSP and the solution quality remains virtually constant after 20K search steps. This is the expected problem our reward scheme intends to solve: During training, \(\mathrm{ANYCSP_{qual}}\) can not leave local maxima without being punished for doing so by the simple reward scheme. This inhibits exploration and encourages stagnation. After 60K steps, \(\mathrm{ANYCSP_{loc}}\) actually catches up to \(\mathrm{ANYCSP_{qual}}\) and both ablation versions yield similar results once the 20 minute timeout is reached.  
+
+Overall, our experiments and ablation study suggests that our two main design choices are crucial to consistently obtaining strong search heuristics:  
+
+1. A global search space is necessary to refine the whole solution in parallel and speed up the search. Without this advantage, GNN-based heuristics can not compensate for their comparatively high computational cost.  
+
+2. A well-chosen reward scheme that encourages exploration is equally important. Without it, global search simply gets stuck faster than local search. A simple reward proportional to the quality is not suitable in this regard.  
+
+ANYCSP combines these insights in one generic architecture for all CSPs.
+<center>Figure 7: Number of unsat clauses in the best found solution on our MAX-5-SAT test instances. We plot the average over 50 instances as a function in the number of search steps \(t\) . We compare ANYCSP and its two ablation versions. </center>  
+
+Table 12: Get results of out ablation models.   
+
+<table><tr><td>METHOD</td><td>|V|=800</td><td>|V|=1K</td><td>|V|=2K</td><td>|V|≥3K</td></tr><tr><td>ANYCSPloc</td><td>14.22</td><td>26.00</td><td>84.00</td><td>197.50</td></tr><tr><td>ANYCSPqual</td><td>30.11</td><td>12.89</td><td>42.56</td><td>200.75</td></tr><tr><td>ANYCSP</td><td>1.22</td><td>2.44</td><td>13.11</td><td>51.63</td></tr></table>  
+
+Table 13: Ablation results on Max-\(k\) -SAT instances.   
+
+<table><tr><td>METHOD</td><td>3CNF</td><td>5CNF</td></tr><tr><td>ANYCSPloc</td><td>1697.08</td><td>1498.46</td></tr><tr><td>ANYCSPqual</td><td>1921.70</td><td>1471.00</td></tr><tr><td>ANYCSP</td><td>1537.46</td><td>1103.14</td></tr></table>

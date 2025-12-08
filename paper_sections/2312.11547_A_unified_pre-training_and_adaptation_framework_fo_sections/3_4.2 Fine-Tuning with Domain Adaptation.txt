@@ -1,0 +1,15 @@
+After the pre- training process, we further leverage Max- SAT to build a fine- tuning process based on domain adaptation. In general, domain adaptation aims to learn domain- invariant features that can be used for different tasks. For a target CO problem, the proposed adaptation network treats Max- SAT as the source domain and learns transferable features by combining the samples from the CO and Max- SAT problems. Before the feature extraction, we can construct the data from source and target domains via transformation operations in section 3.2. The data for the source domain is generated directly from Max- SAT with different distributions following the pre- training process while the data of the target domain is generated from Max- SAT that is converted from a certain CO problem.  
+
+The network architecture of fine- tuning is based on the pre- trained network. The pre- training network learns generalizable features while the fine- tuning network focuses on learning task- specific features. With the help of pre- training, the model can converge faster and achieve better generalization performance. Concretely, the fine- tuning network contains three parts: the pre- trained feature extraction backbones based on MLP and \(\mathrm{Bip - GNN}(\cdot)\) are used to extract the features from both source and target domains, the prediction or classification layers are used to predict the labels of the source and target domains, and the discriminator network \(\mathrm{Dis}(\cdot)\) is to classify the domain labels for each sample.  
+
+The source domain and target domain share the same feature extraction backbone but have different classification networks. The domain adaptation framework in our work follows the supervised setting where data from both source and target domains contains labels and can be used for training. Our work can also be extended to the unsupervised setting where the labels for the target domain are unavailable. Based on the three parts, the overall loss for domain adaptation in the fine- tuning stage can be denoted as  
+
+\[\mathcal{L}_{ft} = \mathcal{L}_{c} + \lambda \mathcal{L}_{d}, \quad (3.15)\]  
+
+where \(\mathcal{L}_{c}\) and \(\mathcal{L}_{d}\) are the losses for classification and discrimination, and \(\lambda\) is a positive hyper- parameter that controls the weight of losses.  
+
+The discriminative loss that classifies nodes based on their domain labels can be denoted as  
+
+\[\mathcal{L}_{d} = (\mathbf{X}_{S},\mathbf{X}_{T}) = \mathbb{E}_{\mathbf{x}_{S}\in \mathcal{D}_{S}}[\log \left(1 - \mathrm{Dis}(\mathrm{Bip - GNN}(\mathbf{x}_{S}))\right)] + \mathbb{E}_{\mathbf{x}_{T}\in \mathcal{D}_{T}}[\log \left(1 - \mathrm{Dis}(\mathrm{Bip - GNN}(\mathbf{x}_{T}))\right)], \quad (3.16)\]  
+
+where \(\mathbf{X}_{S}\) and \(\mathbf{X}_{D}\) are the node features from source and target domains, \(\mathcal{D}_{S}\) and \(\mathcal{D}_{T}\) represent the data distribution of source and target domains, \(\mathrm{Dis}(\cdot)\) is the domain classifier, and \(\mathrm{Bip - GNN}(\cdot)\) is the feature extractor.

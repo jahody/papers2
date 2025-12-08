@@ -1,0 +1,3 @@
+# STRCMP: Integrating Graph Structural Priors with Language Models for Combinatorial Optimization  
+
+Xijun \(\mathbf{L}\mathbf{i}^{1,2}\) , Jiexiang Yang \(^{2}\) , Jinghao Wang \(^{2}\) , Bo Peng \(^{1,2}\) , Jianguo Yao \(^{1,2}\) , Haibing Guan \(^{1,2}\) \(^{1}\) Shanghai Key Laboratory of Scalable Computing and Systems \(^{2}\) School of Computer Science, Shanghai Jiao Tong University {lixijun,jianguo.yao}@sjtu.edu.cn

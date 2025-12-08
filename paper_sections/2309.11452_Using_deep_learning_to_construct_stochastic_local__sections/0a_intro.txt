@@ -1,0 +1,5 @@
+# USING DEEP LEARNING TO CONSTRUCT STOCHASTIC LOCAL SEARCH SAT SOLVERS WITH PERFORMANCE BOUNDS  
+
+Maximilian J. Kramer \(^{1,2}\) and Paul Boes \(^{1}\)  
+
+\(^{1}\) Porsche Digital GmbH, 71636 Ludwigsburg, Germany \(^{2}\) Dahlem Center for Complex Quantum Systems, Freie Universität Berlin, 14195 Berlin, Germany {maximilian.kramer, paul.boes}@porsche.digital m.kramer@fu- berlin.de

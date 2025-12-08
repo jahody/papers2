@@ -193,6 +193,6 @@ def process_all_papers(input_folder, output_folder):
         f.write(f"Done. Processed {count} files.")
 
 if __name__ == "__main__":
-    input_folder = r"g:\My Drive\OSU\projects\papers\paper_sections"
-    output_folder = r"g:\My Drive\OSU\projects\papers\paper_references"
+    input_folder = "paper_sections"
+    output_folder = "paper_references"
     process_all_papers(input_folder, output_folder)

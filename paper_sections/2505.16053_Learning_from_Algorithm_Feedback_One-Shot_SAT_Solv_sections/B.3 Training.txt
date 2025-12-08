@@ -1,0 +1,3 @@
+Figure 6 provides the learning curves for the 6 RLAF- trained models in our main experiments. For all models, the cost decreases throughout training. We found that training with the March base solver tends to yield noisier training, particularly on 3SAT instances, where the policy does not improve further after 700 GRPO iterations. Exploring effective strategies for reducing this noise remains future work. Nonetheless, we are able to learn guidance policies that decrease the solver cost of both base solvers on all three problem instances.  
+
+<center>Figure 6: GRPO training curves of the RLAF models from our main experiment. We plot the mean number of decisions on the validation set against the GRPO iteration. </center>

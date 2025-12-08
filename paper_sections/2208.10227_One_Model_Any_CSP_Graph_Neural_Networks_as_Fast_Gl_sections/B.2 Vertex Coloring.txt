@@ -1,0 +1,24 @@
+A CSP instance of \(k\) - COL with the input Graph \(G = (V,E)\) has a variable \(x_{v}\) for each vertex \(v\in G(V)\) , the domain \(\mathcal{D} = \{1,\dots,k\}\) for each variable, and a constraint \(C = ((x_{v},x_{u}),R_{\neq}^{k})\) for each edge \(vu\in G(E)\) . Here, the  
+
+Relation \(R_{\neq}^{k} = \{(i,j)|1\leq i,j\leq k;i\neq j\}\) implies the color inequality of connected nodes.  
+
+We consider the decision problem of \(k\) - COL. That is, we provide the number of colors \(k\) as part of the input instance and ask whether or not a conflict- free \(k\) - coloring exists for the given graph. If ANYCSP fails at this task, then it produces a coloring with unsatisfied constraints. We do point out that not all of our baselines use this setup. The greedy heuristic and DSATUR are constructive and yield solutions that are always conflict- free but may have a sub- optimal number of colors. HybridEA initially constructs a (sub- optimal) conflict- free coloring and then iteratively attempts to lower the number of colors through tabu search and evolutionary optimization. For all of these methods, we can measure whether or not they produce a conflict- free solution with the optimal number of colors within a given timeout. However, we should keep these differences in mind during a comparison.  
+
+Data To generate training graphs we mix the following 3 distributions uniformly:  
+
+- Erdős-Rényi graphs with \(n = 50\) vertices and edge probability \(p \sim U[0.1, 0.3]\) - Barabási-Albert graphs with \(n = 50\) vertices and parameter \(m \sim U[2, 10]\) - Random geometric graphs with \(n = 50\) vertices distributed uniformly at random in a 2-dimensional \(1 \times 1\) square. The edge threshold radius is drawn uniformly from \(r \sim U[0.15, 0.3]\) .  
+
+For each graph \(G\) drawn from this distribution we then choose a number of colors \(k \in [3, 10]\) as follows: We first apply a linear time greedy coloring heuristic as implemented by NetworkX (Hagberg, Swart, and S Chult 2008) to color the graph without conflict. If the greedy heuristic required \(k'\) colors for \(G\) , then we pose the problem of coloring \(G\) with \(k\) colors as the training CSP instance, where \(k\) is chosen as:  
+
+\[k = \max \{3,\min \{10,k' - 1\} \} \quad (22)\]  
+
+Intuitively, ANYCSP has to color each graph with 1 color less than the greedy heuristic. Some of these instances are unsatisfiable, which is not a problem for our reward scheme and training procedure. We found this simple method to be very effective at quickly generating graph coloring instances around the threshold of satisfiability with minimal fine- tuning. The 200 validation instances are generated with the same parameters and procedure, except that we increase the number of vertices for all three graph types to \(n = 200\) .  
+
+Baselines RUNCSP was trained on the same data distribution used in its experiments on structured coloring instances (in the Appendix of Tönshoff et al. (2021)). We use a PyTorch implementation of RUNCSP and train each model for a total of 100K steps to ensure convergence. Recall that RUNCSP requires us to fix one \(k\) before training and we train one model for each \(k \in \{4, \ldots , 9\}\) . We consider a graph solved by RUNCSP if the model trained for the graph's chromatic number is able to find a conflict- free coloring.  
+
+To evaluate the CSP solvers Picat and CoSoCo in this experiment we reduce each coloring instance to a CSP instance
+in the XCSP3 format. As for ANYCSP, we model the decision variant of graph coloring and fix the known chromatic number of each graph as the domain size. The solvers then have to find a satisfiable assignment for these instances within the 20- minute timeout.  
+
+For HybridEA we optimize the recombination strategy and number of tabu search steps. We choose "nPoint" for recombination and a factor of 64 for the number of tabu search steps per cycle. The greedy algorithm and DSATUR each run in their default configuration.  
+
+Table 8 and 9 contain detailed instance- level results of all compared methods for \(\mathrm{COL}_{< 10}\) and \(\mathrm{COL}_{\geq 10}\) , respectively.

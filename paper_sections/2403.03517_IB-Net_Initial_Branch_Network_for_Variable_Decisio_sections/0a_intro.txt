@@ -1,0 +1,9 @@
+# IB-Net: Initial Branch Network for Variable Decision in Boolean Satisfiability  
+
+Tsz Ho Chan \(^{1}\) , Wenyi Xiao \(^{1}\) , Junhua Huang \(^{1}\) and Huiling Zhen \(^{1}\) and Guangji Tian \(^{2}\) and Mingxuan Yuan \(^{1*}\)  
+
+\(^{1}\) Noah's Ark Lab, Huawei  
+
+\(^{2}\) Hisilicon, Huawei  
+
+chantszho1@huawei.com, xiaowenyi2@huawei.com, huangjunhua15@huawei.com, zhenhuiling2@huawei.com, tianguangji@hisilicon.com, Yuan.Mingxuan@huawei.com

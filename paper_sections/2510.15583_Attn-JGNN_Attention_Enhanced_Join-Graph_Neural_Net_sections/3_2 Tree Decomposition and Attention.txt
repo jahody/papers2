@@ -1,0 +1,58 @@
+Prior work has demonstrated the effectiveness of attention mechanisms for solving satisfiability problems [27]. However, the high computational overhead of global attention limits scalability—for a CNF formula with n variables and m
+clauses, global attention requires \(O((n + m)^{2})\) computations to model interactions between all pairs of nodes. In Attn- JGNN, we address this issue by applying attention mechanisms per cluster (after tree decomposition of the factor graph). This reduces the computational complexity to \(O(kw^{2})\) , where k is the number of clusters and w is the maximum tree- width of the clusters. The advantage of this design becomes more pronounced as the problem scale increases.  
+
+We propose three tailored attention mechanisms to optimize Attn- JGNN, detailed below. In our work, we adopted three attention mechanisms to optimize the model, which are introduced in this section. In the Attention mechanism, Attention(Q,K,V) is the core computing module used to dynamically weight aggregated information based on the interaction of Query, Key, and Value. In Scaled Dot- Product Attention defined as:  
+
+\[A t t e n t i o n(Q,K,V) = s o f t m a x(\frac{Q K^{T}}{\sqrt{d_{k}}})V \quad (6)\]  
+
+Hierarchical attention mechanism The hierarchical attention mechanism in Attn- JGNN aims to efficiently capture local and global dependencies in the graph via multi- granularity information aggregation. This design reduces computational overhead while enhancing the model's ability to reason about complex constraints.  
+
+Local: The microscopic interaction between the attention- focused variable and the clause within the cluster (such as the polarity conflict of variables within the clause). The contribution weights of \(x_{1}\) and \(x_{2}\) to \(\phi_{1}\) are calculated in the cluster \(C_{1} = \{x_{1},x_{2},\phi_{1} = (x_{1}\vee \neg x_{2})\}\) so that high weights are assigned to variable assignments that are more likely to satisfy the clause; Variables and clauses inside cluster \(C\) calculate attention weights:  
+
+\[\alpha_{i n t r a} = L e k y R e L U(\frac{(W_{Q}h_{i})^{T}(W_{K}h_{j})}{\sqrt{d}}),\quad \forall x_{i},x_{j}\in C_{k} \quad (7)\]  
+
+For variable node \(x_{i}\) and clause node \(\phi_{j}\) in cluster \(C\) , the message passing formula is:  
+
+\[\begin{array}{r l} & {m_{x_{i}\to \phi_{j}}^{(k)} = \alpha_{i n t r a}\cdot \prod_{u\in \mathcal{N}(x_{i})\backslash \phi_{j}}m_{u\to x_{i}}^{(k)}}\\ & {}\\ & {m_{\phi_{j}\to x_{i}}^{(k)} = \alpha_{i n t r a}\cdot \sum_{C_{k}\backslash \{x_{i}\}}\phi_{j}(C_{k})\cdot \prod_{v\in \mathcal{N}(\phi_{j})\backslash x_{i}}m_{v\to \phi_{j}}^{(k)}} \end{array} \quad (9)\]  
+
+Update clause and variable feature:  
+
+\[h_{j} = \sum_{x_{i}\in C_{k}}\alpha_{i n t r a}W_{V}h_{i} \quad (10)\]
+Global: Inter- cluster attention transmits macro- constraints across clusters (such as consistency of assignment of distant variables) through shared variables. If clusters \(C_{1}\) and \(C_{2}\) share the variable \(x_{2}\) , then attention determines the influence of \(C_{1}\) and \(C_{2}\) on the assignment of \(x_{2}\) . If \(C_{1}\) and \(C_{2}\) tend to conflict on \(x_{2}\) , the attention weight automatically adjusts the message passing intensity. Calculate the attention weight of clusters \(C_{1}\) to \(C_{2}\) by passing cross- cluster messages through shared variables:  
+
+\[\alpha_{i n t e r} = L e k y R e L U(\frac{(W_{Q}h_{C_{1}})^{T}(W_{K}h_{C_{2}})}{\sqrt{d}}) \quad (11)\]  
+
+For adjacent clusters \(C_{1}\) and \(C_{2}\) (shared variable \(S_{12} = C_{1} \cap C_{2}\) ), the inter cluster message is:  
+
+\[m_{C_{1}\to C_{2}}(S_{12}) = \alpha_{i n t e r}\cdot \sum_{C_{1}\backslash S_{12}}(\phi_{1}(C_{1})\cdot \prod_{k\in n e(C_{1})\backslash C_{2}}m_{k\to C_{1}}) \quad (12)\]  
+
+Update shared variable characteristics:  
+
+\[h_{x} = h_{x}^{(C_{1})} + \alpha_{i n t e r}W_{V}h_{x}^{(C_{2})} \quad (13)\]  
+
+Dynamic attention mechanism The dynamic attention mechanism in Attn- JGNN model is realized by dynamically adjusting the number of attention heads to balance the performance of the model in different training stages and different complexity clauses. Start training with fewer attentional heads, quickly capture simple patterns (such as explicit constraints of short clauses), avoid overfitting, gradually increase the number of heads as the number of training steps increases to improve expressiveness, and deal with complex clauses (such as long chain dependencies)  
+
+\[H(t) = m i n(H_{m a x},H_{i n i t} + \lfloor \frac{t}{T}\rfloor) \quad (14)\]  
+
+Assign a learnable weight to each attentional head \(\lambda_{h}\) , dynamically adjusting its contribution:  
+
+\[\alpha_{d y} = \frac{1}{H(t)}\sum_{h = 1}^{H}(t)\lambda_{h}A t t e n t i o n(Q,K,V) \quad (15)\]  
+
+When \(\lambda_{h}\) is updated by gradient descent, the weight of important heads increases and the weight of redundant heads approaches 0. This design allows Attn- JGNN to efficiently handle highly heterogeneous clause structures in #SAT problems while maintaining low computational costs.  
+
+Constraint- Aware Mechanism In Attn- JGNN, the central role of the Constraint- Aware Mechanism is to explicitly guide the model to preferentially satisfy clause constraints in the CNF formula, thus more efficiently approaching the correct model count. The realization method combines attention weight
+adjustment and loss function regularization. For each clause \(C_{i}\) , define its satisfaction score \(s_{i}\) :  
+
+\[s_{i} = s i g m o i d(\sum_{x_{j}\in \phi_{i}}(2b_{j}(x_{j}) - 1)p o l a r i t y(x_{j},\phi_{i})) \quad (16)\]  
+
+where, \(b_{j}(x_{j})\) is the current assignment probability of \(x_{j}\) ; \(polarity(x_{j}, \phi_{i})\) represents the polarity of \(x_{j}\) in the clause \(\phi_{i}\) . \(s_{i} \in (0,1)\) , where the closer to 1 means that the clause \(\phi_{i}\) is more likely to be satisfied. Add the following regularization terms to the loss function:  
+
+\[\mathcal{L}_{c o n s} = -\delta \sum_{i = 1}^{m}l n s_{i}, \quad (17)\]  
+
+Combining the RMSE and the constrained aware regularization term, the total loss function is:  
+
+\[\mathcal{L}_{t o t a l} = \mathcal{L}_{R M S E} + \mathcal{L}_{c o n s} \quad (18)\]  
+
+The constraint awareness mechanism acts on the other mechanisms, implicitly adjusting the message passing process, using \(s_{i}\) weighted messages when propagating within and between clusters:  
+
+\[\alpha_{i n t r a} = L e k y R e L U(\frac{(W_{q}h_{i})^{T}(W_{k}h_{j}) + \gamma s_{i}}{\sqrt{d}}) \quad (19)\]

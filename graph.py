@@ -447,7 +447,7 @@ if __name__ == "__main__":
     print("=" * 80, flush=True)
 
     # Use the correct path based on user instructions
-    PAPER_GRAPH_DIR = r"g:\My Drive\OSU\projects\papers\paper_graph"
+    PAPER_GRAPH_DIR = "paper_references"
     
     graph = build_paper_graph(PAPER_GRAPH_DIR)
 

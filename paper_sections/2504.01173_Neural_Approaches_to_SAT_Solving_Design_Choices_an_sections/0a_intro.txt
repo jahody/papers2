@@ -1,0 +1,9 @@
+# Neural Approaches to SAT Solving: Design Choices and Interpretability  
+
+David Mojžíšek \(^{2}\) , Jan Hůla \(^{1,2}\) , Ziwei Li \(^{1}\) , Ziyu Zhou \(^{1}\) , Mikoláš Janota \(^{1}\)  
+
+\(^{1}\) Czech Institute of Informatics, Robotics and Cybernetics, Czech Technical University in Prague, Czechia  
+
+\(^{2}\) University of Ostrava, Ostrava, Czechia  
+
+david.mojzisek@osu.cz

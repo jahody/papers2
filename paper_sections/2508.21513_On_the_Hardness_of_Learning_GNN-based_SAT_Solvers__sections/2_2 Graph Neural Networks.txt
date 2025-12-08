@@ -1,0 +1,11 @@
+GNNs are a subclass of Neural Networks (NNs) that can learn a representation of graph data by locally aggregating information[20, 45]. The main goal of the architecture is to implement inductive biases natural to graph data [9]. An example of such a property is learning graph- level functions invariant to the nodes' ordering. Consider, for simplicity, an unweighted and undirected graph \(G\) with \(N\) nodes, represented by a symmetric binary adjacency matrix \(A\in \{0,1\}^{N\times N}\) . This setting can be easily extended to deal with more general connectivity structures [14]. By associating a node feature matrix \(X\in \mathbb{R}^{N\times d}\) to the graph, we can describe a GNNs as a convolution of the graph signal with \(A\) as the shift operator. A generalization of this concept can be obtained by considering the message- passing framework [20]:  
+
+\[x_{i}^{(k)} = \theta^{(k)}\left(x_{i}^{(k - 1)},\bigoplus_{j\in \mathcal{N}(i)}\phi^{(k)}\left(x_{i}^{(k - 1)},x_{j}^{(k - 1)},e_{j i}\right)\right), \quad (1)\]  
+
+where \(x_{i}^{(k)}\) denotes node features of node \(x_{i}\) at layer \(k\) \(e_{j i}\) the (optional) edge features from node \(j\) to node \(i\) \(\mathcal{N}(\cdot)\) the set of (1- hop) neighbor nodes, \(\bigoplus\) a differentiable, permutation invariant function, (e.g., sum, mean), and \(\phi ,\theta\) denote differentiable and (optionally) nonlinear functions such as Multi- Layer Perceptrons (MLPs).  
+
+A CNF formula can be easily translated into a bipartite graph [6], which can then be fed into a GNN- based solver. The particular bipartition we consider in this work is detailed later in Section 3. The application of the above message- passing scheme for SAT problems can be done by applying Equation1 to the clause and literal partitions [28]. Let \(i\) be a literal node and \(j\) be a clause node, then:  
+
+\[\begin{array}{r l} & {h_{j}^{(k)} = \theta_{c}^{(k)}\left(h_{j}^{(k - 1)},\bigoplus_{i\in \mathcal{N}(j)}\left(\left\{\phi_{i}^{(k)}\left(h_{i}^{(k - 1)}\right)\right\}\right)\right),}\\ & {h_{i}^{(k)} = \theta_{l}^{(k)}\left(h_{i}^{(k - 1)},\bigoplus_{j\in \mathcal{N}(i)}\left(\left\{\phi_{c}^{(k)}\left(h_{j}^{(k - 1)}\right)\right\}\right)\right),} \end{array} \quad (2)\]  
+
+where the subscripts \(c\) and \(l\) refer to NNs specialized on the clause and literal partitions respectively.

@@ -1,0 +1,11 @@
+In what follows, we provide supplementary material that complements the main manuscript. The appendix is organized as follows:  
+
+1. Appendix A.1 begins with background on graph Ricci curvature, where we review both the Ollivier and Balanced Forman discretizations in order to give the reader an intuitive and formal foundation for subsequent results.  
+
+2. In Appendix A.2, we provide detailed proofs of the propositions and theorems discussed in the manuscript.  
+
+3. Appendix A.3 describes the test-time graph rewiring procedure used in our experiments, including a full presentation of the stochastic curvature-guided algorithm.  
+
+4. In Appendix A.4, we outline preliminary ideas and implementations for curvature-aware solvers, along with empirical results that illustrate their potential.  
+
+5. Finally, Appendix A.5 contains additional plots and visualizations that further clarify the relationship between curvature, problem hardness, and solver behavior.

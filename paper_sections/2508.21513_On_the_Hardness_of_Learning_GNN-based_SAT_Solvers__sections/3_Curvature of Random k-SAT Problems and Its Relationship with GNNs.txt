@@ -1,0 +1,44 @@
+Setting and Notation. We consider random \(k\) - SAT problems with \(N\) variables and \(M\) clauses, with \(\alpha = M / N\) and \(k,N,M\in \mathbb{N}\) . These problems are represented through a simple bipartite graph \(G = (V,E)\) , where the node set is a literal- clause bipartition \(V = L\cup C\) , with \(L\cap C = \emptyset\) and \(|L| = 2N,|C| = M\) . The edge set takes the form \(E = \{(i,j)\in V\times V:i\sim j,i\in L,j\in C\}\) where \(i\sim j\) indicates a connection between nodes. Given \(v\in V\) , we denote its degree by \(d_{v}\) . Finally, we denote the expected value of the random variable \(X\) with probability distribution \(\mathrm{P}\) by \(\mathbb{E}_{P}[X]\) and \(\mathbb{E}_{p\sim P}[X]\) the expectation over samples drawn from \(P\) . Unless noted otherwise, when we refer to the expected value in simulations, we imply its estimate via the sample mean statistic.  
+
+Data Model. Our bipartite formulation is a simplification of the input graphs considered in many GNN- based solvers [40, 46]. Recent literature [28] refers to this data structure as a Literal- Clause Graph (LCG). Following an Erdős–Rényi- like procedure, each clause is assigned \(k\) literals independently at random with probability \(p\) . Assuming that all literals are equally likely to appear in a given clause, we obtain the following degree distributions:  
+
+\[\begin{array}{c}{P(d_{j} = h) = \delta (h - k)}\\ {P(d_{i} = h) = \binom{M}{h} p^{h}(1 - p)^{M - h},} \end{array} \quad (3)\]  
+
+where \(\delta (\cdot)\) represents the Dirac delta function, \(\binom{\cdot}{}\) the binomial coefficient, and \(p\coloneqq \frac{k}{2N}\) . In the limit \(M,N\to \infty\) , we can approximate the Binomial form of the literal degree distribution with a Poisson distribution:  
+
+\[P(d_{i} = h) = \frac{\lambda^{h}e^{-\lambda}}{h!}, \quad (5)\]  
+
+with \(\lambda = M p = \textstyle {\frac{1}{2}}\alpha k\) . We will be interested in using this approximation to calculate properties of the graph RC, which is an edge level property, therefore the case \(d_{i} = 0\) should be truncated. This fact leads us to propose an alternative probability mass function based on zero- truncated Poisson distribution the for the literal degrees:  
+
+\[P^{*}(d_{i} = h) = P(d_{i} = h:h\geq 1) = \frac{P(d_{i} = h)}{1 - P(d_{i} = 0)} = \frac{\lambda^{h}}{h!(e^{\lambda} - 1)}. \quad (6)\]  
+
+Characterizing Average Curvature. We will now proceed by showing that the above bipartite representation of SAT problems has significant implications on the average RC. Most importantly, we will precisely characterize the average behavior of a specific definition curvature, namely the BFC, which in turn has strong implications on oversquashing in GNNs. The proofs of all statements are deferred to Appendix A.2.  
+
+We start from an established lower bound of the OC.  
+
+Definition 3.1 (OC lower bound in bipartite graphs [5, 23]). For any edge \(i\sim j\) in a simple, unweighted bipartite graph \(G\) , we have that that:  
+
+\[\underline{{\kappa}}(i,j) = -2\cdot \max \{0,1 - \frac{1}{d_{i}} -\frac{1}{d_{j}}\} \leq \kappa (i,j)\leq 0, \quad (7)\]  
+
+where \(\kappa\) is the OC. The above lower bound can be redefined by alternatively stating the condition encoded inside the maximum function in Equation 7:  
+
+\[\underline{{R}}(i,j) = \left\{ \begin{array}{l l}{0} & {\mathrm{if~min}\{d_{i},d_{j}\} = 1}\\ {\frac{2}{d_{i}} +\frac{2}{d_{j}} -2} & {\mathrm{otherwise}} \end{array} \right. \quad (8)\]  
+
+This alternative definition shows that Equation 8 is also a lower bound for the BFC s.t., \(\underline{{R}}(i,j)\leq\) \(R i c(i,j)\) . This statement is a direct consequence of the definition of the BFC, and a proof is given inside the proof of Theorem 3.1. Furthermore, we also have that \(- 2< R i c(i,j)\leq \kappa (i,j)\leq 0\) , which is a direct consequence of the facts that \(\kappa (i,j)\geq R i c(i,j)\) [47] and Equation 7. Starting from these statements, we can proceed to show that the average behavior of the graph RC is naturally dictated by average degree of the literals, given that \(d_{j} = k\) always holds. The literal degree distribution is a zero- truncated Poisson distribution, from which the average degree of a literal \(i\) can be calculated as:  
+
+\[\mathbb{E}_{d_{i}\sim P^{*}(d_{i})}[d_{i}] = \frac{\lambda e^{\lambda}}{e^{\lambda} - 1} \quad (9)\]
+Proposition 3.1. Let \(i\sim j\) be an edge from the LCG representation \(G\) of a random k- SAT problem with \(N\) variables and \(M\) clauses, with degree distributions given by Equations 6 and 3. Then \(\mathbb{E}_{(i\sim j)}[\kappa (i,j)]\to 0\) and \(\mathbb{E}_{(i\sim j)}[Ric(i,j)]\to 0\) as \(\alpha = \frac{M}{N}\to 0\) .  
+
+Proposition 3.1 tells us that as problems get easier, i.e., they are in the satisfiable phase, their graph representations get (Ricci) flatter. This statement implies a relationship between very simple problems and their bipartite topology, which is that each clause is made of distinct literals. In this scenario, producing a satisfying assignment becomes trivial since assigning truth values to these unique literals does not affect other clauses. This implication aligns well with common knowledge, therefore the next thing to check is whether there is an opposite behavior when dealing with very difficult problems. This later case is important because it is close to the unsatisfiable phase where the faults of existing algorithms emerge [2]. Through a similar argument as before, we can formalize this intuition and characterize the average lower bound in the case when problems are surely unsatisfiable.  
+
+Proposition 3.2. Let \(i\sim j\) be an edge from the LCG representation \(G\) of a random k- SAT problem with \(N\) variables and \(M\) clauses, with degree distributions given by Equations 6 and 3. Then \(\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)]\to \frac{2}{k} - 2\) as \(\alpha = \frac{M}{N}\to \infty\) .  
+
+In this scenario, the average lower bound of the graph RC will tend to be maximally negative, therefore we cannot directly speak on the average curvature by sandwiching as before. Nevertheless, Proposition 3.2 provides an extremely interesting insight into the interplay between \(\alpha\) and \(k\) . As the problems get harder, the number of constraints (i.e., \(k\) ) becomes a decisive factor on the curvature. A larger value of \(k\) implies more constraints and thus many long range interactions between the literals, but it also implies that edges will become more negatively curved. In turn, this implies the existence of bottlenecks in the graph, which makes long range communication becomes difficult [47]. While it is not possible to connect the exact graph OC to this result, it is possible to extend it to the average graph BFC:  
+
+Theorem 3.1. Let \(i\sim j\) be an edge from the LCG representation \(G\) of a random k- SAT problem with \(N\) variables and \(M\) clauses, with degree distributions given by Equations 6 and 3. The BFC at \(i\sim j\) is bounded from above by the quantity:  
+
+\[\bar{R} (i,j)\coloneqq \frac{2}{d_{i}} +\frac{2}{d_{j}} -2 + \frac{d_{i} + k - 2}{\max \{k - 1,M - 1\} \max \{d_{i},d_{j}\}}. \quad (10)\]  
+
+Furthermore, as \(\alpha = \frac{M}{N}\to \infty\) , \(\mathbb{E}_{(i\sim j)}[\bar{R} (i,j)]\to \frac{2}{k} - 2\) and therefore the average BFC over the edges of \(G\) converges to \(\mathbb{E}_{(i\sim j)}[Ric(i,j)]\to \frac{2}{k} - 2\) .  
+
+Theorem 3.1 contains a crucial result in its characterization of the typical- case BFC, which is that it is connected to both \(\alpha\) and \(k\) . While the connection to \(\alpha\) might seem obvious, the one with \(k\) is quite insightful. One can observe that as problems become harder to satisfy (large values of \(\alpha\) ), \(k\) plays an important role in how negatively curved the graph edges can become. This phenomenon can be seen in Figure 1, where for smaller \(k\) , larger values of \(\alpha\) are required to have highly negatively curved edges. This latter point is crucial in developing a more profound understanding of the limitations of GNN- based solvers, and we will expand upon it in the following subsection. Another interesting consequence of our results, is that due to their shared lower bound and the results in Propositions 3.1 and 3.2, we confirm a tight link between graph OC and BFC. In general, the correlation between graph OC and FC has been studied in great detail on an array of complex networks by Samal et al. [44]. In our case, we confirm that both OC and BFC discretizations behave identically for simpler problems and similarly in relation to \(\alpha\) and \(k\) , a phenomenon that can also be verified empirically through Figures 1 and 4 (Appendix).

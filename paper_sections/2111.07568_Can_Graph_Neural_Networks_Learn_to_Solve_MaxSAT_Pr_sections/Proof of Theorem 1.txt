@@ -1,0 +1,18 @@
+A CNF formula \(\phi\) can be represented as a pair \((L, C)\) , where \(L\) is the set of literals, and \(C\) is the set of clauses. Let \(\mathcal{A}\) be the proposed distributed local algorithm for MaxSAT problem. First of all, we present the following two lemmas:  
+
+Lemma 2. Given the algorithm \(\mathcal{A}\) , there exists a single- layer graph neural network \(\mathcal{N}\) , such that for any input \(\phi = (L, C)\) , \(\mathcal{A}(\phi) = \mathcal{N}(\phi)\) holds.  
+
+Lemma 3. The algorithm \(\mathcal{A}\) has an approximation ratio of \(1 / 2\) for any input \(\phi = (L, C)\) .  
+
+If these lemmas hold, we have found a single- layer GNN \(\mathcal{N}\) that achieves the same performance as \(\mathcal{A}\) when solving MaxSAT problem, which is guaranteed to have a \(1 / 2\) - approximation. As a consequence, Theorem 1 holds.  
+
+Proof of Lemma 2. We use a single- layer GNN \(\mathcal{N}\) to align with the algorithm \(\mathcal{A}\) . Let \(L\) be a finite set of literals, and \(d = |L|\) . We assume that the embedding of each clause is a 0- 1 vector of length \(d\) , which represents a set of literals, and the embedding of each literal \(L_{i}\) is composed of two values: \(W(L_{i})\) and \(W(\widetilde{L}_{i})\) . Then, we construct some key components of \(\mathcal{N}\) to align with the operations in \(\mathcal{A}\) .  
+
+Consider the operation \(S(C_{j}) \leftarrow S(C_{j}) \cup \{L_{i}\}\) (line 4). As \(S(C_{j})\) and \(\{L_{i}\}\) are sets of literals, this set union operation is equivalent to a logical AND function of two 0- 1 vectors, which is apparently linearly separable. So there exists a learnable function \(f_{1}: \mathbb{R}^{d} \times \mathbb{R}^{d} \rightarrow \mathbb{R}^{d}\) to simulate the operation exactly.  
+
+Consider the operation of picking a literal \(L^{*}\) from \(S(C_{j})\) , and \(W(L^{*}) \leftarrow W(L^{*}) + 1\) (lines 6- 7). According to the universal approximation theorem, there exists a learnable function \(f_{2}: \mathbb{R} \times \mathbb{R}^{d} \rightarrow \mathbb{R}\) to approximate this operation with arbitrarily small error \(\epsilon\) . Next, we show the error will not break the exact simulation of the assignment operation (lines 10- 14). When \(W(L_{i}) \neq W(\widetilde{L}_{i})\) , the condition \(W(L_{i}) \geq W(\widetilde{L}_{i})\) still holds if \(\epsilon < 0.5\) , since the elements in \(W\) are integers. Besides, when \(W(L_{i}) = W(\widetilde{L}_{i})\) , either \(L_{i}\) or \(\widetilde{L}_{i}\) can be assigned True. So there exists an \(f_{2}\) with \(\epsilon < 0.5\) to simulate the operations exactly.  
+
+The alignment and simulation of other parts are straightforward. As shown above, each component of \(\mathcal{N}\) can align with an operation in \(\mathcal{A}\) . Therefore, for any input \(\phi = (L, C)\) , their outputs must be equal, i.e., \(\mathcal{A}(\phi) = \mathcal{N}(\phi)\) . \(\square\)  
+
+Proof of Lemma 3. In the algorithm \(\mathcal{A}\) , the picking operation of literal (line 6) transforms the original MaxSAT problem \(P\) into a new Max1SAT problem \(P'\) , where \(W(L_{i})\) counts the number of occurrences of literal \(L_{i}\) in \(P'\) . Given a solution of \(P'\) , the number of satisfied clauses of \(P\) is at least as large as that of \(P'\) . Then, we consider the assignment operation of literal (lines 9- 15) in \(\mathcal{A}\) . For a literal \(L_{i}\) appearing in \(P'\) , according to the condition \(W(L_{i}) \geq W(\widetilde{L}_{i})\) , the satisfied clauses are no less than the rejected ones if \(L_{i}\) is assigned True. Therefore, a solution produced by \(\mathcal{A}\) satisfies
+at least \(|C| / 2\) clauses, which implies an approximation ratio of \(1 / 2\) .

@@ -1,0 +1,22 @@
+As described in Section 1, there have been several attempts that learn to solve SAT problem with GNNs in recent years.  
+
+<center>Figure 2: Two kinds of factor graphs to represent the CNF formula \((x_{1}\lor x_{2}\lor x_{3})\land (x_{1}\lor \neg x_{3})\land (\neg x_{1}\lor \neg x_{2}\lor \neg x_{3})\) with 3 variables and 3 clauses. </center>  
+
+The pipeline of such work generally consists of three parts. Firstly, a CNF formula is transformed to a graph through some rules. Next, a GNN variant is employed that maps the graph representation to the labels, e.g., the satisfiability of a problem or the assignment of a variable. Finally, the prediction results are further analyzed and utilized after the training converges. Intuitively, they can almost be transfered to work on MaxSAT problem without much modification, since these two problems have the same form of input.  
+
+Factor graph is a common representation for CNF formulas, which is a bipartite structure to represent the relationship between literals and clauses. There are mainly two kinds of factor graphs that have appeared in the previous work. The first one is node- splitting factor graph (NSFG), which splits the two literals \((x_{i},\neg x_{i})\) corresponding to a variable \(x_{i}\) into two nodes. NSFG is used by many work such as (Selsam et al. 2019) and (Zhang et al. 2020). The other one is edge- splitting factor graph (ESFG), which establishes two types of edges, connected the clauses with positive and negative literals separately. (Yolcu and Póczos 2019) uses ESFG with a pair of biadjacency matrices. An example that represents a CNF formula with these two kinds of factor graphs is illustrated in Figure 2.  
+
+The models generally follow the message passing process of GNNs. Considering the bipartite structure of graph, in each layer the process is divided in two directions executed in sequence. For NSFG, the operation of the \(k\) - th layer of GNNs can be formalized as  
+
+\[\begin{array}{r l} & {C_{j}^{(k)} = \mathrm{UPD}_{C}(C_{j}^{(k - 1)},\mathrm{AGG}_{L}(L_{i}^{(k - 1)}|(i,j)\in E)),}\\ & {(L_{i}^{(k)},\widetilde{L}_{i}^{(k)}) = \mathrm{UPD}_{L}(L_{i}^{(k - 1)},\widetilde{L}_{i}^{(k - 1)},}\\ & {\qquad \mathrm{AGG}_{C}(C_{j}^{(k - 1)}|(i,j)\in E)),} \end{array} \quad (3)\]  
+
+where \(L_{i}^{(k)},C_{j}^{(k)}\) is the embedding of literal \(i\) and clause \(j\) in the \(k\) - th layer. The message is firstly collected from the literals in clause \(j\) , and the embedding of \(j\) is updated by that of the last layer and the message. Next, the embedding of literal \(i\) is updated in almost the same way, except that the embedding of literal \(i\) is updated with that of its negation together (denoted by \(\widetilde{L}_{i}^{(k)}\) ). This operation maintains the consistency of positive and negative literals of the same variable.  
+
+For ESFG, there are two types of edges, which can be denoted as \(E^{+}\) and \(E^{- }\) . If a positive literal \(i_{1}\) appears in clause \(j\) , we have \((i_{1},j)\in E^{+}\) , and similarly have \((i_{2},j)\in E^{- }\) if \(i_{2}\) is a negative literal. The operation of the \(k\) - th layer of GNNs can be formalized as  
+
+\[\begin{array}{r l} & {C_{j}^{(k)} = \mathrm{UPD}_{C}(C_{j}^{(k - 1)},\mathrm{AGG}_{L}^{+}(L_{i}^{(k - 1)}|(i,j)\in E^{+}),}\\ & {\qquad \mathrm{AGG}_{L}^{-}(L_{i}^{(k - 1)}|(i,j)\in E^{- })),}\\ & {L_{i}^{(k)} = \mathrm{UPD}_{L}(L_{i}^{(k - 1)},\mathrm{AGG}_{C}^{+}(C_{j}^{(k - 1)}|(i,j)\in E^{+}),}\\ & {\qquad \mathrm{AGG}_{C}^{-}(C_{j}^{(k - 1)}|(i,j)\in E^{- })).} \end{array} \quad (4)\]  
+
+Finally, for both NSFG and ESFG, a binary classifier is applied to map the embedding of each variable to its assignment. We use the binary cross entropy (BCE) as loss function, which can be written as  
+
+\[B C E(y,p) = -(y\log (p) + (1 - y)\log (1 - p)), \quad (5)\]
+where \(p \in [0,1]\) is the predicted probability of a variable being assigned True, and \(y\) is the binary label from an optimal solution. By averaging the loss of each variable, we obtain the loss of a problem instance, which should be minimized. We will investigate the performance of these two models through experiments in Section 5.

@@ -1,0 +1,5 @@
+# Attn-JGNN: Attention Enhanced Join-Graph Neural Networks  
+
+Jixin Zhang[0009- 0006- 9758- 7793] and Yong Lai[0000- 0002- 6882- 0107]  
+
+Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of Education, Jilin University, Changchun, 130012, China laiy@jlu.edu.cn

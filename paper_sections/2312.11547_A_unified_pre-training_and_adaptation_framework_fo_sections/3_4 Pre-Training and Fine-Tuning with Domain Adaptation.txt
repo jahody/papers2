@@ -1,0 +1,1 @@
+In this subsection, we introduce the framework of our work for training as depicted in Figure 2. Our framework consists of two stages. The first stage is to pre- train our model by using massive samples generated from Max- SAT and the second stage is to further fine- tune the model with domain adaptation that combines samples from Max- SAT and CO problems.

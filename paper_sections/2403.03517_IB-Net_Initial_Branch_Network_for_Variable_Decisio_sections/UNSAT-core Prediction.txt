@@ -1,0 +1,7 @@
+In Table 3, we focus on the outcomes of UNSAT- core prediction. It showcases the performance of IB- Net, in comparison with other methodologies on the LEC dataset and SAT Competition dataset, which indicates that IB- Net leads the pack across both datasets. Remarkably, both F1 scores on the LEC dataset suggest IB- Net correctly identifies variables  
+
+<center>(a) Percentage of UNSAT-core in samples with different variable sizes for LEC dataset </center>  
+
+<center>(b) Percentage of UNSAT-core in samples with different variable sizes for SAT Comp dataset </center>  
+
+in and outside UNSAT- core. Though alternative approaches exhibit reasonable performance in SAT Competition dataset, they significantly lag behind IB- Net in LEC dataset, signifying their struggles with predicting variables in UNSAT- core accurately. This may be due to the imbalance nature of UNSAT- core in LEC UNSAT problems showed in Fig. 3: Over \(90\%\) of variables are in UNSAT- core for LEC in Fig. 3(a) while around \(40\%\) of variables are in UNSAT- core for UNSAT problems in SAT Competition in Fig. 3(b). These results underscore the efficiency of IB- Net as a potent model for UNSAT- core prediction, with its adeptness in both balance and imbalance datasets.

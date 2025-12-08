@@ -1,0 +1,1 @@
+<center>Figure 6: This figure shows evolution of the embeddings of literals during the MP process. We selected 6 different time steps from the 30 time steps used for this example. The 16-dimensional vectors are projected to 2D by UMAP algorithm. </center>

@@ -1,0 +1,14 @@
+To ensure fair comparison, our evaluation adopts metrics consistent with AutoSAT [29], which are widely recognized in the SAT community.  
+
+Solving Time. For SAT instances that can be solved/proved within a timeout limitation \(\tau\) , we record the running time \(t\) of a SAT solver solving/proving these instances. For those SAT instances that cannot be solved/proved within timeout limitation \(\tau\) , we measure the two following metrics.  
+
+Number of Timeout. Given a timeout limitation \(\tau\) and a set of SAT instances, we record the number of SAT instances that cannot be solved/proved within \(\tau\) for different compared methods. The \(\tau\) is set as 5000 seconds, same as [29].  
+
+Penalized Average Runtime with a factor of 2 score (PAR- 2). PAR- 2 is a standard evaluation metric in SAT solver competitions and benchmarks, employed to assess and compare solver performance under incomplete executions or timeout scenarios. Specifically, the PAR- 2 score aggregates runtime across test instances as follows: 1) For solved instances, record the solver's runtime; 2) For instances where the solver exceeds the timeout limitation \(\tau\) , assign twice the timeout threshold \(\tau\) as the penalty—this is why we call this metric as PAR- 2; 3) Compute the average across all instances by summing these values and dividing by the instance count. Lower PAR- 2 scores indicate better overall solver efficiency.
+Intuitively, consider a benchmark set comprising \(n\) SAT instances. Let \(t_{i}\) denote the solver's runtime on the i- th instance. The PAR- 2 score is formally defined as  
+
+\[\mathrm{PAR - 2} = \frac{1}{n}\sum_{i = 1}^{n}t_{i}, \quad (21)\]  
+
+where  
+
+\[t_{i} = \left\{ \begin{array}{l l}{t_{i},} & {\mathrm{if} t_{i}\leq \tau ;}\\ {2\tau ,} & {\mathrm{if} t_{i} > \tau \mathrm{or the~solver~fails~to~return~a~solution}.} \end{array} \right. \quad (22)\]

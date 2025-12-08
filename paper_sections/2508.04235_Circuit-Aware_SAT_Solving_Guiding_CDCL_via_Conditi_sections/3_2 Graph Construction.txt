@@ -1,0 +1,36 @@
+To enable probability- aware learning on circuit graphs, we construct directed acyclic graphs (DAGs) where each node represents a logical gate, and further augment with virtual gates for better probability modeling, as shown in Figure 2.  
+
+DAG Construction with and and not Gates Following prior work (Shi et al. 2023, 2024; Zheng et al. 2025; Liu et al. 2024), we begin by constructing a standard DAG representation of the input circuit. Each logic gate is represented as a node, and edges represent signal propagation between gates. Specifically, for a given circuit graph \(G\) , we construct
+a DAG comprising two basic gate types: and gates for binary conjunctions and not gates for logic inversion.  
+
+We adopt the aggregator \(Aggr_{and}\) and \(Aggr_{not}\) for and gates and not gates respectively, following DeepGate4 framework(Zheng et al. 2025).  
+
+Virtual and Gates for Joint Probabilities To expose joint probabilities directly in the graph, we insert virtual and gates in \(\mathcal{G}\) : for any node \(A\) conditioned on \(C\) , we add  
+
+\[A_{joint} = A\wedge C, \quad (3)\]  
+
+so the model can observe the joint probability \(P(A\wedge C)\) directly, denoted as \(P(A_{joint})\) , without intermediate arithmetic computations. When encode the virtual and gate, we directly adopt the \(Aggr_{and}\) to get the embedding and predict the joint probability as:  
+
+\[h^{A_{joint}} = Aggr(h^{A},h^{C}),\hat{P} (A_{joint}) = \phi (h^{A_{joint}}), \quad (4)\]  
+
+where \(\phi\) is a 3- layer MLPs.  
+
+Virtual div Gates for Conditional Probabilities As joint probabilities can be modeled via virtual and gates, computing conditional probabilities such as  
+
+\[P(A\mid C) = \frac{P(A\wedge C)}{P(C)} = \frac{P(A_{joint})}{P(C)} \quad (5)\]  
+
+can lead to amplified errors, especially when \(P(C)\) is small. Details are shown in Appendix A2.  
+
+Nodes with extremely low probabilities- - referred to as polar nodes (i.e., those with truth- table probabilities below 0.1)- are empirically harder to learn and tend to amplify prediction errors. These nodes require special attention to ensure accurate and reliable modeling.  
+
+To address this, we introduce virtual div gates to represent conditional probabilities directly within the graph. Each such gate takes two inputs: the numerator, which is a virtual and gate representing the joint event \(A_{\mathrm{joint}} = A\wedge C\) , and the denominator, which corresponds to the condition node \(C\) .  
+
+Then with aggregator \(Aggr_{div}\) designed for div gate, we first get the embedding with:  
+
+\[h^{A_{cond}} = Aggr_{div}(h^{A_{joint}},h^{C}). \quad (6)\]  
+
+Then predict the probability with task head \(\phi\) :  
+
+\[\hat{P} (A_{cond}) = \phi (h^{A_{cond}}) \quad (7)\]  
+
+This design enables the model to predict \(P(A\mid C)\) directly from graph context, reducing error sensitivity to small denominators.

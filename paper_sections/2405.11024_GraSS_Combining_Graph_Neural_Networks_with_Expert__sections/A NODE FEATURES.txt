@@ -1,0 +1,1 @@
+We provide in Table 7 a summary of the features in our graph representations, for each node type.

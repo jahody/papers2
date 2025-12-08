@@ -1,0 +1,11 @@
+To bootstrap training, we hope to generate pattern- based traces that approximate full truth tables. Given a circuit with \(m\) primary inputs (PIs), the complete truth table has \(2^{m}\) rows—impractical beyond \(m\approx 20\) . Instead, we conduct simulation with 20,000 patterns and uniformly sample 100 random patterns per circuit per epoch (see Table A3) and record the resulting logic probability values for every node.  
+
+<table><tr><td>Pattern ID</td><td>PI1</td><td>PI2</td><td>PI3</td><td>...</td><td>PIm</td><td>Node u</td><td>Node v</td></tr><tr><td>1</td><td>0</td><td>1</td><td>0</td><td>...</td><td>1</td><td>0</td><td>0</td></tr><tr><td>2</td><td>1</td><td>0</td><td>0</td><td>...</td><td>0</td><td>1</td><td>0</td></tr><tr><td>3</td><td>0</td><td>0</td><td>1</td><td>...</td><td>1</td><td>0</td><td>1</td></tr><tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr><tr><td>19997</td><td>0</td><td>1</td><td>1</td><td>...</td><td>0</td><td>1</td><td>1</td></tr><tr><td>19998</td><td>0</td><td>1</td><td>1</td><td>...</td><td>0</td><td>0</td><td>1</td></tr><tr><td>19999</td><td>1</td><td>0</td><td>1</td><td>...</td><td>1</td><td>1</td><td>0</td></tr><tr><td>20000</td><td>0</td><td>0</td><td>0</td><td>...</td><td>0</td><td>0</td><td>1</td></tr></table>  
+
+Table A3: Excerpt of a truth table. Each training epoch picks a fresh random subset of 100 rows, ensuring the model learns to interpolate between unseen patterns.  
+
+For each node \(v\) , we compute  
+
+\[\hat{P}_{\mathrm{rand}}(v) = \frac{1}{100}\sum_{i = 1}^{100}\mathbf{1}\big(v = 1\mathrm{~in~row~}i\big), \quad (A4)\]  
+
+which serves as a supervisory signal encouraging the GNN to capture fine- grained functional behavior. Because the 100- row subset changes every epoch, the network is exposed to thousands of distinct local views, yielding better generalization than a single large simulation.

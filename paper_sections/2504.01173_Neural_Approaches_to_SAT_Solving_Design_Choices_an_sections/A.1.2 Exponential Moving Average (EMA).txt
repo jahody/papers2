@@ -1,0 +1,8 @@
+We employ Exponential Moving Average (EMA) for model parameter updates during training. EMA maintains a shadow copy of the model parameters that is updated after each training
+batch:  
+
+\[\theta_{\mathrm{EMA}}\leftarrow \beta \theta_{\mathrm{EMA}} + (1 - \beta)\theta_{\mathrm{current}} \quad (13)\]  
+
+where \(\beta\) is the decay rate (we use \(\beta = 0.999\) ).  
+
+During validation and testing, we use the EMA parameters instead of the current parameters. This technique significantly stabilizes training and improves generalization, especially in the early stages of training. Our experiments show that EMA provides a smooth validation accuracy curve, while the validation accuracy of the non- EMA model exhibits high variance and jumps of up to \(10\%\) .

@@ -1,0 +1,3 @@
+# NEUROBACK: IMPROVING CDCL SAT SOLVING USING GRAPH NEURAL NETWORKS  
+
+Wenxi Wang, Yang Hu, Mohit Tiwari, Sarfraz Khurshid, Ken McMillan, Risto Miikkulainen The University of Texas at Austin Austin, TX 78712, USA wenxiw@utexas.edu, huyang@utexas.edu, tiwari@austin.utexas.edu, khurshid@utexas.edu, kenmcm@cs.utexas.edu, risto@cs.utexas.edu

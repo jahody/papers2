@@ -1,0 +1,24 @@
+Let us formalize how we apply REINFORCE when training an ANYCSP model. Recall that our action space is extremely large as we choose one assignment from the set of all possible assignments in each step. We can handle this action space efficiently because we model probability distributions over this space as soft assignments from which a new value is sampled independently for every variable. The probability with which a hard assignment \(\alpha\) is sampled from a soft assignment \(\phi\) is therefore given by  
+
+\[\mathbf{P}(\alpha |\phi) = \prod_{X\in \mathcal{X}}\phi (\alpha (X)). \quad (14)\]
+<center>Figure 5: Illustration of the message passing scheme in our policy GNN \(\pi_{\theta}\) . The process is performed once in each iteration \(t\) . (1) Values pass messages to constraints. (2) Constraints pass messages to values. (3) Values pass messages to variables. (4) Variables pass messages to values. (5) Values predict a new soft assignment. </center>  
+
+Note that sampling one assignment \(\alpha \sim \phi\) and computing its probability according to 14 are both efficient operations and are highly parallelizable. These are the only operation we need on our action space for training and testing.  
+
+In each training step, we independently draw a batch of training instances from \(\Omega\) . For each such instance \(\mathcal{I}\) , we first run \(\mathrm{ANYCSP}\) for \(T\) steps to generate sequences of soft assignments \(\phi_{\theta} = \phi_{\theta}^{(1)},\ldots ,\phi_{\theta}^{(T)}\) and hard assignments \(\alpha = \alpha^{(1)},\ldots ,\alpha^{(T)}\) . Note that we added \(\theta\) as a subscript to the soft assignments to indicate that the parameters in \(\theta\) have a partial derivative with respect to the probabilities stored in \(\phi_{\theta}^{(t)}\) . We first define \(G_{t}\) as the discounted future reward after step \(t\) :  
+
+\[G_{t} = \sum_{k = t}^{T}\lambda^{k - t}r^{(k)} \quad (15)\]  
+
+Here, \(\lambda \in (0,1]\) is a discount factor that we usually choose as \(\lambda = 0.75\) . The purpose of the discount factor is to encourage the policy to earn rewards quickly. Our objective is to find parameters \(\theta\) that maximize the discounted reward over the whole search:  
+
+\[J(\theta)\coloneqq \underset {\alpha \sim \pi_{\theta}(\mathcal{I})}{\mathbf{E}}\left[\sum_{t = 1}^{T}\lambda^{t - 1}r^{(t)}\right] \quad (16)\]  
+
+REINFORCE (Williams 1992) enables us to estimate the policy gradient as follows:  
+
+\[\begin{array}{l}{\nabla_{\theta}J(\theta) = \nabla_{\theta}\sum_{t = 1}^{T}G_{t}\log \mathbf{P}(\alpha^{(t)}|\phi_{\theta}^{(t)})}\\ {= \nabla_{\theta}\sum_{t = 1}^{T}\left(G_{t}\sum_{X\in \mathcal{X}}\log \left(\phi_{\theta}^{(t)}(\alpha^{(t)}(X)) + \epsilon\right)\right)} \end{array} \quad (18)\]  
+
+Equation 18 applies Equation 14 and adds a small \(\epsilon = 10^{- 5}\) for numerical stability. These policy gradients are averaged over all instances in the batch and then used for one step of gradient ascent (or rather descent with \(- \nabla_{\theta}J(\theta)\) ) in the Adam optimizer. Note that we sample a single trace for each instance in the current batch. The process is repeated in each training step. Algorithm 2 provides our overall training procedure as pseudocode.  
+
+This training procedure is simply the standard REINFORCE algorithm applied to our Markov Decision Process.  
+
+We do not use a baseline or critic network. We initially expected this simple algorithm to be unable to estimate a useful policy gradient given the unusually large size of our action space and hard nature of our learning problem. Contrary to this expectation REINFORCE is able to train \(\mathrm{ANYCSP}\) effectively. While more sophisticated RL algorithms have been proposed to address training with large action spaces they are apparently not essential for training with exponentially large action spaces in the context of CSP heuristics.

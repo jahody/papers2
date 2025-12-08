@@ -1,0 +1,1 @@
+At test- time, to predict which SAT solver to use, we convert the SAT instance into our graph representation, compute its node features, and feed the graph to our trained GNN model, which outputs a probability distribution over the solvers of interest. The solver with highest probability is chosen for solving the instance, with the runtime being reported.

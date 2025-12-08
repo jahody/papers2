@@ -1,0 +1,3 @@
+We represent a formula \(\phi\) as a graph \(G(\phi) = (V(\phi),E(\phi))\) . This is a standard "Literal- Clause Graph" used in prior work, such as NeuroSAT Selsam et al. (2019). Formally, the vertices of this graph \(V(\phi) = \mathrm{Lit}(\phi) \cup \mathrm{Cls}(\phi)\) are the literals and clauses of \(\phi\) . The edges \(E(\phi) = E_{LC}(\phi) \cup E_{LL}(\phi)\) connect literals with the clauses they occur in and with the opposing literal of the same variable:  
+
+\[\begin{array}{r l} & {E_{L L}(\phi) = \{(x,\neg x)\mid x\in \mathcal{X}(\phi)\}}\\ & {E_{L C}(\phi) = \bigcup_{C\in \mathrm{Cls}(\phi)}\{(C,\ell)\mid \ell \in C\}} \end{array} \quad (12)\]

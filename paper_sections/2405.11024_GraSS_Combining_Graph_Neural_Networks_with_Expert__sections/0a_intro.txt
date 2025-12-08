@@ -1,0 +1,21 @@
+# GraSS: Combining Graph Neural Networks with Expert Knowledge for SAT Solver Selection  
+
+Zhuanguang Zhang  Huawei Noah's Ark Lab  Montreal, Canada  zhuanguang.zhang@huawei.com  
+
+Didier Chetelat  Huawei Noah's Ark Lab  Montreal, Canada  
+
+Joseph Cotnareanu  McGill University  Montreal, Canada  
+
+Amur Ghose  Huawei Noah's Ark Lab  Montreal, Canada  
+
+Wenyi Xiao  Huawei Noah's Ark Lab  Hong Kong, China  
+
+Hui- Ling Zhen  Huawei Noah's Ark Lab  Hong Kong, China  
+
+Yingxue Zhang  Huawei Noah's Ark Lab  Montreal, Canada  
+
+Jianye Hao  Huawei Noah's Ark Lab  Beijing, China  
+
+Mark Coates  McGill University  Montreal, Canada  
+
+Mingxuan Yuan  Huawei Noah's Ark Lab  Hong Kong, China

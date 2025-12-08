@@ -1,0 +1,5 @@
+# Addressing Variable Dependency in GNN-based SAT Solving  
+
+Zhiyuan Yan \(^{1}\) , Min Li \(^{2}\) , Zhengyuan Shi \(^{2}\) , Wenjie Zhang \(^{3}\) , Yingcong Chen \(^{1}\) and Hongce Zhang \(^{1}\)  
+
+\(^{1}\) Hong Kong University of Science and Technology(Guangzhou) \(^{2}\) The Chinese University of Hong Kong \(^{3}\) Peking University zyan760@connect.hkust- gz.edu.cn \(^{1}\) , {mli,zyshi21}@cse.cuhk.edu.hk \(^{2}\) , zhang_wen_jie@pku.edu.cn \(^{3}\) , yingcong.ian.chen@gmail.com \(^{1}\) , hongcezh@ust.hk \(^{1}\)

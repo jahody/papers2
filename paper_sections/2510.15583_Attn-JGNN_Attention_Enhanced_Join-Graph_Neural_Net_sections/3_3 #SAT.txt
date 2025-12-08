@@ -1,0 +1,16 @@
+In join- graph, we need to modify the Bethe formula to fit the specific structure of the join- graph:  
+
+\[F_{B e t h e - J o i n} = \sum_{\alpha}[H(b_{C_{\alpha}}) - \sum_{v\in C_{\alpha}}(d_{v}^{\alpha} - 1)H(b_{v})] \quad (20)\]  
+
+\(H(b_{C_{\alpha}})\) is the joint distribution entropy of variables and clauses within cluster \(C_{\alpha}\) , \(H(b_{v})\) is the entropy of the local variable, are the \(G A T1\) and \(G A T2\) outputs respectively, which are used as the input of the MLP layer after the pooling operation, the goal of the MLP is to approximate \(F_{B e t h e - J o i n}\) by the hierarchical structure of the join- graph. Its inputs and specific implementation are as follows:  
+
+\[h_{C_{\alpha}} = [H(b_{C_{\alpha}}), \sum_{v \in C_{\alpha}}(d_{v}^{\alpha} - 1)H(b_{v})], h_{G} = \frac{1}{|C_{\alpha}|} \sum_{\alpha} h_{C_{\alpha}} \quad (21)\]  
+
+\[H(b_{C_{\alpha}}) = G A T1(\frac{1}{|C_{\alpha}|} \sum_{j \in C_{\alpha}} h_{j}), H(b_{v}) = G A T2(h_{x}) \quad (22)\]
+The MLP fits the following mappings:  
+
+\[\hat{F}_{B e t h e - J o i n} = W_{2}\cdot R e L U(W_{1}h_{G} + b_{1}) + b_{2} \quad (23)\]  
+
+\(W_{1}\in \mathbb{R}^{d\times 2},b_{1}\in \mathbb{R}\) is the MLP hidden layer parameter and the \(W_{2}\in \mathbb{R}^{1\times d},b_{2}\in\) \(\mathbb{R}\) is the output layer parameter. By supervised ground truth \(\log Z\) (precomputed by the exact method), the loss function is designed as follows \(\mathcal{L}_{t o t a l}\) , finally, make a prediction:  
+
+\[\log Z\approx -\hat{F}_{B e t h e - J o i n} = -M L P(h_{G}) \quad (24)\]

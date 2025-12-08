@@ -1,0 +1,7 @@
+# NEURAL HEURISTICS FOR SAT SOLVING  
+
+Sebastian Jaszczur University of Warsaw  
+
+Michal Łuszczyk University of Warsaw  
+
+Henryk Michalewski University of Warsaw, deepsense.ai

@@ -1,0 +1,54 @@
+There exist many solvers to address the general SAT problem. One class of them are Stochastic Local Search (SLS) algorithms. In their simplest form, they work as follows:  
+
+1. Given a SAT instance \(\phi\) in conjunctive normal form (CNF), generate an initial candidate \(x\) via an initialise sub-routine.  
+
+2. If \(x\) violates any clause, choose one violated clause \(c\) at random and update \(x\) on the variables that appear in \(c\) via a sub-routine update, keeping the remainder of \(x\) unchanged.  
+
+3. Repeat step 2 until no clause is violated or a stopping criterion is met. Output \(x\) .  
+
+Hence, to specify a simple SLS solver amounts to specifying the initialise and update sub-routines.  
+
+Possibly the two simplest non- trivial SLS algorithms are the Moser- Tardos (MT) algorithm and the simple WalkSAT algorithm. The MT algorithm initialises an assignment randomly and updates an assignment \(x\) by randomly sampling a new assignment \(x^{\prime}\) and setting \(x\) to \(x^{\prime}\) on all variables in the clause \(c\) . WalkSAT also initialises an assignment randomly, however to update it randomly chooses one of the variables that appear in \(c\) and flips the assignment of that variable.  
+
+Both of the above algorithms heavily use samples drawn uniformly at random. However, it seems intuitively clear that they would perform better if instead, they sampled from distributions that are fine- tuned to the instance \(\phi\) and the current state \(x\) of the solver. To formalise this, we introduce the notion of a (sampling) oracle. A sampling oracle for instance \(\phi\) is a random variable \(O\) over the sample space \(\{0,1\}^{n}\) . Oracle- based SLS solvers are then SLS solvers who accept an oracle as part of the input and whose sub- routines utilise either samples \(x \sim O\) from \(O\) or the values of the latter's probability measure \(P_{O}\) in its definition.  
+
+We define the oracle- based MT and the oracle- based WalkSAT algorithms in Algorithm 1 and Algorithm 2 respectively. Both of these algorithms generalise their non oracle- based counterpart, since the latter are simply the special cases of the former for the case that the uniform oracle is used. The choice of sampling probabilities in the update set of
+Algorithm 1 Oracle- based Moser- Tardos algorithm  
+
+Input: \(\phi ,O\)  
+
+Output: \(x\)  
+
+1: \(x\sim O\)  
+
+2: while \(\exists c\in \phi\) : \(c(x) = 1\) do  
+
+3: \(x^{\prime}\sim O\)  
+
+4: pick a violated clause \(c\in \phi\) at random  
+
+5: \(x|_{V(c)}\gets x^{\prime}|_{V(c)}\)  
+
+6: end while  
+
+Algorithm 2 Oracle- based WalkSAT algorithm  
+
+Input: \(\phi ,O\)  
+
+Output: \(x\)  
+
+1: \(x\sim O\)  
+
+2: while \(\exists c\in \phi\) : \(c(x) = 1\) do  
+
+3: pick a violated clause \(c\in \phi\) at random  
+
+4: pick variable \(v\) from \(c\) with probability \(\frac{P_{O}(\neg x_{v})}{\sum_{v^{\prime}\in c}P_{O}(\neg x_{v^{\prime}})}\)  
+
+5: \(x_{v}\gets \neg x_{v}\)  
+
+6: end while  
+
+Algorithm 2 are inspired by the ProbSAT algorithm in Ref. [23] as they put more weight on choosing a variable \(v\) , the higher the likelihood under \(P_{O}\) of sampling a state with a flipped value assignment. Here and in the remainder, for any set of variables \(V\) and any \(x_{V}\in \{0,1\}^{|V|}\) , we write  
+
+\[P_{O}(x_{V}) = \sum_{x\in \{0,1\}^{n}:x|_{V} = x_{V}}P_{O}(x). \quad (3)\]

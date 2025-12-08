@@ -1,0 +1,23 @@
+One critical requirement for ANYCSP is a fast subroutine for recomputing the edge labels \(L_{E}\) given the newly sampled assignment \(\alpha^{(t)}\) in step \(t\) . Our implementation of this relabeling procedure is based entirely on PyTorch and is GPU accelerated to maximize performance. Here, we will briefly discuss how this implementation works.  
+
+Let \(\mathcal{F} = (\mathcal{X},\mathcal{D},\mathcal{C})\) be a CSP instances and let \(\alpha\) be the newly sampled assignment for which we have to compute the edge labels \(L_{E}\) . We first compute the node labels \(L_{V}\) which are a simple binary encoding of \(\alpha\) . Let \(C \in \mathcal{C}\) be some constraint with scope \(s^{C} = (X_{1}, \ldots , X_{k})\) , relation \(R^{C} \in \mathcal{D}(X_{1}) \times \dots \times \mathcal{D}(X_{k})\) and arity \(k\) . For each tuple \(r \in R^{C}\) we compute a score that counts how many of the values occurring in \(t\) are currently chosen by \(\alpha\) :  
+
+\[s(r) = \sum_{i = 1}^{k}L_{V}(r_{i}) \quad (19)\]  
+
+For each value \(\boldsymbol {v}\in \mathcal{V}_{X_{i}}\) of each variable \(X_{i}\) in the scope of \(C\) we then compute the maximum of \(s(t)\) over all tuples \(r\in R^{C}\) with \(v\in r\) ..  
+
+\[m(C,\boldsymbol {v}) = \max_{r\in R^{C},\boldsymbol {v}\in r}s(r) \quad (20)\]  
+
+For each value \(\boldsymbol{v}\) we observe that \(m(C,\boldsymbol {v}) - L_{V}(\boldsymbol {v}) = k - 1\) if and only if there exists some tuple \(r\in R^{C}\) with \(\boldsymbol {v}\in r\) such that for all \(\boldsymbol{v}^{\prime}\in r,\boldsymbol{v}^{\prime}\neq \boldsymbol{v}\) we already have \(\boldsymbol{v}^{\prime}\in \alpha\) . This is equivalent to our original definition of \(L_{E}\) and we can use this case distinction to obtain the edge labels:  
+
+\[L_{E}(C,\boldsymbol {v}) = \left\{ \begin{array}{ll}1 & \mathrm{if} m(C,\boldsymbol {v}) - L_{V}(\boldsymbol {v}) + 1 = k,\\ 0 & \mathrm{otherwise}. \end{array} \right. \quad (21)\]  
+
+Our implementation maintains edge lists which connect values and constraint edges to their respective tuples across all constraints. With these edge lists, Equations 19 and 20 are simply scatter operations and Equation 21 is carried out with standard torch arithmetic. These functions are fully based on the GPU and allow us to rapidly update all edge labels in parallel. We can optimize this further by allowing relations to be specified in terms of the disallowed tuples (conflicts), rather than the allowed ones. In this case, we can carry out the exact same procedure, except that we swap the labels in the case distinction of Equation 21. This optimization is very
+useful for many problems. SAT in particular has constraints that all forbid exactly one tuple. It is therefore more efficient to work with this one forbidden tuple rather than the \(2^{k} - 1\) allowed tuples.  
+
+The procedure described here is designed for extension constraints, i.e. constraints where the relations are defined explicitly with lists of allowed or disallowed tuples. Many applications of CSPs require constraints for which this is infeasible. In this case, the relations can only be specified implicitly through intensions. A common example are arithmetic inequalities over discrete numerical domains. To address this issue, our implementation does provide support for two additional classes of constraints:  
+
+1. Linear (in)-equalities over numerical domains 
+2. "All-Different"-constraint over many variables  
+
+These two types of constraints are commonly found in many CSPs but are hard to express explicitly. We can still compute the edge labels efficiently on the GPU with similar tricks used for the aforementioned extension constraints. Since these are not needed to reproduce the results of our main experiments we refer to our source code for further details. Note that our implementation allows all three supported constraint types to be freely mixed within each instance.

@@ -1,0 +1,1 @@
+In this subsection, we introduce the details of leveraging the Max- SAT problem to bridge different CO problems. In general, to fully utilize the common logical information in COs, we first convert the original graphs of the CO problems into several clauses of Max- SAT problems and then transform these clauses into bipartite graphs.

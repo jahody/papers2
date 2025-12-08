@@ -1,0 +1,11 @@
+SAT solving algorithms are generally categorized into complete and incomplete approaches, each with distinct characteristics and applications.  
+
+Complete Solvers Complete solvers theoretically guarantee definitive answers: either finding a satisfying assignment or proving that none exists. The Davis- Putnam- Logemann- Loveland (DPLL) algorithm forms the foundation for most modern complete solvers Biere et al. [2009]. It systematically explores the search space through backtracking while employing unit propagation to deduce logical consequences.  
+
+Conflict- Driven Clause Learning (CDCL) extends DPLL by analyzing conflicts to learn new clauses, which helps prune large portions of the search space. When a conflict occurs, the solver identifies the "reasons" for the conflict and adds a new clause that prevents similar conflicts in the future. Modern CDCL solvers incorporate sophisticated heuristics for variable selection, restart strategies, and efficient data structures to improve performance.  
+
+Incomplete Solvers Incomplete solvers focus on finding satisfying assignments but cannot prove unsatisfiability. These algorithms are particularly effective for large satisfiable instances where complete methods might be inefficient.  
+
+Local search algorithms, such as WalkSAT Selman et al. [1993], start with a random assignment and iteratively modify it to satisfy more clauses. These methods employ heuristics to decide which variables to flip at each step, balancing between greedy choices and random moves to escape local optima. For MaxSAT, local search algorithms often use scoring functions that prioritize flipping variables that maximize the increase in satisfied clauses.  
+
+Stochastic algorithms including simulated annealing and genetic algorithms have also been applied to SAT and MaxSAT problems. These approaches can effectively explore search spaces in certain problem classes where deterministic methods struggle.

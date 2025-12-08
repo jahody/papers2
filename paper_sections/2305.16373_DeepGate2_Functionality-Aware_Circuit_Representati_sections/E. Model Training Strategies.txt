@@ -1,0 +1,23 @@
+To train the model, we employed multi- stage training strategy, similar to training a model with an easy task and then a harder task in curriculum learning [21]. During each stage, we trained the model with multiple supervisions in multi- task learning manner [22]. In the first stage, we train the one- round GNN model with two simple tasks. The Task 1 involves predicting the logic probability, while the Task  
+
+2 entails identifying the structural correlation. To achieve this, we readout the functional embedding \(h f_{i}\) to predict the logic probability \(\hat{P}_{i}\) by a multi- layer perceptron (MLP), denoted as \(MLP_{prob}\) . In addition, we utilize the structural embeddings \(h s_{i}\) and \(h s_{j}\) to predict whether node \(i\) and node \(j\) can be reconvergent by \(MLP_{rc}\) .  
+
+\[\begin{array}{r}\hat{P}_i = MLP_{prob}(h f_i)\\ R_{\langle i,j\rangle} = MLP_{rc}(h s_i,h s_j) \end{array} \quad (8)\]  
+
+We define the loss function for Task 1 in Eq. (9), where the \(P_{i}\) is the ground truth logic probability obtained through random simulation.  
+
+\[L_{prob} = L1Loss(P_i,\hat{P}_i) \quad (9)\]  
+
+Besides, we define the loss function for Task 2 in Eq. (10). The binary ground truth, denoted as \(R_{\langle i,j\rangle}\) , indicates whether node pair \(i\) and \(j\) have a common predecessor.  
+
+\[L_{rc} = BCELoss(R_{\langle i,j\rangle},R_{\langle i,j\rangle}) \quad (10)\]  
+
+Consequently, the loss function for Stage 1 is presented in Eq. (11), where the \(w_{prob}\) and \(w_{rc}\) are the weight for Task 1 and Task 2, respectively.  
+
+\[L_{stage1} = L_{prob}*w_{prob} + L_{rc}*w_{rc} \quad (11)\]  
+
+The second training stage involves another more difficult Task 3. functionality- aware learning, as described in Section III- C. The loss function for Stage 2 is defined below, where \(w_{func}\) represents the loss weight of Task 3.  
+
+\[L_{stage2} = L_{prob}\times w_{prob} + L_{rc}\times w_{rc} + L_{func}\times w_{func} \quad (12)\]  
+
+Overall, the model can differentiate gates with varying probability in Stage 1. As the logic equivalent pairs only occur when nodes have the same probability, the model in Stage 2 learns to predicting the functional similarity within the probability equivalent class. The effectiveness of the above training strategies is demonstrated in Section IV- E.

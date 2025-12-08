@@ -1,0 +1,8 @@
+Evaluation across different difficulty levels. The results across different difficulty levels are presented in Figure 11. Remarkably, both NeuroSAT and GGNN exhibit a strong generalization ability when trained on easy or medium datasets. This suggests that GNN models can effectively learn and generalize from the
+characteristics and patterns present in these datasets, enabling them to perform well on a wide range of problem complexities.  
+
+<center>Figure 11: Classification accuracy of unsat-core variables across different difficulty levels. The x-axis denotes testing datasets and the y-axis denotes training datasets. </center>  
+
+Evaluation across different datasets. Figure 12 shows the generalization results across different datasets. Both NeuroSAT and GGNN demonstrate good generalization performance to datasets that are different from their training data, except for the CA dataset. This discrepancy can be attributed to the specific characteristics of the CA dataset, where the number of unsat- core variables is significantly smaller compared to the number of variables not in the unsat core. In contrast, other datasets have a different distribution, where the number of unsat- core variables is much larger. This variation in distribution presents a challenge for the models' generalization ability on the CA dataset.  
+
+<center>Figure 12: Classification accuracy of unsat-core variables across different datasets. The x-axis denotes testing datasets and the y-axis denotes training datasets. </center>

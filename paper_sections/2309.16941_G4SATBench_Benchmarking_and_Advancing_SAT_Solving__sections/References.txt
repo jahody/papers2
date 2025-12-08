@@ -1,0 +1,85 @@
+Saeed Amizadeh, Sergiy Matusevych, and Markus Weimer. Learning to solve Circuit- SAT: An unsupervised differentiable approach. In International Conference on Learning Representations (ICLR), 2019a.  
+
+Saeed Amizadeh, Sergiy Matusevych, and Markus Weimer. PDP: A general neural framework for learning constraint satisfaction solvers. arXiv preprint arXiv:1903.01969, 2019b.  
+
+Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint arXiv:1607.06450, 2016.  
+
+Adrian Balint and Andreas Fröhlich. Improving stochastic local search for sat with a new probability distribution. In Theory and Applications of Satisfiability Testing- SAT 2010: 13th International Conference, SAT 2010, Edinburgh, UK, July 11- 14, 2010. Proceedings 13, pp. 10- 15. Springer, 2010.  
+
+Armin Biere, Marijn Heule, and Hans van Maaren. Handbook of Satisfiability, volume 185. IOS press, 2009.  
+
+Béla Bollobás and Paul Erdős. Cliques in random graphs. In Mathematical Proceedings of the Cambridge Philosophical Society, 1976.  
+
+Benedikt Bünz and Matthew Lamm. Graph neural networks and boolean satisfiability. arXiv preprint arXiv:1702.03592, 2017.  
+
+Chris Cameron, Rex Chen, Jason Hartford, and Kevin Leyton- Brown. Predicting propositional satisfiability via end- to- end learning. In AAAI Conference on Artificial Intelligence (AAAI), 2020.  
+
+Ting Chen, Simon Kornblith, Mohammad Norouzi, and Geoffrey E. Hinton. A simple framework for contrastive learning of visual representations. In International Conference on Machine Learning (ICML), 2020.  
+
+Ziliang Chen and Zhanfu Yang. Graph neural reasoning may fail in certifying boolean unsatisfiability. arXiv preprint arXiv:1909.11588, 2019.  
+
+James M. Crawford and Larry D. Auton. Experimental results on the crossover point in random 3- SAT. Artificial Intelligence, 1996.  
+
+Haonan Duan, Pashootan Vaezipoor, Max B. Paulus, Yangjun Ruan, and Chris J. Maddison. Augment with care: Contrastive learning for combinatorial problems. In International Conference on Machine Learning (ICML), 2022.  
+
+Matthias Fey and Jan Eric Lenssen. Fast graph representation learning with pytorch geometric. arXiv preprint arXiv:1903.02428, 2019.  
+
+ABKFM Fleury and Maximilian Heisinger. Cadical, kissat, paracooba, plingeling and treengeling entering the sat competition 2020. SAT COMPETITION, 2020.
+Jesús Giráldez- Cru and Jordi Levy. A modularity- based random SAT instances generator. In International Joint Conference on Artificial Intelligence (IJCAI), 2015.  
+
+Jesús Giráldez- Cru and Jordi Levy. Locality in random SAT instances. In International Joint Conference on Artificial Intelligence (IJCAI), 2017.  
+
+Wenxuan Guo, Junchi Yan, Hui- Ling Zhen, Xijun Li, Mingxuan Yuan, and Yaohui Jin. Machine learning methods in solving the boolean satisfiability problem. arXiv preprint arXiv:2203.04755, 2022.  
+
+Jesse Michael Han. Enhancing SAT solvers with glue variable predictions. arXiv preprint arXiv:2007.02559, 2020.  
+
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Delving deep into rectifiers: Surpassing human- level performance on imagenet classification. In IEEE International Conference on Computer Vision (ICCV), 2015.  
+
+Sean B Holden et al. Machine learning for automated theorem proving: Learning to solve SAT and QSAT. Foundations and Trends® in Machine Learning, 14(6):807- 989, 2021.  
+
+Holger H Hoos and Thomas Stützle. SATLIB: An online resource for research on SAT. Workshop on Satisfiability (SAT), 2000.  
+
+Sebastian Jaszczur, Michal Łuszczyk, and Henryk Michalewski. Neural heuristics for SAT solving. arXiv preprint arXiv:2005.13406, 2020.  
+
+Diederik P. Kingma and Jimmy Ba. Adam: A method for stochastic optimization. In International Conference on Learning Representations (ICLR), 2015.  
+
+Thomas N. Kipf and Max Welling. Semi- supervised classification with graph convolutional networks. In International Conference on Learning Representations (ICLR), 2017.  
+
+Vitaly Kurin, Saad Godil, Shimon Whiteson, and Bryan Catanzaro. Can q- learning with graph networks learn a generalizable branching heuristic for a SAT solver? In Advances in Neural Information Processing Systems (NeurIPS), 2020.  
+
+Massimo Lauria, Jan Elffers, Jakob Nordström, and Marc Vinyals. Cnfen: A generator of crafted benchmarks. In Theory and Applications of Satisfiability Testing (SAT), 2017.  
+
+Min Li, Zhengyuan Shi, Qiuxia Lai, Sadaf Khan, Shaowei Cai, and Qiang Xu. On eda- driven learning for sat solving. In Design Automation Conference (DAC), 2023.  
+
+Yujia Li, Daniel Tarlow, Marc Brockschmidt, and Richard S. Zemel. Gated graph sequence neural networks. In International Conference on Learning Representations (ICLR), 2016.  
+
+Zhaoyu Li and Xujie Si. NSNet: A general neural probabilistic framework for satisfiability problems. In Advances in Neural Information Processing Systems (NeurIPS), 2022.  
+
+Vinod Nair and Geoffrey E. Hinton. Rectified linear units improve restricted boltzmann machines. In International Conference on Machine Learning (ICML), 2010.  
+
+Emils Ozolins, Karlis Freivalds, Andis Draguns, Eliza Gaile, Ronalds Zakovskis, and Sergejs Kozlovics. Goal- aware neural SAT solver. In International Joint Conference on Neural Networks (IJCNN), 2022.  
+
+Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban Desmaison, Andreas Kopf, Edward Z. Yang, Zachary DeVito, Martin Raison, Alykhan Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu Fang, Junjie Bai, and Soumith Chintala. Pytorch: An imperative style, high- performance deep learning library. In Advances in Neural Information Processing Systems (NeurIPS), 2019.  
+
+Bart Selman, Hector J. Levesque, and David G. Mitchell. A new method for solving hard satisfiability problems. In National Conference on Artificial Intelligence (AAAI), 1992.
+Daniel Selsam and Nikolaj S. Bjørner. Guiding high- performance SAT solvers with unsat- core predictions. In Theory and Applications of Satisfiability Testing (SAT), 2019.  
+
+Daniel Selsam, Matthew Lamm, Benedikt Bünz, Percy Liang, Leonardo de Moura, and David L. Dill. Learning a SAT solver from single- bit supervision. In International Conference on Learning Representations (ICLR), 2019.  
+
+Zhengyuan Shi, Min Li, Yi Liu, Sadaf Khan, Junhua Huang, Hui- Ling Zhen, Mingxuan Yuan, and Qiang Xu. Sathermer: Transformer- based unsat core learning. In International Conference on Computer Aided Design (ICCAD), 2023.  
+
+João P. Marques Silva and Karem A. Sakallah. GRASP: A search algorithm for propositional satisfiability. IEEE Transactions on Computers, 1999.  
+
+Wenxi Wang, Yang Hu, Mohit Tiwari, Sarfraz Khurshid, Kenneth McMillan, and Risto Miikkulainen. Neurocomb: Improving SAT solving with graph neural networks. arXiv preprint arXiv:2110.14053, 2021.  
+
+Nathan Wetzler, Marijn Heule, and Warren A. Hunt Jr. Drat- trim: Efficient checking and trimming using expressive clausal proofs. In Theory and Applications of Satisfiability Testing (SAT), 2014.  
+
+Ben Wieland and Anant P. Godbole. On the domination number of a random graph. The Electronic Journal of Combinatorics, 2001.  
+
+Keyulu Xu, Weihua Hu, Jure Leskovec, and Stefanie Jegelka. How powerful are graph neural networks? In International Conference on Learning Representations (ICLR), 2019.  
+
+Zhiyuan Yan, Min Li, Zhengyuan Shi, Wenjie Zhang, Yingcong Chen, and Hongce Zhang. Addressing variable dependency in gnn- based SAT solving. arXiv preprint arXiv:2304.08738, 2023.  
+
+Emre Yolcu and Barnabás Póczos. Learning local search heuristics for boolean satisfiability. In Advances in Neural Information Processing Systems (NeurIPS), 2019.  
+
+Wenjie Zhang, Zeyu Sun, Qihao Zhu, Ge Li, Shaowei Cai, Yingfei Xiong, and Lu Zhang. Nicolasat: Boosting local search with solution prediction. In International Joint Conference on Artificial Intelligence (IJCAI), 2020.

@@ -1,0 +1,5 @@
+To further validate the distinct effectiveness of our proposed inprocessing framework beyond preprocessing techniques, we compare the two strategies:  
+
+- Preprocessing-only: We adopt the preprocessing techniques proposed in prior work (Shi et al. 2025c), to transform the circuit into a solver-friendly format.- Preprocessing + CASCADE: Building on the same preprocessing technique, we integrate it into the inprocessing stage via our CASCADE framework.  
+
+As shown in Table 6 and Table 7, even when strong preprocessing technique has been applied, integrating our inprocessing framework leads to substantial additional speedups. For SAT cases, the best setting reduces the average PAR2 from 13.39 to 2.89 (a \(4.6 \times\) improvement), while for UNSAT cases, our clause filtering achieves a reduction from 304.42 to 224.95. This highlights the complementary nature of the two techniques, and demonstrates that inprocessing contributes dynamic guidance during solving—providing essential capabilities that static preprocessing alone cannot achieve.

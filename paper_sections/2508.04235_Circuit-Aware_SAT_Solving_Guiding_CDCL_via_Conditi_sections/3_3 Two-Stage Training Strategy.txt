@@ -1,0 +1,36 @@
+We train the network with a two- stage training strategy:  
+
+1. Pattern-Based Pre-training. Previous works (Shi et al. 2023, 2024; Zheng et al. 2025; Liu et al. 2024) initialize PI embeddings using input probabilities, however, it will lead to information distortion. As shown in Table 1, distinct input subsets (0-3 and 4-7) may share the same empirical PI probability (0.5), despite differing in actual assignments. This  
+
+Table 1: Example of simulation patterns and probability.   
+
+<table><tr><td>Pattern ID</td><td>P1</td><td>P2</td><td>P3</td><td>P4</td><td>Node x</td><td>Node y</td><td>Node z</td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr><tr><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr><td>3</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr><tr><td>4</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td></tr><tr><td>5</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td></tr><tr><td>6</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr><tr><td>7</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr></table>  
+
+illustrates a key limitation: probabilities are coarse- grained and may fail to capture fine- grained circuit behavior.  
+
+To address this, we use 100 random patterns per minibatch to compute fine- grained probability features, which are fed into the model. This supervision enables our model to capture both statistical trends and functional semantics.  
+
+Suppose the circuit contains \(n\) nodes in total, where the first \(m\) nodes are designated as primary inputs (PIs). For each primary input (PI) node, a 100- bit simulation trace is encoded into an initial embedding using an autoencoder. Embeddings for all other nodes are then propagated level- by- level through the circuit.  
+
+The stage- 1 training loss is defined as:  
+
+\[\begin{array}{l}{\mathcal{L}_{\mathrm{stage1}} = w_{1}\cdot \frac{1}{n - m}\sum_{i = m + 1}^{n}L1(P_{i} - \hat{P}_{i})}\\ {+\ w_{2}\cdot \frac{1}{m}\sum_{j = 1}^{m}L1(P_{j} - \hat{P}_{j})} \end{array} \quad (8)\]  
+
+Here, the L1 Loss function is defined as:  
+
+\[\mathrm{L1}(a,b) = |a - b| \quad (9)\]  
+
+where \(P_{i}\) denotes the ground- truth probability of the \(i\) - th node, and \(\hat{P}_{i}\) is the predicted value. The second term focuses on PI nodes, encouraging accurate reconstruction of their probabilities, since their embeddings are initialized from actual simulation data.  
+
+2. Workload-Aware Fine-tuning. Although training on batches of 100 patterns helps capture fine-grained circuit behaviors, our ultimate goal is to generalize to the statistical properties of large-scale pattern distributions.  
+
+To bridge this gap and enhance data diversity, we perform 200 simulations, each using 100 random patterns with designated PI workloads drawn from \(\{0.1,0.2,\ldots ,0.9\}\) (detailed in Appendix A4). For each PI, the 100- bit trace in a simulation is averaged into a single probability, resulting in a 200- dimensional vector that captures its behavior under diverse input distributions. This vector is then passed through an MLP to produce the PIs' initial embedding. For internal nodes, ground- truth probabilities are computed by aggregating predictions over all \(200\times 100 = 20,000\) input patterns, serving as training targets in stage- 2.
+<center>Figure 3: Example of conditional probability calculation for three conditions </center>  
+
+The overall loss for stage- 2 is defined as:  
+
+\[\begin{array}{rl} & {\mathcal{L}_{\mathrm{stage2}} = w_1\cdot \frac{1}{|\mathcal{S}_{\mathrm{all}}|}\sum_{i\in \mathcal{S}_{\mathrm{all}}}L1(P_i - \hat{P}_i)}\\ & {\qquad +w_2\cdot \frac{1}{|\mathcal{S}_{\mathrm{div}}|}\sum_{j\in \mathcal{S}_{\mathrm{div}}}L1(P_j - \hat{P}_j)}\\ & {\qquad +w_3\cdot \frac{1}{|\mathcal{S}_{\mathrm{polar}}|}\sum_{k\in \mathcal{S}_{\mathrm{polar}}}L1(P_k - \hat{P}_k)} \end{array} \quad (10)\]  
+
+Here, Sall denotes all internal nodes in the circuit, Sdiv refers to div nodes, and Spolar includes polarized nodes with low probability \((P< 0.1)\)  
+
+Higher weights \(w_{2}\) and \(w_{3}\) prioritize structurally and semantically critical nodes: div nodes reflect key conditional probabilities, while polarized nodes are harder to predict but crucial for tasks like Circuit SAT.

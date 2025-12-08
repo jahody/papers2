@@ -1,0 +1,14 @@
+While continuous diffusion models have gained prominence in image generation and other domains, discrete diffusion processes well- suited for combinatorial optimization problems like MAX- SAT, where the state space is inherently discrete. Our approach presented in Section 5.4 leverages a discrete diffusion process with categorical noise to model the generation of variable assignments. We adapt a concrete form of discrete diffusion first presented by Austin et al. Austin et al. [2021] and later leveraged for combinatorial optimization with GNNs by Sun et al. Sun and Yang [2023].  
+
+On a high level, diffusion models are trained to denoise noisy version of the training samples. These noisy versions are obtained by running a forward diffusion process for several steps and the model is then trained to predict the original sample. For a SAT problem with \(n\) variables, we represent each variable assignment as a binary value and the vector of these binary values represent the sample. The diffusion process gradually corrupts this sample until it becomes pure noise.  
+
+More concretely, the process that progressively adds noise to the initial assignment \(\mathbf{x}_{0} \in \{0, 1\}^{n}\) over \(T\) timesteps, produces a sequence of increasingly more corrupted assignments \(\mathbf{x}_{1}, \mathbf{x}_{2}, \ldots , \mathbf{x}_{T}\) . For categorical diffusion, this corruption process is defined by a Markov chain with the following transition matrices:  
+
+\[\mathbf{Q}_{t} = \left( \begin{array}{cc}1 - \beta_{t} & \beta_{t} \\ \beta_{t} & 1 - \beta_{t} \end{array} \right) \quad (2)\]  
+
+where \(\beta_{t} \in (0, 1)\) represents the noise schedule, controlling how quickly the assignments become corrupted. The matrix \(\mathbf{Q}_{t}\) defines the probability of transitioning between states at time \(t\) , with the property that as \(t\) approaches \(T\) , the distribution of \(\mathbf{x}_{t}\) approaches a uniform distribution over all possible assignments.
+To simplify inference, the cumulative transition matrices \(\overline{\mathbf{Q}}_{t} = \mathbf{Q}_{1}\mathbf{Q}_{2}\cdot \cdot \cdot \mathbf{Q}_{t}\) , which directly gives us \(p(\mathbf{x}_{t}|\mathbf{x}_{0})\) are being used. For the Boolean case, this allows us to efficiently sample \(\mathbf{x}_{t}\) given \(\mathbf{x}_{0}\) using:  
+
+\[p(\mathbf{x}_{t}|\mathbf{x}_{0}) = \mathrm{Cat}(\mathbf{x}_{t};\mathbf{p} = \tilde{\mathbf{x}}_{0}\overline{\mathbf{Q}}_{t}) \quad (3)\]  
+
+where \(\tilde{\mathbf{x}}_{0} \in \{0,1\}^{n \times 2}\) is the one- hot encoding of \(\mathbf{x}_{0}\) , with each variable represented by a vector \((1,0)\) for value 0 or \((0,1)\) for value 1. The Cat operation refers to the categorical distribution, which samples \(\mathbf{x}_{t}\) based on the probability vector \(\mathbf{p}\) .

@@ -1,0 +1,16 @@
+We use a graph neural network (GNN) model to predict which solver to use for a given instance. These models operate on graphs by repeatedly modifying node embeddings through graph convolution operations, and have emerged as a standard paradigm for dealing with graph- structured data, both in SAT solving [19] and more widely for combinatorial optimization in general [5]. However, we deviate from standard graph convolution frameworks by interpreting our literal- clause graph as a graph with three types of edges: (i) from clause to literal nodes; (ii) from literal to clauses nodes; and (iii) between positive and negative literal nodes. These graphs can then be interpreted as "heterogeneous graphs", and we can apply heterogenous GNN methodologies [50].  
+
+In this framework, the graph convolution steps take the following edge- type- dependent form. Let \(x_{j}\in \mathbb{R}^{d}\) stand for the feature vector at node \(j\) . For every edge \((j,i)\in \mathcal{E}_{k}\) of type \(k\in \{1,\ldots ,K\}\) from node \(j\) to node \(i\) , we compute a message \(m_{i,j,k} = \phi_{k}(x_{i},x_{j})\) where \(\phi_{k}\) is a learnable "message function". We then update the feature vector at node \(i\) by the formula  
+
+\[\overline{m}_{i,k} = \rho_{k}\big(\{m_{i,j,k}\mid (j,i)\in \mathcal{E}_{k}\} \big),\] \[x_{i}\leftarrow \delta \Big(\Big\{\psi_{k}(x_{i},\overline{m}_{i,k})\Big|k = 1\ldots ,K\Big\} \Big),\]
+<center>Figure 3: Runtime variation introduced by permutation. Thirty SAT instances are randomly sampled from SAT Competition data, and the order of variables (left) and clauses (right) are shuffled twenty times. The instances are then solved by Kissat 3.0 with a 5,000s cutoff, and the collected runtimes are plotted in ascending order of mean runtime. </center>  
+
+where \(\rho_{k}\) is the "message aggregation" function for edge type \(k\) , \(\psi_{k}\) is the learnable "update" function, and \(\delta\) is the "edge- type aggregation" function.  
+
+We apply this framework to our neural network as follows. For clarify, a diagram of the architecture is provided as Figure 1. The clause, positive and negative literal node embeddings are initialized with the 17-, 3-, and 3- dimensional feature vectors described in Table 7,  
+
+\[x_{\mathrm{clause},i}\longleftarrow \mathrm{features}_{\mathrm{clause},i}\quad \forall \mathrm{clause~node~}i\] \[x_{\mathrm{poslit},i}\longleftarrow \mathrm{features}_{\mathrm{poslit},i}\quad \forall \mathrm{positive~literal~node~}i\] \[x_{\mathrm{neglit},i}\longleftarrow \mathrm{features}_{\mathrm{neglit},i}\quad \forall \mathrm{negative~literal~node~}i\]  
+
+These are then transformed by two rounds of convolutions. We set \(\phi_{k}\) and \(\psi_{k}\) as in the classical graph convolutions of Kipf and Welling [27], with a relu nonlinearity and mean aggregation functions for \(\rho_{k}\) and \(\delta\) . That is, we compute  
+
+\[x_{\mathrm{clause},i}\longleftarrow \mathrm{relu}\left(b + \sum_{j\in N_{\mathrm{poslit}}(i)}\frac{W_{\mathrm{poslit}}x_{\mathrm{poslit},j}}{\sqrt{\mathrm{deg}(i)\mathrm{deg}(j)}}\right)\] \[+\sum_{j\in N_{\mathrm{poslit}}(i)}\frac{W_{\mathrm{neglit}}x_{\mathrm{neglit},j}}{\sqrt{\mathrm{deg}(i)\mathrm{deg}(j)}}\Big)\]

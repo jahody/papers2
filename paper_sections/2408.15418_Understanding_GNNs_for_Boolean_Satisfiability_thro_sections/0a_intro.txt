@@ -1,0 +1,7 @@
+# Understanding GNNs for Boolean Satisfiability through Approximation Algorithms  
+
+Jan Hula  University of Ostrava  Ostrava, Czechia  Jan.Hula21@gmail.com  
+
+David Mojzišek  University of Ostrava  Ostrava, Czechia  david.mojzisek@osu.cz  
+
+Mikoláš Janota  Czech Technical University in Prague  Prague, Czechia  mikolas.janota@cvut.cz

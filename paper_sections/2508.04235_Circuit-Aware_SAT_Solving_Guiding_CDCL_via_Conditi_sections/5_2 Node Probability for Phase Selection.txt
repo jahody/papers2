@@ -1,0 +1,12 @@
+<center>Figure 4: Solving Time on LECSAT (150 SAT cases) with probability-based phase selection(unit: seconds) </center>  
+
+We use CASCAD to predict condition probability and evaluate our selection method(defined in Section 3.1) on 150 SAT instances from the LECSAT benchmark under different thresholds \(\tau\) . Figure 4 compares solving times of our method (x- axis) under various threshold with CaDiCaL (y- axis), both in log scale. We also include the recent circuit representation model DeepGate4 (Zheng et al. 2025) (black dots) as a comparison, which predicts node- level similarity and encourages assigning opposite values to functional similar nodes to trigger conflicts earlier and prune the search.  
+
+Most points lie above the diagonal \((y = x)\) , indicating that our method outperforms the mainstream phase selection heuristic widely used in modern SAT solvers (has integrated into CaDiCaL). Compared to DeepGate4, our method consistently achieves lower solving times, demonstrating more effective phase guidance. At \(\tau = 0.005\) , our method achieves up to \(10 \times\) speedup, and nearly \(5 \times\) at \(\tau = 0.01\) . Points further left imply lower average solving times, highlighting the overall efficiency of our probability- guided strategy across different \(\tau\) values.  
+
+In addition, the phase selection method serves as a lightweight classifier for UNSAT instances: since it greatly accelerates SAT solving—if a case remains unsolved within a fixed time budget, it is likely to be UNSAT. This insight allows us to adapt solver parameters dynamically to better handle UNSAT- dominated scenarios(see Appendix A6), achieving \(2 \times\) average speedup on LECUNSAT dataset.
+<center>Figure 5: Number of solved instances as a function of solving time using probability-based clause filtering. A total of 130 small case in LECUNSAT dataset. TIMEOUT = 400s. </center>  
+
+Table 5: Average Par2 of 20 large cases in LECUNSAT using probability-based clause filtering. TIMEOUT \(= 1000\mathrm{s}\)   
+
+<table><tr><td>Threshold</td><td>Baseline</td><td>Ours.Solving</td><td>Ours.Overall</td></tr><tr><td>0.85</td><td rowspan="3">1828.83</td><td>1560.72</td><td>1563.45</td></tr><tr><td>0.9</td><td>1406.19</td><td>1408.03</td></tr><tr><td>0.95</td><td>1396.13</td><td>1399.34</td></tr><tr><td></td><td></td><td>1429.60</td><td>1432.48</td></tr></table>

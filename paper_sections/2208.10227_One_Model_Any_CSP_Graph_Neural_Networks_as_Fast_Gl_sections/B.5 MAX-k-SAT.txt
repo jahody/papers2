@@ -1,0 +1,5 @@
+For MAX- \(k\) - SAT we can use the same reduction from Boolean CNF formulas to CSPs that we use for 3- SAT. The considered formulas are simply denser.  
+
+Data Our training distribution \(\Omega_{\mathrm{MSAT}}\) contains \(k\) - CNF formulas with 100 variables and an arity of \(k\in \{3,4\}\) . The clause/variable ratio is sampled uniformly from [5, 8] and [10, 16] for \(k = 3\) and \(k = 4\) , respectively. We validate on formulas with 200 variables and identical density distribution. No 5- CNF formulas are used for training and model selection.  
+
+Baselines In this experiment, we use MaxWalkSAT, a version of the classical WalkSAT algorithm optimized for MAXSAT. The noise parameter is tuned on our validation data to a value of \(10^{- 3}\) . The implementations of CCLS and SATLike do not have command line options and run in their default configurations.
