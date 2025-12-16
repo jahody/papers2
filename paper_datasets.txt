@@ -1,0 +1,455 @@
+Paper: 1909.11588_Graph_Neural_Reasoning_May_Fail_in_Certifying_Bool
+Datasets:
+I'll analyze this paper to identify all datasets used, created, or evaluated.Based on my thorough analysis of the provided paper content, here are the datasets used, created, or evaluated:
+
+## **No specific datasets identified.**
+
+### Explanation:
+
+This is a **theoretical analysis paper** that does not conduct empirical experiments or evaluate any concrete datasets. The paper focuses on:
+
+- **Theoretical proofs** about GNN limitations in certifying Boolean unsatisfiability (UNSAT)
+- **Mathematical analysis** of message-passing algorithms in GNNs
+- **Algorithmic comparisons** between GNNs and SAT solvers (DPLL, CDCL, WalkSAT)
+
+### Key observations:
+
+- The paper mentions **Boolean satisfiability (SAT) problems** and **CNF (Conjunctive Normal Form) formulae** as the subject matter, but does not use specific named datasets
+- References are made to previous work ([1], [7], [12], [16]) that used datasets, but the authors do not employ those datasets themselves
+- Section 4 mentions discussions about "static graphs" and 2QBF problems but no evaluation on actual datasets
+- The paper acknowledges it is a theoretical contribution: "this manuscript does not claim GNN is provably unable to achieve UNSAT, which remains an open issue"
+
+The paper is purely theoretical in nature and presents no experimental validation on any specific dataset.
+--------------------------------------------------------------------------------
+
+Paper: 2005.13406_Neural_heuristics_for_SAT_solving
+Datasets:
+Based on my analysis of this research paper on neural heuristics for SAT solving, here are the datasets used:
+
+**Datasets Used:**
+
+- **SR(n) dataset class** - A parametrized class of SAT problems introduced by Selsam et al. (2018), where n represents the number of variables in the formula. Specifically, the paper uses:
+  - SR(30)
+  - SR(50)
+  - SR(70)
+  - SR(100)
+  - SR(90) and SR(110) for evaluation purposes
+
+The SR(n) dataset is characterized as:
+- Balanced between satisfiable and unsatisfiable instances
+- Generated using MiniSat 2.2 solver
+- Each sample includes two labels: satisfiability status and a "policy" label indicating whether the formula remains satisfiable with each literal assignment
+- Variable formula sizes and clause counts (not fixed)
+
+**Note:** The paper does not use standard benchmark datasets like MNIST or ImageNet. Instead, it relies on the SR(n) synthetic dataset class, which is specifically designed for evaluating SAT solvers and was generated during their research process.
+--------------------------------------------------------------------------------
+
+Paper: 2110.14053_NeuroBack_Improving_CDCL_SAT_Solving_using_Graph_N
+Datasets:
+Based on the paper content provided, here are the datasets used, created, or evaluated:
+
+## Datasets Identified:
+
+**Created Dataset:**
+- **DataBack** - A new dataset containing 120,286 labeled CNF formulas with backbone variable phases
+  - **DataBack-PT** (Pre-training set): 118,460 augmented formulas from:
+    - CNFgen: 21,718 augmented formulas
+    - SATLIB: 80,306 augmented formulas
+    - Model Counting Competitions (2020-2022): 11,560 augmented formulas
+    - SAT Competition Random Tracks (2004-2021): 4,876 augmented formulas
+  
+  - **DataBack-FT** (Fine-tuning set): 1,826 augmented formulas from:
+    - SAT Competition Main Track (2004-2021)
+
+**Benchmark/Evaluation Datasets:**
+- **SATCOMP-2022** - 800 CNF formulas from the main track (308 problems successfully inferred)
+- **SATCOMP-2023** - 800 CNF formulas from the main track (353 problems successfully inferred)
+
+**Source Datasets (components of DataBack):**
+- **CNFgen** - CNF generator for proof complexity formulas
+- **SATLIB** - Benchmark library with standard SAT instances
+- **Model Counting Competitions (MCC)** - CNF formulas from 2020-2022
+- **SAT Competition Tracks** - Random and main tracks from 2004-2021
+--------------------------------------------------------------------------------
+
+Paper: 2111.07568_Can_Graph_Neural_Networks_Learn_to_Solve_MaxSAT_Pr
+Datasets:
+Based on the paper content provided, here are the datasets used:
+
+## Datasets Used:
+
+• **R2 (60, 600)** - Random 2-SAT instances with 60 variables and 600 clauses (20K instances generated)
+
+• **R2 (60, 800)** - Random 2-SAT instances with 60 variables and 800 clauses (20K instances generated)
+
+• **R2 (80, 800)** - Random 2-SAT instances with 80 variables and 800 clauses (2K instances as testing set)
+
+• **R3 (30, 300)** - Random 3-SAT instances with 30 variables and 300 clauses (20K instances generated)
+
+• **R3 (50, 500)** - Random 3-SAT instances with 50 variables and 500 clauses (2K instances as testing set)
+
+**Note:** These are **synthetically generated datasets** created specifically for this research. The datasets were generated using a random MaxSAT instance generator proposed by Mitchell, Selman, and Levesque (1992), which is also used for the random track of MaxSAT competitions. Each dataset was divided into training (80%), validation (10%), and testing (10%) sets, with optimal solutions generated using the MaxHS solver.
+--------------------------------------------------------------------------------
+
+Paper: 2205.04423_Graph_Neural_Networks_for_Propositional_Model_Coun
+Datasets:
+Based on my analysis of the paper content provided, here are the datasets used:
+
+## Datasets Identified:
+
+- **Random CNF SAT formulae (synthetically generated)** - 1000 training samples with parameters:
+  - Number of variables: uniformly drawn from [10, 30] (average 19.87 variables)
+  - Number of clauses: uniformly drawn from [20, 50] (average 34.87 clauses)
+  - Average clause length: 5 variables
+  - Generated via random sampling with satisfiability checking via MiniSat
+
+- **SAT-encoded combinatorial problems** - Used for testing generalization capabilities (specific benchmark name not detailed in provided excerpt, but referenced as coming from "different formulae distributions")
+
+- **Exact model counts** - Generated using sharpSAT solver for ground truth labels in training data
+
+## Notes:
+
+The paper explicitly states that the model is "trained on a small set of random Boolean formulae" and tested on "different formulae distributions, such as those coming from SAT-encoded combinatorial problems." However, the specific names of standard combinatorial benchmarks (if any) are not clearly specified in the provided sections. The training data is entirely synthetically generated rather than using established public datasets like standard SAT competition benchmarks.
+--------------------------------------------------------------------------------
+
+Paper: 2208.10227_One_Model_Any_CSP_Graph_Neural_Networks_as_Fast_Gl
+Datasets:
+I'll analyze the paper to identify all datasets used, created, or evaluated.Based on my analysis of the paper content provided, here are the datasets used, created, or evaluated:
+
+## **Datasets Used in the Paper:**
+
+• **MODEL RB** - Random CSP benchmark instances generated according to the MODEL RB distribution; training uses instances with 30 variables and arity 2; test dataset **RB50** contains 50 satisfiable instances with 50 variables, 23-valued domains, and ~500 constraints (from XCSP project)
+
+• **Graph Coloring Instances** - Training distribution Ω_COL of random graphs (50 vertices) mixing Erdős-Rényi, Barabási-Albert, and random geometric graphs; colors chosen in range [3, 10]
+
+• **Structured Graph Coloring Benchmarks** - 100 structured benchmark graphs with known chromatic number, split into COL<10 (50 graphs) and COL≥10 (50 graphs with up to 1K vertices and 19K edges)
+
+• **Gset** - Standard MAXCUT benchmark collection with graphs ranging from 800 to 10K vertices
+
+• **Random Erdős-Rényi graphs** - Training distribution Ω_MCUT for MAXCUT with 100 vertices and edge probability p ∈ [0.05, 0.3]
+
+• **3-SAT Random Instances** - Training distribution Ω_3SAT of uniform random 3-SAT with 100 variables and clause-to-variable ratio from [4, 5]
+
+• **SATLIB** - Benchmark suite for 3-SAT evaluation; test set contains 100 instances each for SL50, SL100, SL150, SL200, SL250 (50, 100, 150, 200, 250 variables respectively)
+
+• **MAX-k-SAT Instances** - Training on Ω_MSAT uniform random instances with 100 variables for k ∈ {3,4}; test data with 50 instances of 10K variables each for k ∈ {3,4,5}
+--------------------------------------------------------------------------------
+
+Paper: 2211.14405_Learning_Branching_Heuristics_from_Graph_Neural_Ne
+Datasets:
+Based on my analysis of the paper content, here are the datasets used, created, or evaluated:
+
+• **G(n,p) random graphs** - Synthetic graph instances generated from the Erdős–Rényi random graph model with:
+  - **Hard instances**: Generated with p ≈ 0.371 (near phase transition threshold p = (3-√5)/2 ≈ 0.381)
+  - **Easy instances**: Generated with p ∈ (0, 0.35) ∪ (0.4, 1)
+  - **Minimum dominating clique instances**: Generated with p ∈ (0.4, 0.41)
+  - **Graph size range**: n from 75 to 800 vertices
+
+• **Training data for dominating cliques**: 2,650 total instances
+  - 750 hard instances (p ≈ 0.371)
+  - 1,400 easy instances (outside phase transition)
+  - 1,400 instances used for training
+
+• **Validation/test data**: 
+  - 500 instances split between validation and test sets (hard instances)
+  - 500 instances split between validation and test sets (minimum dominating clique instances)
+
+• **Specific experimental datasets**:
+  - Training, validation, and test sets with 50 instances for each value of n
+  - Tested on dominating clique problem and minimum dominating clique problem
+
+**Note**: All datasets are synthetically generated from the G(n,p) random graph model. No external benchmark datasets (like standard graph libraries or public repositories) are used in this work.
+--------------------------------------------------------------------------------
+
+Paper: 2304.08738_Addressing_Variable_Dependency_in_GNN-based_SAT_So
+Datasets:
+Based on my analysis of the paper content, here are the datasets used, created, or evaluated:
+
+## Datasets Used in the Paper
+
+- **Small-scale symmetric AIG (And-Inverter Graphs)**: Manually constructed 10 circuits with no more than 3 inputs, containing at least two symmetric input nodes with asymmetric solutions (used as training set)
+
+- **SR(n) problems**: Medium-size randomly generated CNF formulas where n is the number of variables. Training set: 8K instances sampled uniformly from SR(U(3,8)); Test sets include SR(3) through SR(10), and larger instances SR(20), SR(40), SR(60), and SR(80)
+
+- **V(n) problems**: Large randomly generated AIGs (And-Inverter Graphs) created using the AIGEN tool, where n represents the number of circuit input nodes. Each V(n) problem contains more than 1K logic gates on average. Training set: 1.2K instances with n ranging from 3 to 8; Test set: 320 instances with n ranging from 3 to 10, plus larger instances V(11) through V(15)
+
+**Note**: The SR(n) and V(n) problems are synthetically generated datasets created by the authors for evaluation purposes. CNF formulas are converted from circuits and vice versa using Shannon's Decomposition and Tseitin transformation.
+--------------------------------------------------------------------------------
+
+Paper: 2305.16373_DeepGate2_Functionality-Aware_Circuit_Representati
+Datasets:
+Based on the paper content provided, here are the datasets used:
+
+• **ITC'99** - Circuit benchmark suite
+• **IWLS'05** - Circuit benchmark suite
+• **EPFL** - Circuit benchmark collection
+• **OpenCore** - Circuit collection
+
+**Aggregated Dataset Details:**
+- **Total circuits**: 10,824 AIGs (And-Inverter Graphs)
+- **Circuit sizes**: Ranging from 36 to 3,214 logic gates
+- **Synthetic data generated**: 15,000 random patterns per circuit to generate incomplete truth tables
+- **Training dataset**: 894,151 node pairs constructed from the circuits
+- **Train/test split**: 80/20
+- **Evaluation circuits**: 10 industrial circuits with sizes ranging from 3.18k to 40.50k gates
+
+The paper does not use standard benchmark datasets like MNIST or ImageNet. Instead, it uses circuit netlists from established EDA benchmark sources (ITC'99, IWLS'05, EPFL, and OpenCore), which are standard in the electronic design automation community for evaluating circuit representation learning models.
+--------------------------------------------------------------------------------
+
+Paper: 2309.11452_Using_deep_learning_to_construct_stochastic_local_
+Datasets:
+Based on the paper content provided, here are the datasets used:
+
+• **Random 3-SAT instances** - Generated using CNFgen library, with:
+  - Training set: 396 satisfiable instances
+  - Instance sizes: n ∈ [100, 200, 300]
+  - Difficulty range: 1 ≤ α ≤ 4.82
+  - Equally distributed across variable sizes
+  - Post-selected for satisfiable instances
+
+• **Evaluation/Test set** - 2052 random 3-SAT instances with:
+  - Instance sizes: n ∈ [100, 200, 300]
+  - Difficulty range: 1 ≤ α ≤ 4.82
+  - Equally distributed across variable sizes
+
+**Note on data generation:** All datasets are synthetically generated random 3-SAT instances (CNF formulas with clauses containing at most 3 literals). The instances were generated using the Python library CNFgen, and solutions were verified using the Glucose3 solver via the PySAT library. The papers explicitly states "All code and datasets used are made available as part of this publication in a GitHub repository."
+--------------------------------------------------------------------------------
+
+Paper: 2309.16941_G4SATBench_Benchmarking_and_Advancing_SAT_Solving_
+Datasets:
+Based on the paper content, here are the datasets used in G4SATBench:
+
+## Datasets Used/Created in G4SATBench:
+
+**Synthetic CNF Datasets (7 total, organized across 3 domain areas):**
+
+**Random Problems:**
+- **SR Dataset** - Generated using the SR generator from NeuroSAT; pairs of satisfiable and unsatisfiable formulas differing by a single literal's polarity
+- **3-SAT Dataset** - Generated using the 3-SAT generator from CNFGen; formulas at the phase transition region
+
+**Pseudo-Industrial Problems:**
+- **CA Dataset** (Community Attachment) - Generated using the CA model; instances mimicking community structures in real-world industrial SAT instances
+- **PS Dataset** (Popularity-Similarity) - Generated using the PS model; instances with power-law distribution in variable occurrences
+
+**Combinatorial Problems:**
+- **k-Clique Dataset** - Instances encoding the k-Clique problem using CNFGen generators
+- **k-Domset Dataset** (k-Dominating Set) - Instances encoding the k-Dominating Set problem
+- **k-Vercov Dataset** (k-Vertex Cover) - Instances encoding the k-Vertex Cover problem
+
+**Difficulty Levels:** Each of the 7 datasets includes three difficulty levels (Easy, Medium, Hard) with varying instance sizes and complexity parameters.
+
+**Data Split:** For easy/medium datasets: 80k training pairs, 10k validation pairs, 10k test pairs. For hard datasets: 10k test pairs only.
+--------------------------------------------------------------------------------
+
+Paper: 2312.11547_A_unified_pre-training_and_adaptation_framework_fo
+Datasets:
+Based on the paper content provided, here are the datasets used, created, or evaluated:
+
+## Datasets Used in This Paper:
+
+- **Synthetic Max-SAT Instances**: 20,000 Max-SAT instances generated using three representative generators with different distributions:
+  - Uniform distribution
+  - Power-law distribution
+  - Double power-law distribution
+
+- **GSET Benchmark**: A set of 71 unweighted graphs commonly used for testing Max-Cut problem algorithms
+
+- **frb Benchmark**: Four different instance scales for Maximum Independent Set (MIS) and Minimum Dominating Set (MDS) evaluation:
+  - frb30-15 (450 vertices, 18k edges)
+  - frb40-19 (760 vertices, 41k edges)
+  - frb50-23 (1,150 vertices, 80k edges)
+  - frb59-26 (1,534 vertices, 126k edges)
+  - Each frb dataset consists of five hard constraint satisfaction problem instances used in CSP competitions
+
+- **Random Graphs**: Synthetic random graphs with varying sizes (n=100, 200, 500, 800, 1000 nodes) and degrees (γ=3, 5, 10) for Max-Cut evaluation
+--------------------------------------------------------------------------------
+
+Paper: 2403.03517_IB-Net_Initial_Branch_Network_for_Variable_Decisio
+Datasets:
+Based on the paper content provided, here are the datasets used, created, or evaluated:
+
+## Datasets Identified:
+
+- **LEC (Logic Equivalence Checking) Circuit Dataset** - Industrial dataset from real-life chip design in 2023, comprising:
+  - Circuit 1: 22,050 CNF instances (avg. 1,002 variables)
+  - Circuit 2: 14,840 CNF instances (avg. 952 variables)
+  - Circuit 3: 25,591 CNF instances (avg. 1,563 variables)
+  - Total: 62,481 CNF instances (avg. 1,220 variables)
+  - >99% of instances are UNSAT
+
+- **SAT Competition Dataset** - Anniversary track from SAT Competition 2022, comprising:
+  - SAT instances: 1,115 CNF (avg. 3,065 variables)
+  - UNSAT instances: 985 CNF (avg. 3,784 variables)
+  - Halted instances: 1,171 CNF (avg. 3,623 variables)
+  - Total: 3,271 CNF instances (avg. 3,481 variables)
+
+Both datasets were filtered to include only instances solvable within 1,000 seconds by the Kissat SAT solver, and were split into 80% training and 20% testing subsets with no overlaps between splits.
+--------------------------------------------------------------------------------
+
+Paper: 2405.11024_GraSS_Combining_Graph_Neural_Networks_with_Expert_
+Datasets:
+Based on the paper content provided, here are the datasets used:
+
+• **Logic Equivalence Checking (LEC)** - A proprietary dataset generated from logic equivalence checking steps in electronic circuit design. Contains 78,727 SAT instances collected from optimization of 30 industrial circuits.
+
+• **SAT Competition (SC)** - A subset of the Anniversary Track Benchmark of the 2022 SAT Competition, consisting of instances from the Main, Crafted, and Application tracks of previous SAT competitions. After filtering, contains 2,088 SAT instances (excluded instances unsolvable within 1,500 seconds by any solver and those with more than 20,000 variables).
+--------------------------------------------------------------------------------
+
+Paper: 2408.15418_Understanding_GNNs_for_Boolean_Satisfiability_thro
+Datasets:
+Based on the provided content, here are the datasets used in this paper:
+
+## Datasets Used:
+
+- **Random SAT Formulas** - Generated using Selsam et al.'s generative model, which creates sat/unsat pairs differing by one literal negation. Training set: 10,000 formulas with variables sampled uniformly from [5, 40]
+
+- **SR(40)** - Test set with 40 variables (same size as original NeuroSAT reference set)
+
+- **Latin Squares** - Structured problem instances generated by partially filling n×n grids with unique solutions, converted to SAT instances
+
+- **Sudoku** - Structured puzzle instances (3×3 boxes with 3×3 cells), generated using the same method as Latin squares
+
+- **Logical Circuits** - Structured problems generated as bit-vector inequalities of the form c₁*r₁ + c₂*r₂ ≠ c₃ mod 2ⁿ, converted to CNF using the CBMC model checker
+
+All datasets were subjected to unit propagation preprocessing to reduce instance size before evaluation.
+--------------------------------------------------------------------------------
+
+Paper: 2504.01173_Neural_Approaches_to_SAT_Solving_Design_Choices_an
+Datasets:
+Based on the paper content provided, here are the datasets used:
+
+## Datasets Used/Created:
+
+- **SR Generator datasets**
+  - SR40 (3-40 variables, 50,000 training instances: 25,000 pairs)
+  - SR100 (10-100 variables, 50,000 training instances: 25,000 pairs)
+  - SR200 (200 variables, test set)
+  - SR400 (400 variables, test set)
+  - Note: SR generator produces pairs of satisfiable and unsatisfiable formulas differing by a single literal negation
+
+- **3-SAT datasets**
+  - 3SAT100 (10-100 variables, 50,000 training instances, critical phase transition ratio of 4.26)
+  - 3SAT200 (200 variables, test set, critical phase transition ratio of 4.26)
+
+- **Data Variants**
+  - SAT-only versions of both SR and 3SAT datasets (half the original size, containing only satisfiable instances)
+
+All datasets are synthetically generated using the SR generator (from Selsam et al., 2018) and a 3-SAT generator configured at the phase transition point. The paper includes comprehensive statistics for test sets in Table 1, showing metrics like SAT%, average gap, clause counts, etc.
+--------------------------------------------------------------------------------
+
+Paper: 2504.11885_HyperSAT_Unsupervised_Hypergraph_Neural_Networks_f
+Datasets:
+Based on the provided content, here are the datasets used in this paper:
+
+• **SATLIB dataset (random 3-SAT benchmarks)** - Standard SAT solver evaluation dataset from which the following specific instances were derived:
+  - **UF100-430** (1000 SAT instances, 1000 UNSAT instances; 100 variables, 430 clauses)
+  - **UF200-860** (100 SAT instances, 100 UNSAT instances; 200 variables, 860 clauses)
+  - **UF250-1065** (100 SAT instances, 100 UNSAT instances; 250 variables, 1065 clauses)
+
+• **Synthetic Weighted MaxSAT instances** - Generated by assigning random weights (sampled uniformly from integers in the range [1,10]) to clauses in the CNF files from the SATLIB dataset to create Weighted MaxSAT problem instances.
+--------------------------------------------------------------------------------
+
+Paper: 2505.16053_Learning_from_Algorithm_Feedback_One-Shot_SAT_Solv
+Datasets:
+Based on the paper content provided, here are the datasets used:
+
+## Datasets Used in the Paper:
+
+- **3SAT (Random 3-SAT)**: Uniformly random 3-SAT instances with n variables and clause-to-variable ratio of 4.26 (critical density)
+  - Training: 3SAT(200) with 20,000 instances (10,000 SAT + 10,000 UNSAT)
+  - Testing: 3SAT(300), 3SAT(350), 3SAT(400) with 200 instances each
+
+- **3COL (Graph Coloring)**: SAT problems encoding 3-colorability of Erdős-Rényi graphs with expected vertex degree 4.67
+  - Training: 3COL(300) with 20,000 instances (10,000 SAT + 10,000 UNSAT)
+  - Testing: 3COL(400), 3COL(500), 3COL(600) with 200 instances each
+
+- **CRYPTO (Cryptographic/HiTag2)**: SAT instances generated for decrypting HiTag2 stream cipher using Grain-of-Salt
+  - Training: CRYPTO(22) with 20,000 instances (all UNSAT)
+  - Testing: CRYPTO(20), CRYPTO(15), CRYPTO(10) with 100 instances each (all UNSAT)
+
+All three datasets are **synthetically generated** according to specified parameters and distributions rather than being pre-existing benchmarks. The paper includes detailed statistics for each dataset split in Table 2, showing the number of variables, clauses, and SAT/UNSAT distribution for each instance class.
+--------------------------------------------------------------------------------
+
+Paper: 2506.11057_STRCMP_Integrating_Graph_Structural_Priors_with_La
+Datasets:
+I'll extract the dataset information from this paper about STRCMP, a structure-aware LLM-based framework for combinatorial optimization.Based on the provided content, let me identify the datasets used in this paper:
+
+## Datasets Identified:
+
+The paper mentions evaluations "across two representative CO domains (Mixed Integer Linear Programming and Boolean Satisfiability), spanning **nine benchmark datasets**," but **the specific names of these nine datasets are not explicitly listed in the provided excerpt**.
+
+From what is mentioned in the paper, the datasets relate to:
+
+• **Mixed Integer Linear Programming (MILP) problems** - benchmark datasets (specific names not provided in excerpt)
+
+• **Boolean Satisfiability (SAT) problems** - benchmark datasets (specific names not provided in excerpt)
+
+• **Domain-specific CO problems** mentioned as examples in the methodology section:
+  - Traveling Salesman Problems (TSP)
+  - Production Planning problems
+  - Vehicle Routing Problems (VRP)
+
+The paper references evaluation on "nine benchmark datasets" but does not enumerate them by name in the abstract, introduction, or methodology sections provided. The experimental evaluation section title indicates detailed dataset information would follow, but that full section is not included in your excerpt.
+
+**Note:** To provide a complete list of the nine specific benchmark datasets, the full experimental evaluation section would be needed. The paper appears to use standard benchmarks for MILP and SAT, but their exact names cannot be confirmed from the provided content.
+--------------------------------------------------------------------------------
+
+Paper: 2508.04235_Circuit-Aware_SAT_Solving_Guiding_CDCL_via_Conditi
+Datasets:
+# Datasets Used in This Paper
+
+Based on the content provided, here are the datasets used, created, or evaluated in this paper:
+
+• **ITC99** - A benchmark suite of circuits used in the dataset (10,824 AIGs from this source)
+
+• **EPFL** - A benchmark suite of circuits used in the dataset (10,824 AIGs from this source)
+
+• **OpenCore** - A benchmark suite of circuits used in the dataset (10,824 AIGs from this source)
+
+• **ForgeEDA dataset** - Used to construct 150 hard satisfiable instances (LECSAT set) by applying logic synthesis and minor revisions of different circuits
+
+• **LECSAT** - A synthetic dataset created by the authors consisting of 150 hard satisfiable instances from Logic Equivalence Checking tasks, constructed using circuit pairs combined via miter construction
+
+• **LECUNSAT** - A synthetic dataset created by the authors consisting of unsatisfiable instances generated from pairs of datapath circuits (created to evaluate clause filtering techniques)
+
+• **Pattern-based Dataset** - Synthetically generated dataset of 20,000 random simulation patterns per circuit, with 100 random patterns sampled per circuit per epoch during training
+
+• **Workload-based Dataset** - Synthetically generated dataset where primary inputs are assigned independent probability values (ρ ∈ {0.1, 0.2, ..., 0.9}) to capture realistic activity biases and diverse operational conditions
+--------------------------------------------------------------------------------
+
+Paper: 2508.21513_On_the_Hardness_of_Learning_GNN-based_SAT_Solvers_
+Datasets:
+Based on the provided paper content, here are the datasets used, created, or evaluated:
+
+• **Random k-SAT problems** - Specifically random 3-SAT and 4-SAT instances with varying clause density (α) and number of variables (N)
+• **Li et al. [28] benchmark** - A vast array of datasets referenced from recent benchmarking work
+• **Literal-Clause Graph (LCG) representation** - Synthetic bipartite graph representations of CNF formulas derived from random k-SAT problems
+
+**Note on synthetic data:** The paper primarily works with synthetically generated random k-SAT problems. These are created using an Erdős–Rényi-like procedure where each clause is randomly assigned k literals. The paper studies instances with varying parameters including different values of k (3 and 4), different numbers of variables (N = 256 mentioned), and varying clause densities (α values). These are then represented as bipartite graphs connecting literals to clauses for evaluation by GNN-based solvers.
+
+The experiments validate the theoretical findings using the NeuroSAT model as the GNN-based solver, but the specific benchmark dataset details from Li et al. are not explicitly named in the provided excerpts.
+--------------------------------------------------------------------------------
+
+Paper: 2510.15583_Attn-JGNN_Attention_Enhanced_Join-Graph_Neural_Net
+Datasets:
+Based on the paper content provided, here are the datasets used, created, or evaluated:
+
+## Datasets Identified:
+
+- **BIRD benchmark** - A benchmark containing eight categories of CNF formulas arising from DQMR networks, grid networks, bit-blasted versions of SMTLIB benchmarks, and ISCAS89 combinatorial circuits. Each category has 20-150 CNF formulas (70%/30% train/test split).
+
+- **SATLIB benchmark** - An open-source dataset containing a broad range of CNF formulas from various distributions. Used 5 categories with at least 100 satisfiable instances:
+  - Uniform random 3-SAT on phase transition region (RND3SAT)
+  - Backbone-minimal random 3-SAT (BMS)
+  - Random 3-SAT with controlled backbone size (CBS)
+  - "Flat" graph coloring (GCP)
+  - "Morphed" graph coloring (SW-GCP)
+  - Total: 46,200 SAT instances with variables ranging from 100-600 (60%/20%/20% train/validation/test split)
+
+- **SMTLIB benchmarks** - Referenced as source for bit-blasted versions used in BIRD benchmark
+
+- **ISCAS89 combinatorial circuits** - Referenced as source for circuits used in BIRD benchmark
+
+- **DQMR networks** - Referenced as source for networks in BIRD benchmark
+--------------------------------------------------------------------------------
+

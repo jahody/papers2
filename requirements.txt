@@ -1,0 +1,7 @@
+# Graph visualization dependencies (used by graph.py)
+graphviz>=0.20
+networkx>=3.0
+matplotlib>=3.7.0
+
+# Claude Agent SDK for extract_main_ideas.py
+claude-agent-sdk>=0.1.0
